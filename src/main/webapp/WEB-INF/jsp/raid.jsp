@@ -42,6 +42,7 @@
 								<th><a href='<spring:url value="/raid/sort/name"/>' style="text-decoration: none; color: black;">Personnage ${raid.players.size()}</a></th>
 								<th><a href='<spring:url value="/raid/sort/clazz"/>' style="text-decoration: none; color: black;">Classe</a></th>
 								<th>Rang</th>
+								<th>Loot</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -53,6 +54,12 @@
 									</td>
 									<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
 									<td>${e.player.rank}</td>
+									<td>
+										<c:forEach items="${e.items}" var="item">
+											<a class="pure-button button-error button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}/${item.id}"/>'>- ${item.name}</a>,
+										</c:forEach>
+										<a class="pure-button button-success button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}"/>'>+</a>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

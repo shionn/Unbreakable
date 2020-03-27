@@ -17,6 +17,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import shionn.ubk.db.dao.ItemDao;
 import shionn.ubk.db.dao.PlayerWhishDao;
 import shionn.ubk.db.dao.RaidDao;
 import shionn.ubk.db.dbo.PlayerWish;
@@ -58,6 +59,9 @@ public class RaidController implements Serializable {
 	@RequestMapping(value = "/raid/update", method = RequestMethod.POST)
 	public String updateRaid(@ModelAttribute("raid") Raid raid, RedirectAttributes attr) {
 		RaidDao dao = session.getMapper(RaidDao.class);
+		if (!raid.isRunning()) {
+			dao.closeLootedWish(raid.getId());
+		}
 		dao.update(raid);
 		session.commit();
 		return "redirect:/raid";
@@ -86,6 +90,29 @@ public class RaidController implements Serializable {
 				}
 			}
 		}
+		session.commit();
+		return "redirect:/raid";
+	}
+
+	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.GET)
+	public ModelAndView editRaidLoot(@PathVariable("raid") int raid,
+			@PathVariable("player") int player) {
+		return new ModelAndView("raid-loot").addObject("raid", raid).addObject("player", player)
+				.addObject("items", session.getMapper(ItemDao.class).list());
+	}
+
+	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.POST)
+	public String addRaidLoot(@PathVariable("raid") int raid,
+			@PathVariable("player") int player, @RequestParam("item") int item) {
+		session.getMapper(RaidDao.class).addLoot(raid, player, item);
+		session.commit();
+		return "redirect:/raid";
+	}
+
+	@RequestMapping(value = "/raid/loot/{raid}/{player}/{item}", method = RequestMethod.GET)
+	public String rmRaidLoot(@PathVariable("raid") int raid,
+			@PathVariable("player") int player, @PathVariable("item") int item) {
+		session.getMapper(RaidDao.class).removeLoot(raid, player, item);
 		session.commit();
 		return "redirect:/raid";
 	}

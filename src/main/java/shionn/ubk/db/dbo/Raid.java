@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Raid {
 	private int id;
 	private String name;
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	private boolean running;
 	private int point;
