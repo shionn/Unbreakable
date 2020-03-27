@@ -1,0 +1,71 @@
+@import "jquery-ui.structure-datepicker-1.12.1.less";
+@import "jquery-ui.theme-datepicker-1.12.1.less";
+
+body {
+	padding: 0 1em;
+}
+
+aside {
+	&.message {
+		border-radius: 4px;
+		color: white;
+		padding: .5em 1em;
+		margin-top: .5em;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+		&.success {
+			background-color: rgb(28, 184, 65);
+		}
+
+		&.error {
+			background-color: rgb(202, 60, 60);
+		}
+	}
+}
+
+img.class {
+	height:18px;
+}
+
+table {
+	margin-top: .5em;
+
+	tr td:not(:first-child), tr th:not(:first-child) {
+		text-align: center;
+	}
+
+	tr.druid {
+		background-color: orange;
+	}
+
+	tr.hunter {
+		background-color: lightgreen;
+	}
+
+	tr.mage {
+		background-color: lightblue;
+	}
+
+	tr.paladin, tr.shaman {
+		background-color: lightpink;
+	}
+
+	tr.rogue {
+		background-color: lightgoldenrodyellow;
+	}
+
+	tr.warlock {
+		background-color: lightsteelblue;
+	}
+
+	tr.warrior {
+		background-color: burlywood;
+	}
+}
+table.dkp-history {
+	td, th {
+		text-align: center;
+	}
+}
+
+@import "button.less";
