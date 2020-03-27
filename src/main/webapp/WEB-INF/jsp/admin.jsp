@@ -41,7 +41,7 @@
 		<fieldset>
 			<legend>Edition joueur</legend>
 			<div class="pure-control-group">
-				<label for="id">Joeur à éditer</label>
+				<label for="id">Joueur à éditer</label>
 				<select name="id">
 					<c:forEach items="${players}" var="c">
 						<option value="${c.id}">${c.name}</option>
@@ -53,6 +53,51 @@
 			</div>
 		</fieldset>
 	</form:form>
+
+	<spring:url value="/admin/create-item" var="url"/>
+	<form:form method="POST" class="pure-form-aligned" action="${url}">
+		<fieldset>
+			<legend>Creation objet</legend>
+			<div class="pure-control-group">
+				<label for="name">Nom</label>
+				<input name="name" type="text" placeholder="Nom" required="required">
+			</div>
+			<div class="pure-control-group">
+				<label for="raid">Raid</label>
+				<select name="raid">
+					<c:forEach items="${raids}" var="c">
+						<option value="${c}">${c}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="pure-control-group">
+				<label for="boss">Boss</label>
+				<input name="boss" type="text" placeholder="Boss" required="required">
+			</div>
+			<div class="pure-controls">
+				<button type="submit" class="pure-button pure-button-primary">Valider</button>
+			</div>
+		</fieldset>
+	</form:form>
+
+	<spring:url value="/admin/edit-item" var="url"/>
+	<form:form method="POST" class="pure-form-aligned" action="${url}">
+		<fieldset>
+			<legend>Edition objet</legend>
+			<div class="pure-control-group">
+				<label for="id">Object à éditer</label>
+				<select name="id">
+					<c:forEach items="${items}" var="c">
+						<option value="${c.id}">${c.name}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="pure-controls">
+				<button type="submit" class="pure-button pure-button-primary">Commencer l'édition</button>
+			</div>
+		</fieldset>
+	</form:form>
+
 
 </jsp:attribute>
 </t:template>

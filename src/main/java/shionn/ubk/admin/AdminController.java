@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import shionn.ubk.db.dao.ItemDao;
 import shionn.ubk.db.dao.PlayerDao;
+import shionn.ubk.db.dbo.Item;
 import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
+import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.User;
 
 @Controller
@@ -27,8 +30,10 @@ public class AdminController {
 	public ModelAndView admin() {
 		return new ModelAndView("admin") //
 				.addObject("playerclasses", PlayerClass.values()) //
-				.addObject("playerranks", PlayerRank.values())
+				.addObject("playerranks", PlayerRank.values()) //
+				.addObject("raids", Raid.values()) //
 				.addObject("players", session.getMapper(PlayerDao.class).list())
+				.addObject("items", session.getMapper(ItemDao.class).list())
 		;
 	}
 
@@ -51,7 +56,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/edit-player/{id}", method = RequestMethod.POST)
-	public String openEditPlayerForm(@PathVariable(name = "id") int id,
+	public String editPlayer(@PathVariable(name = "id") int id,
 			@RequestParam(name = "class") PlayerClass clazz,
 			@RequestParam(name = "rank") PlayerRank rank,
 			@RequestParam(name = "name") String name) {
@@ -60,4 +65,32 @@ public class AdminController {
 		session.commit();
 		return "redirect:/admin";
 	}
+
+	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
+	public String getCreateUser(@RequestParam("name") String name,
+			@RequestParam("boss") String boss, @RequestParam("raid") Raid raid,
+			RedirectAttributes attr) {
+		session.getMapper(ItemDao.class).create(name, raid, boss);
+		session.commit();
+		attr.addFlashAttribute("message", "Item crée");
+		return "redirect:/admin";
+	}
+
+	@RequestMapping(value = "/admin/edit-item", method = RequestMethod.POST)
+	public ModelAndView editItem(@RequestParam(name = "id") int id) {
+		Item item = session.getMapper(ItemDao.class).readOne(id);
+		return new ModelAndView("edit-item").addObject("item", item).addObject("raids",
+				Raid.values());
+	}
+
+	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
+	public String editItem(@PathVariable(name = "id") int id,
+			@RequestParam(name = "raid") Raid raid, @RequestParam(name = "boss") String boss,
+			@RequestParam(name = "name") String name) {
+		ItemDao dao = session.getMapper(ItemDao.class);
+		dao.update(id, name, raid, boss);
+		session.commit();
+		return "redirect:/admin";
+	}
+
 }
