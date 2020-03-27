@@ -19,10 +19,7 @@
 	<div class="pure-menu pure-menu-horizontal">
 		<a href="#" class="pure-menu-heading pure-menu-link">Unbreakable</a>
 		<ul class="pure-menu-list">
-			<li class="pure-menu-item"><a href='<spring:url value="/dkp"/>' class="pure-menu-link">DKP</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/roster"/>' class="pure-menu-link">Rosters</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
 		</ul>
 	</div>
