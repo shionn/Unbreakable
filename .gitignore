@@ -2,3 +2,4 @@ src/main/webapp/css/generated/
 .settings/
 .classpath
 target/
+.project

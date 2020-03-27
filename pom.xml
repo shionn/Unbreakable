@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>shionn.ubk</groupId>
-	<artifactId>UnBreakAble</artifactId>
+	<artifactId>Unbreakable</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>UnBreakAble</name>
+	<name>Unbreakable</name>
 	<packaging>war</packaging>
 
 	<properties>
@@ -95,7 +95,7 @@
 				<tomcat.url>http://51.15.172.54:8080/manager/text</tomcat.url>
 				<tomcat.server>DediBox</tomcat.server>
 				<mybatis.driver>com.mysql.cj.jdbc.Driver</mybatis.driver>
-				<mybatis.url>jdbc:mysql://${ubk.db.host}/ubk?serverTimezone=Europe/Paris</mybatis.url>
+				<mybatis.url>jdbc:mysql://${ubk.db.host}/Unbreakable?serverTimezone=Europe/Paris</mybatis.url>
 				<mybatis.username>${ubk.db.user}</mybatis.username>
 				<mybatis.password>${ubk.db.pass}</mybatis.password>
 			</properties>
