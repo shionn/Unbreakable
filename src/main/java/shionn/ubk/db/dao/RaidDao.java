@@ -46,7 +46,7 @@ public interface RaidDao {
 
 	@Select("SELECT * FROM raid WHERE id = #{id}")
 	public Raid read(int id);
-	//
+
 	@Select("SELECT p.id, p.name, p.class, p.rank, r.raid AS member " //
 			+ "FROM       player      AS p " //
 			+ "LEFT JOIN  raid_entry  AS r ON r.player = p.id AND r.raid = #{raid} " //
