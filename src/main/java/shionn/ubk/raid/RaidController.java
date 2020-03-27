@@ -89,11 +89,11 @@ public class RaidController implements Serializable {
 		session.commit();
 		return "redirect:/raid";
 	}
-	//
-	//	@RequestMapping(value = "/raid/sort/{order}", method = RequestMethod.GET)
-	//	public String orderBy(@PathVariable("order") SortOrder order) {
-	//		this.order = order;
-	//		return "redirect:/raid";
-	//	}
+
+	@RequestMapping(value = "/raid/sort/{order}", method = RequestMethod.GET)
+	public String orderBy(@PathVariable("order") SortOrder order) {
+		this.order = order;
+		return "redirect:/raid";
+	}
 
 }

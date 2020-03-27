@@ -4,7 +4,7 @@ public class Item {
 
 	private int id;
 	private String name;
-	private Raid raid;
+	private RaidInstance raid;
 	private String boss;
 
 	public int getId() {
@@ -23,11 +23,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public Raid getRaid() {
+	public RaidInstance getRaid() {
 		return raid;
 	}
 
-	public void setRaid(Raid raid) {
+	public void setRaid(RaidInstance raid) {
 		this.raid = raid;
 	}
 

@@ -17,6 +17,7 @@ import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
 import shionn.ubk.db.dbo.Raid;
+import shionn.ubk.db.dbo.RaidInstance;
 
 @Controller
 public class AdminController {
@@ -28,7 +29,7 @@ public class AdminController {
 		return new ModelAndView("admin") //
 				.addObject("playerclasses", PlayerClass.values()) //
 				.addObject("playerranks", PlayerRank.values()) //
-				.addObject("raids", Raid.values()) //
+				.addObject("raids", RaidInstance.values()) //
 				.addObject("players", session.getMapper(PlayerDao.class).list())
 				.addObject("items", session.getMapper(ItemDao.class).list())
 		;
@@ -77,7 +78,7 @@ public class AdminController {
 	public ModelAndView editItem(@RequestParam(name = "id") int id) {
 		Item item = session.getMapper(ItemDao.class).readOne(id);
 		return new ModelAndView("edit-item").addObject("item", item).addObject("raids",
-				Raid.values());
+				RaidInstance.values());
 	}
 
 	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
