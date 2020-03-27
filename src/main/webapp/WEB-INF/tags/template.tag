@@ -19,6 +19,7 @@
 	<div class="pure-menu pure-menu-horizontal">
 		<a href="#" class="pure-menu-heading pure-menu-link">Unbreakable</a>
 		<ul class="pure-menu-list">
+			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Wish list</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
 		</ul>

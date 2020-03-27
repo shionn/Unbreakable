@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN").and().httpBasic()
 				.realmName(REALM_NAME);
+		http.authorizeRequests().antMatchers("/wish/update").hasRole("ADMIN").and().httpBasic()
+				.realmName(REALM_NAME);
 		http.authorizeRequests().antMatchers("/raid/add").hasRole("ADMIN").and().httpBasic()
 				.realmName(REALM_NAME);
 		http.authorizeRequests().antMatchers("/raid/update").hasRole("ADMIN").and().httpBasic()

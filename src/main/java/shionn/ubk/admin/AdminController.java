@@ -17,14 +17,11 @@ import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
 import shionn.ubk.db.dbo.Raid;
-import shionn.ubk.db.dbo.User;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private SqlSession session;
-	@Autowired
-	private User user;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView admin() {
