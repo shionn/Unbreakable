@@ -16,7 +16,6 @@ import shionn.ubk.db.dbo.Item;
 import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
-import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidInstance;
 
 @Controller
@@ -66,7 +65,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
 	public String getCreateUser(@RequestParam("name") String name,
-			@RequestParam("boss") String boss, @RequestParam("raid") Raid raid,
+			@RequestParam("boss") String boss, @RequestParam("raid") RaidInstance raid,
 			RedirectAttributes attr) {
 		session.getMapper(ItemDao.class).create(name, raid, boss);
 		session.commit();
@@ -83,7 +82,8 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
 	public String editItem(@PathVariable(name = "id") int id,
-			@RequestParam(name = "raid") Raid raid, @RequestParam(name = "boss") String boss,
+			@RequestParam(name = "raid") RaidInstance raid,
+			@RequestParam(name = "boss") String boss,
 			@RequestParam(name = "name") String name) {
 		ItemDao dao = session.getMapper(ItemDao.class);
 		dao.update(id, name, raid, boss);

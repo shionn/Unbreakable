@@ -11,16 +11,20 @@
 					<th>Personnage</th>
 					<th>Classe</th>
 					<th>Rang</th>
+					<th>Priorité</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${priorities}" var="p">
-					<tr>
-						<td>${p.item.name}</td>
-						<td>${p.player.name}</td>
-						<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-						<td>${p.player.rank}</td>
-					</tr>
+				<c:forEach items="${priorities}" var="entry" varStatus="itemIndex">
+					<c:forEach items="${entry.value}" var="p" varStatus="pIndex">
+						<tr class="${(itemIndex.index%2==0)?'pure-table-odd':'pure-table-even'}">
+							<td>${p.item.name}</td>
+							<td>${p.player.name}</td>
+							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
+							<td>${p.player.rank}</td>
+							<td>${p.order}</td>
+						</tr>
+					</c:forEach>
 				</c:forEach>
 			</tbody>
 		</table>

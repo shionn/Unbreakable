@@ -18,7 +18,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		return "redirect:/prio";
+		return "redirect:/priority";
 	}
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
