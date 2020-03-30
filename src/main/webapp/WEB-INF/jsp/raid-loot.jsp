@@ -17,6 +17,10 @@
 							</c:forEach>
 						</select>
 					</div>
+					<div class="pure-control-group">
+						<label for="ratio">Valeur</label>
+						<input name="ratio" type="text" required="required" value="10"> <em>(10=normal, 1=+2, 0=truc bidon)</em>
+					</div>
 					<div class="pure-controls">
 						<button type="submit" class="pure-button pure-button-primary">Ajouter</button>
 					</div>

@@ -103,8 +103,9 @@ public class RaidController implements Serializable {
 
 	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.POST)
 	public String addRaidLoot(@PathVariable("raid") int raid,
-			@PathVariable("player") int player, @RequestParam("item") int item) {
-		session.getMapper(RaidDao.class).addLoot(raid, player, item);
+			@PathVariable("player") int player, @RequestParam("item") int item,
+			@RequestParam("ratio") int ratio) {
+		session.getMapper(RaidDao.class).addLoot(raid, player, item, ratio);
 		session.commit();
 		return "redirect:/raid";
 	}

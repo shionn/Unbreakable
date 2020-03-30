@@ -56,7 +56,7 @@
 									<td>${e.player.rank}</td>
 									<td>
 										<c:forEach items="${e.items}" var="item">
-											<a class="pure-button button-error button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}/${item.id}"/>'>- ${item.name}</a>,
+											<a class="pure-button button-error button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}/${item.id}"/>'>- ${item.name} (${item.ratio})</a>,
 										</c:forEach>
 										<a class="pure-button button-success button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}"/>'>+</a>
 									</td>

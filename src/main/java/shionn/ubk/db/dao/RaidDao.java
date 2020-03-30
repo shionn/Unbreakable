@@ -35,7 +35,7 @@ public interface RaidDao {
 	public List<RaidEntry> listRunningPlayer(@Param("raid") int raid,
 			@Param("order") SortOrder order);
 
-	@Select("SELECT i.name, i.id " //
+	@Select("SELECT i.name, i.id, l.ratio " //
 			+ "FROM player_loot AS l "
 			+ "INNER JOIN item AS i ON i.id = l.item "
 			+ "WHERE l.player = #{player} AND l.raid = #{raid} " //
@@ -80,9 +80,9 @@ public interface RaidDao {
 	public int addRaidPlayerWish(@Param("raid") int raid, @Param("player") int player,
 			@Param("item") int item, @Param("ratio") int ratio);
 
-	@Insert("INSERT INTO player_loot (raid, player, item) VALUES(#{raid}, #{player}, #{item})")
+	@Insert("INSERT INTO player_loot (raid, player, item, ratio) VALUES(#{raid}, #{player}, #{item}, #{ratio})")
 	public int addLoot(@Param("raid") int raid, @Param("player") int player,
-			@Param("item") int item);
+			@Param("item") int item, @Param("ratio") int ratio);
 
 	@Delete("DELETE FROM player_loot WHERE raid = #{raid} AND player = #{player} AND item = #{item}")
 	public int removeLoot(@Param("raid") int raid, @Param("player") int player,

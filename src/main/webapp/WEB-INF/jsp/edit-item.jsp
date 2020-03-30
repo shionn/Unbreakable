@@ -8,7 +8,7 @@
 	<spring:url value="/admin/edit-item/${item.id}" var="url"/>
 	<form:form method="POST" class="pure-form pure-form-aligned" action="${url}">
 		<fieldset>
-			<legend>Edition object</legend>
+			<legend>Ajout loot</legend>
 			<div class="pure-control-group">
 				<label for="name">Nom</label>
 				<input name="name" type="text" required="required" value="${item.name}">

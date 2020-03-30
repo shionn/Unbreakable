@@ -1,5 +1,5 @@
 package shionn.ubk.db.dbo;
 
 public enum PlayerRank {
-	test, reroll, membre, inactif
+	test, casu, reroll, membre, inactif
 }

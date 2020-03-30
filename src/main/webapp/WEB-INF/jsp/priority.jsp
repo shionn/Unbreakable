@@ -16,7 +16,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${priorities}" var="entry" varStatus="itemIndex">
-					<c:forEach items="${entry.value}" var="p" varStatus="pIndex">
+					<c:forEach items="${entry}" var="p" varStatus="pIndex">
 						<tr class="${(itemIndex.index%2==0)?'pure-table-odd':'pure-table-even'}">
 							<td>${p.item.name}</td>
 							<td>${p.player.name}</td>

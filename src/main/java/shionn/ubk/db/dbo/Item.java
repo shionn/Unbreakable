@@ -6,6 +6,7 @@ public class Item {
 	private String name;
 	private RaidInstance raid;
 	private String boss;
+	private int ratio;
 
 	public int getId() {
 		return id;
@@ -59,6 +60,14 @@ public class Item {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public int getRatio() {
+		return ratio;
+	}
+
+	public void setRatio(int ratio) {
+		this.ratio = ratio;
 	}
 
 }
