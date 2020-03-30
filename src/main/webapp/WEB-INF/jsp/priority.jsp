@@ -12,6 +12,10 @@
 					<th>Classe</th>
 					<th>Rang</th>
 					<th>Priorité</th>
+					<c:if test="${user.admin}">
+						<th>Point</th>
+						<th>%</th>
+					</c:if>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,6 +27,10 @@
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 							<td>${p.player.rank}</td>
 							<td>${p.order}</td>
+							<c:if test="${user.admin}">
+								<td>${p.point}</td>
+								<td>${p.ratio}</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</c:forEach>

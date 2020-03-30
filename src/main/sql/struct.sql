@@ -239,3 +239,7 @@ ALTER TABLE `raid_player_wish`
 
 
 ALTER TABLE `player_loot` ADD `ratio` INT NOT NULL DEFAULT '1' AFTER `raid`;
+
+ALTER TABLE `raid_entry` ADD `beanch` BOOLEAN NOT NULL DEFAULT FALSE AFTER `player`;
+ALTER TABLE `raid_entry` CHANGE `beanch` `bench` TINYINT(1) NOT NULL DEFAULT '0';
+ALTER TABLE `raid_entry` ADD `visible` BOOLEAN NOT NULL DEFAULT TRUE AFTER `bench`;

@@ -82,7 +82,7 @@ public class RaidController implements Serializable {
 		dao.removeRaidEntry(id);
 		for (RaidEntry e : raid.getPlayers()) {
 			if (e.isMember()) {
-				dao.addMember(id, e.getPlayer().getId());
+				dao.addMember(id, e.getPlayer().getId(), e.isBench(), e.isVisible());
 				for (PlayerWish w : session.getMapper(PlayerWhishDao.class)
 						.viewPlayerWish(e.getPlayer().getId())) {
 					dao.addRaidPlayerWish(id, e.getPlayer().getId(), w.getItem().getId(),

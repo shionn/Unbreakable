@@ -37,10 +37,6 @@ public class WishListController {
 
 	@RequestMapping(value = "/wish/update", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute("player") Player player) {
-		Integer sum = player.getWishes().stream().map(w -> w.getRatio()).reduce(0, (a, b) -> a + b);
-		if (sum != 100) {
-			throw new IllegalArgumentException("Somme des ratios différentes de 100");
-		}
 		PlayerWhishDao dao = session.getMapper(PlayerWhishDao.class);
 		for (PlayerWish wish : player.getWishes()) {
 			if (wish.getItem().getId() != 0) {

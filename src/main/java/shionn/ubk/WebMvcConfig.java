@@ -26,6 +26,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
 		registry.addResourceHandler("/img/**").addResourceLocations("/img/");
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+		registry.addResourceHandler("/font/**").addResourceLocations("/font/");
 	}
 
 	@Bean
@@ -34,6 +35,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setViewClass(JstlView.class);
 		viewResolver.setPrefix("/WEB-INF/jsp/");
 		viewResolver.setSuffix(".jsp");
+		viewResolver.setExposedContextBeanNames("user");
 		return viewResolver;
 	}
 

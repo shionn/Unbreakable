@@ -18,6 +18,14 @@
 								<img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/>
 								${p.player.rank}
 							</label>
+							<label>
+								<input type="checkbox" name="players[${s.index}].bench" <c:if test="${p.bench}"> checked="checked"</c:if>>
+								bench
+							</label>
+							<label>
+								<input type="checkbox" name="players[${s.index}].visible" <c:if test="${p.visible}"> checked="checked"</c:if>>
+								visible
+							</label>
 						</div>
 					</c:forEach>
 					<div class="pure-controls">

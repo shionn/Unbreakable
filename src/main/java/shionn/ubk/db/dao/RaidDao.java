@@ -20,7 +20,7 @@ import shionn.ubk.db.dbo.SortOrder;
 
 public interface RaidDao {
 
-	@Select("SELECT * FROM raid WHERE running IS true")
+	@Select("SELECT * FROM raid WHERE running IS true ORDER BY date DESC")
 	public List<Raid> listRunnings();
 
 	@Select("SELECT * " //
@@ -55,7 +55,7 @@ public interface RaidDao {
 	@Select("SELECT * FROM raid WHERE id = #{id}")
 	public Raid read(int id);
 
-	@Select("SELECT p.id, p.name, p.class, p.rank, r.raid AS member " //
+	@Select("SELECT p.id, p.name, p.class, p.rank, r.raid AS member, r.bench, IFNULL(r.visible, true) AS visible " //
 			+ "FROM       player      AS p " //
 			+ "LEFT JOIN  raid_entry  AS r ON r.player = p.id AND r.raid = #{raid} " //
 			+ "WHERE p.rank != 'inactif' " //
@@ -72,8 +72,9 @@ public interface RaidDao {
 	@Delete("DELETE FROM raid_entry WHERE raid = #{raid}")
 	public int removeRaidEntry(@Param("raid") int raid);
 
-	@Insert("INSERT INTO raid_entry (raid, player) VALUES (#{raid}, #{player})")
-	public int addMember(@Param("raid") int raid, @Param("player") int player);
+	@Insert("INSERT INTO raid_entry (raid, player, bench, visible) VALUES (#{raid}, #{player}, #{bench}, #{visible})")
+	public int addMember(@Param("raid") int raid, @Param("player") int player,
+			@Param("bench") boolean bench, @Param("visible") boolean visible);
 
 	@Insert("INSERT INTO raid_player_wish (raid, player, item, ratio) "
 			+ "VALUES (#{raid}, #{player}, #{item}, #{ratio})")

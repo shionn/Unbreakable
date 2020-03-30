@@ -6,6 +6,8 @@ public class RaidEntry {
 	private Player player;
 	private boolean member;
 	private List<Item> items;
+	private boolean bench;
+	private boolean visible;
 
 	public Player getPlayer() {
 		return player;
@@ -31,4 +33,19 @@ public class RaidEntry {
 		this.items = items;
 	}
 
+	public boolean isBench() {
+		return bench;
+	}
+
+	public void setBench(boolean bench) {
+		this.bench = bench;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 }

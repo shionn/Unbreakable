@@ -51,6 +51,8 @@
 									<td>
 										<input type="hidden" name="players[${i.index}].player.id" value="${e.player.id}">
 										${e.player.name}
+										<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true"></i></c:if>
+										<c:if test="${not e.visible}"><i class="fa fa-eye-slash" aria-hidden="true"></i></c:if>
 									</td>
 									<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
 									<td>${e.player.rank}</td>

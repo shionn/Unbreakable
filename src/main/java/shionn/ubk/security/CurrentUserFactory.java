@@ -19,7 +19,7 @@ public class CurrentUserFactory {
 	@Autowired
 	private SqlSession session;
 
-	@Bean
+	@Bean(name = "user")
 	@RequestScope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public User buildAuthentifiedUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
