@@ -22,6 +22,7 @@ import shionn.ubk.db.dbo.PlayerWish;
 
 @Controller
 public class WishListController {
+	private static final int MAX_ITEM = 20;
 	@Autowired
 	private SqlSession session;
 
@@ -52,7 +53,7 @@ public class WishListController {
 
 	private Player readPlayer(int id) {
 		Player player = session.getMapper(PlayerWhishDao.class).viewPlayer(id);
-		while (player.getWishes().size() < 5) {
+		while (player.getWishes().size() < MAX_ITEM) {
 			PlayerWish wish = new PlayerWish();
 			wish.setItem(noneItem());
 			wish.setRatio(0);
