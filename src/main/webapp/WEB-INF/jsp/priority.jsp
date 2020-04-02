@@ -26,7 +26,10 @@
 							<td>${p.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 							<td>${p.player.rank}</td>
-							<td>${p.order}</td>
+							<td>
+								<c:if test="${p.looted}">Obtenu</c:if>
+								<c:if test="${not p.looted}">${p.order}</c:if>
+							</td>
 							<c:if test="${user.admin}">
 								<td>${p.point}</td>
 								<td>${p.ratio}</td>

@@ -6,6 +6,7 @@ public class Priority {
 	private int order;
 	private int point;
 	private int ratio;
+	private boolean looted;
 
 	public Item getItem() {
 		return item;
@@ -76,5 +77,13 @@ public class Priority {
 		if (ratio != other.ratio)
 			return false;
 		return true;
+	}
+
+	public boolean isLooted() {
+		return looted;
+	}
+
+	public void setLooted(boolean looted) {
+		this.looted = looted;
 	}
 }
