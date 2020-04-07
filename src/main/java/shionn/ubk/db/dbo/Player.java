@@ -1,6 +1,7 @@
 package shionn.ubk.db.dbo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Player {
 
@@ -9,6 +10,7 @@ public class Player {
 	private PlayerClass clazz;
 	private PlayerRank rank;
 	private List<PlayerWish> wishes;
+	private List<Item> loots;
 
 	public int getId() {
 		return id;
@@ -48,5 +50,18 @@ public class Player {
 
 	public void setWishes(List<PlayerWish> wishes) {
 		this.wishes = wishes;
+	}
+
+	public List<Item> getLoots(LootAttribution attribution) {
+		return loots.stream().filter(l -> l.getAttribution() == attribution)
+				.collect(Collectors.toList());
+	}
+
+	public List<Item> getLoots() {
+		return loots;
+	}
+
+	public void setLoots(List<Item> loots) {
+		this.loots = loots;
 	}
 }

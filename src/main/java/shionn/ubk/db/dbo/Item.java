@@ -7,6 +7,7 @@ public class Item {
 	private RaidInstance raid;
 	private String boss;
 	private int ratio;
+	private LootAttribution attribution;
 
 	public int getId() {
 		return id;
@@ -38,6 +39,14 @@ public class Item {
 
 	public void setBoss(String boss) {
 		this.boss = boss;
+	}
+
+	public LootAttribution getAttribution() {
+		return attribution;
+	}
+
+	public void setAttribution(LootAttribution attribution) {
+		this.attribution = attribution;
 	}
 
 	@Override
