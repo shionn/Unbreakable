@@ -14,7 +14,8 @@
 					<th>Priorité</th>
 					<c:if test="${user.admin}">
 						<th>Point</th>
-						<th>%</th>
+						<th>NbLoot</th>
+						<th>NbRaid</th>
 					</c:if>
 				</tr>
 			</thead>
@@ -32,7 +33,8 @@
 							</td>
 							<c:if test="${user.admin}">
 								<td>${p.point}</td>
-								<td>${p.ratio}</td>
+								<td>${p.nbLoot}</td>
+								<td>${p.nbRaid}</td>
 							</c:if>
 						</tr>
 					</c:forEach>

@@ -22,7 +22,7 @@ public interface LootHistoricDao {
 			+ "CASE " //
 			+ "  WHEN pw.ratio IS NOT NULL THEN 'wishList' " //
 			+ "  WHEN pl.ratio = 10        THEN 'primary' "
-			+ "  WHEN i.id = 82            THEN 'bags' " //
+			+ "  WHEN i.id = 82            THEN 'bag' " //
 			+ "  ELSE 'secondary' " //
 			+ "END AS attribution " //
 			+ "FROM player_loot       AS pl " //

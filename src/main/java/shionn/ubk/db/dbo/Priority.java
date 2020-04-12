@@ -6,6 +6,8 @@ public class Priority {
 	private int order;
 	private int point;
 	private int ratio;
+	private int nbRaid;
+	private int nbLoot;
 	private boolean looted;
 
 	public Item getItem() {
@@ -85,5 +87,21 @@ public class Priority {
 
 	public void setLooted(boolean looted) {
 		this.looted = looted;
+	}
+
+	public int getNbRaid() {
+		return nbRaid;
+	}
+
+	public void setNbRaid(int nbRaid) {
+		this.nbRaid = nbRaid;
+	}
+
+	public int getNbLoot() {
+		return nbLoot;
+	}
+
+	public void setNbLoot(int nbLoot) {
+		this.nbLoot = nbLoot;
 	}
 }

@@ -11,7 +11,7 @@
 				<tr>
 					<th>Joueur</th>
 					<th>Loot en Wish List</th>
-					<th>Autre loot</th>
+					<th>Loot en +1</th>
 					<th>Loot en +2</th>
 					<th>Sacs</th>
 				</tr>
@@ -24,16 +24,24 @@
 							${player.name}
 						</td>
 						<td>
-							<c:forEach items="${player.getLoots('wishList')}" var="item">${item.name}, </c:forEach>
+							<ul>
+								<c:forEach items="${player.getLoots('wishList')}" var="item"><li>${item.name}</li></c:forEach>
+							</ul>
 						</td>
 						<td>
-							<c:forEach items="${player.getLoots('primary')}" var="item">${item.name}, </c:forEach>
+							<ul>
+								<c:forEach items="${player.getLoots('primary')}" var="item"><li>${item.name}</li></c:forEach>
+							</ul>
 						</td>
 						<td>
-							<c:forEach items="${player.getLoots('secondary')}" var="item">${item.name}, </c:forEach>
+							<ul>
+								<c:forEach items="${player.getLoots('secondary')}" var="item"><li>${item.name}</li></c:forEach>
+							</ul>
 						</td>
 						<td>
-							<c:forEach items="${player.getLoots('bag')}" var="item">${item.name}, </c:forEach>
+							<ul>
+								<c:forEach items="${player.getLoots('bag')}" var="item"><li>${item.name}</li></c:forEach>
+							</ul>
 						</td>
 					</tr>
 				</c:forEach>

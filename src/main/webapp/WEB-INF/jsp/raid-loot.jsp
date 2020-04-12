@@ -10,7 +10,7 @@
 				<fieldset>
 					<legend>Ajout d'un loot</legend>
 					<div class="pure-control-group">
-						<label for="item">Object à éditer</label>
+						<label for="item">Object looter</label>
 						<select name="item">
 							<c:forEach items="${items}" var="c">
 								<option value="${c.id}">${c.name}</option>
