@@ -96,4 +96,7 @@ public interface RaidDao {
 			+ "SET pw.running = false "
 	)
 	public void closeLootedWish(@Param("raid") int raid);
+
+	@Update("UPDATE raid SET running = true WHERE id = #{id}")
+	public void startEdit(@Param("id") int id);
 }

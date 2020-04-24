@@ -13,7 +13,7 @@
 					<th>Loot en Wish List</th>
 					<th>Loot en +1</th>
 					<th>Loot en +2</th>
-					<th>Sacs</th>
+					<th>Sacs / Monture</th>
 				</tr>
 			</thead>
 			<tbody>

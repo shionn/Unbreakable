@@ -20,9 +20,9 @@ public interface LootHistoricDao {
 
 	@Select("SELECT i.name, "
 			+ "CASE " //
-			+ "  WHEN pw.ratio IS NOT NULL THEN 'wishList' " //
-			+ "  WHEN pl.ratio = 10        THEN 'primary' "
-			+ "  WHEN i.id = 82            THEN 'bag' " //
+			+ "  WHEN pw.ratio IS NOT NULL   THEN 'wishList' " //
+			+ "  WHEN pl.ratio >= 10         THEN 'primary' "
+			+ "  WHEN i.id IN(82, 143, 144, 147)  THEN 'bag' " //
 			+ "  ELSE 'secondary' " //
 			+ "END AS attribution " //
 			+ "FROM player_loot       AS pl " //

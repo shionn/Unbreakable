@@ -25,13 +25,24 @@ group by item, player;
 
 CREATE OR REPLACE VIEW item_point_history AS
 (
-SELECT i.id AS item, p.id AS player, i.name AS item_name, NULL AS item_loot_name, p.name AS player_name, rpw.ratio * r.point AS point, r.date AS date, 'raid' AS type
-FROM raid_player_wish AS rpw
-INNER JOIN raid AS r ON r.id = rpw.raid
-INNER JOIN item AS i On i.id = rpw.item
-INNER JOIN player AS p ON p.id = rpw.player
+SELECT i.id AS item, i.name AS item_name,
+		p.id AS player, p.name AS player_name,
+		NULL AS item_loot_name,
+		pw.ratio * r.point AS point,
+		r.date AS date,
+		'raid' AS type
+FROM raid_entry        AS rp
+INNER JOIN raid        AS r   ON r.id = rp.raid
+INNER JOIN player      AS p   ON p.id = rp.player
+INNER JOIN player_wish AS pw  ON pw.player = rp.player
+INNER JOIN item        AS i   ON i.id = pw.item
 ) UNION (
-SELECT i.id AS item, p.id AS player, i.name AS item_name, il.name AS item_loot_name, p.name AS player_name, -pl.ratio * r.point AS point, r.date AS date, 'loot' AS type
+SELECT i.id AS item, i.name AS item_name,
+		p.id AS player, p.name AS player_name,
+		il.name AS item_loot_name,
+		-pl.ratio * r.point AS point,
+		r.date AS date,
+		'loot' AS type
 FROM player_loot       AS pl
 INNER JOIN raid        AS r  ON r.id = pl.raid
 INNER JOIN player_wish AS pw ON pl.player = pw.player
@@ -51,5 +62,31 @@ INNER JOIN item               AS i   ON i.id = pw.item
 WHERE pw.running = true
 group by item, player;
 
+CREATE OR REPLACE VIEW item_point_history_loot AS
+SELECT item, player, sum(-point) AS point
+FROM item_point_history
+WHERE type = 'loot'
+GROUP BY item, player;
+
+CREATE OR REPLACE VIEW item_point_history_raid AS
+SELECT item, player, sum(point) AS point
+FROM item_point_history
+WHERE type = 'raid'
+GROUP BY item, player;
+
+CREATE OR REPLACE VIEW item_priority AS
+SELECT  i.id   AS item,      p.id   AS player,
+        i.name AS item_name, p.name AS player_name,
+        ROUND(IFNULL(sum(l.point) * 100 / sum(r.point), 0)) AS point,
+        pw.ratio AS ratio,
+        IFNULL(sum(l.point), 0) AS nb_loot,
+        IFNULL(sum(r.point), 0) AS nb_raid
+FROM player_wish             AS   pw
+INNER JOIN item AS i ON pw.item = i.id
+INNER JOIN player AS p ON pw.player = p.id
+LEFT JOIN item_point_history_loot AS l  ON pw.item = l.item AND pw.player = l.player
+LEFT JOIN item_point_history_raid AS r ON pw.item = r.item AND pw.player = r.player
+WHERE pw.running = true
+GROUP BY item, player;
 
 

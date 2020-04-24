@@ -29,7 +29,7 @@ public class AdminController {
 				.addObject("playerclasses", PlayerClass.values()) //
 				.addObject("playerranks", PlayerRank.values()) //
 				.addObject("raids", RaidInstance.values()) //
-				.addObject("players", session.getMapper(PlayerDao.class).list())
+				.addObject("players", session.getMapper(PlayerDao.class).listPlayers())
 				.addObject("items", session.getMapper(ItemDao.class).list())
 		;
 	}

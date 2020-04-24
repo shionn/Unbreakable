@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
+import shionn.ubk.db.dbo.PlayerWish;
 
 
 public interface PlayerDao {
@@ -25,7 +26,19 @@ public interface PlayerDao {
 	Player readOne(int id);
 
 	@Select("SELECT * FROM player ORDER BY name")
-	List<Player> list();
+	List<Player> listPlayers();
+
+	@Select("SELECT p.name, p.class, p.rank, i.name AS item_name " //
+			+ "FROM player           AS p "
+			+ "LEFT JOIN player_wish AS pw ON p.id = pw.player AND pw.running = true "
+			+ "LEFT JOIN item        AS i  ON i.id = pw.item " //
+			+ "WHERE p.rank != 'inactif' " //
+			+ "ORDER BY p.class, p.name ")
+	@Results({ @Result(column = "name", property = "player.name"),
+			@Result(column = "class", property = "player.clazz"),
+			@Result(column = "rank", property = "player.rank"),
+			@Result(column = "item_name", property = "item.name") })
+	List<PlayerWish> listWishes();
 
 	@Update("UPDATE player " //
 			+ "SET name = #{name}, class = #{class}, rank = #{rank} " //

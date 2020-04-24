@@ -10,7 +10,14 @@
 			<table class="pure-table pure-table-horizontal">
 				<thead>
 					<tr>
-						<th colspan="4" style="text-align:center">${raid.name} <fmt:formatDate pattern="dd/MM/yyyy" value="${raid.date}"/> (${raid.players.size()})</th>
+						<th colspan="4" style="text-align:center">
+							${raid.name}
+							<fmt:formatDate pattern="dd/MM/yyyy" value="${raid.date}"/>
+							(${raid.players.size()})
+							<c:if test="${user.admin}">
+								<a href='<spring:url value="/raid/edit/${raid.id}"/>'>edit</a>
+							</c:if>
+						</th>
 					</tr>
 				</thead>
 				<tbody>

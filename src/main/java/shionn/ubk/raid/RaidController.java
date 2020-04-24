@@ -67,6 +67,14 @@ public class RaidController implements Serializable {
 		return "redirect:/raid";
 	}
 
+	@RequestMapping(value = "/raid/edit/{id}", method = RequestMethod.GET)
+	public String startEdit(@ModelAttribute("id") int id) {
+		RaidDao dao = session.getMapper(RaidDao.class);
+		dao.startEdit(id);
+		session.commit();
+		return "redirect:/raid";
+	}
+
 	@RequestMapping(value = "/raid/edit/member/{id}", method = RequestMethod.GET)
 	public ModelAndView editRaidMember(@PathVariable("id") int id) {
 		RaidDao dao = session.getMapper(RaidDao.class);

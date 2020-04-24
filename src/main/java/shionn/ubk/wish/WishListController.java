@@ -28,10 +28,11 @@ public class WishListController {
 
 	@RequestMapping(value = "/wish", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam(defaultValue = "-1", name = "player") int player) {
-		ModelAndView view = new ModelAndView("wish").addObject("players", session.getMapper(PlayerDao.class).list());
+		PlayerDao dao = session.getMapper(PlayerDao.class);
+		ModelAndView view = new ModelAndView("wish").addObject("players", dao.listPlayers())
+				.addObject("wishes", dao.listWishes());
 		if (player !=-1) {
-			view.addObject("player", readPlayer(player))
-					.addObject("items", readItems());
+			view.addObject("player", readPlayer(player)).addObject("items", readItems());
 		}
 		return view;
 	}
