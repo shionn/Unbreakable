@@ -16,6 +16,7 @@
 						<th>Point</th>
 						<th>NbLoot</th>
 						<th>NbRaid</th>
+						<th>NbRaid<br/>Ss Loot</th>
 					</c:if>
 				</tr>
 			</thead>
@@ -32,9 +33,10 @@
 								<c:if test="${not p.looted}">${p.order}</c:if>
 							</td>
 							<c:if test="${user.admin}">
-								<td>${p.point}</td>
-								<td>${p.nbLoot}</td>
-								<td>${p.nbRaid}</td>
+								<td>${p.point} %</td>
+								<td>${p.nbLoot/100}</td>
+								<td>${p.nbRaid/100}</td>
+								<td>${p.nbRaidWithoutLoot/100}</td>
 							</c:if>
 						</tr>
 					</c:forEach>

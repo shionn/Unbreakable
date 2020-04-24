@@ -25,22 +25,22 @@
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('wishList')}" var="item"><li>${item.name}</li></c:forEach>
+								<c:forEach items="${player.getLoots('wishList')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('primary')}" var="item"><li>${item.name}</li></c:forEach>
+								<c:forEach items="${player.getLoots('primary')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('secondary')}" var="item"><li>${item.name}</li></c:forEach>
+								<c:forEach items="${player.getLoots('secondary')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('bag')}" var="item"><li>${item.name}</li></c:forEach>
+								<c:forEach items="${player.getLoots('bag')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
 							</ul>
 						</td>
 					</tr>

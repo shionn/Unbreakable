@@ -1,5 +1,7 @@
 package shionn.ubk.db.dbo;
 
+import java.util.Date;
+
 public class Item {
 
 	private int id;
@@ -8,6 +10,7 @@ public class Item {
 	private String boss;
 	private int ratio;
 	private LootAttribution attribution;
+	private Date lootDate;
 
 	public int getId() {
 		return id;
@@ -77,6 +80,14 @@ public class Item {
 
 	public void setRatio(int ratio) {
 		this.ratio = ratio;
+	}
+
+	public Date getLootDate() {
+		return lootDate;
+	}
+
+	public void setLootDate(Date lootDate) {
+		this.lootDate = lootDate;
 	}
 
 }
