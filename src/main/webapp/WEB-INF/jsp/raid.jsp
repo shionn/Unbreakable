@@ -17,6 +17,14 @@
 						<input type="text" name="name" value="${raid.name}">
 					</div>
 					<div class="pure-control-group">
+						<label for="instance">Instance</label>
+						<select name="instance">
+							<c:forEach items="${instances}" var="c">
+								<option value="${c}" <c:if test="${raid.instance==c}">selected="selected"</c:if>>${c}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="pure-control-group">
 						<label for="date">Date</label>
 						<input type="date" name="date" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${raid.date}"/>">
 					</div>
@@ -76,6 +84,14 @@
 				<div class="pure-control-group">
 					<label for="name">Nom</label>
 					<input type="text" name="name" required="required">
+				</div>
+				<div class="pure-control-group">
+					<label for="instance">Instance</label>
+					<select name="instance">
+						<c:forEach items="${instances}" var="c">
+							<option value="${c}">${c}</option>
+						</c:forEach>
+					</select>
 				</div>
 				<div class="pure-control-group">
 					<label for="date">Date</label>

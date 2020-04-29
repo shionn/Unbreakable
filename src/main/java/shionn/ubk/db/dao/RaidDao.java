@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Update;
 import shionn.ubk.db.dbo.Item;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
+import shionn.ubk.db.dbo.RaidInstance;
 import shionn.ubk.db.dbo.SortOrder;
 
 
@@ -42,12 +43,12 @@ public interface RaidDao {
 			+ "ORDER BY name ")
 	public List<Item> listLoot(@Param("player") int player, @Param("raid") int raid);
 
-	@Insert("INSERT INTO raid (name, date, point, running) "
-			+ "VALUES (#{name}, #{date}, #{point}, true)")
-	public void create(@Param("name") String name, @Param("date") Date date,
-			@Param("point") int point);
+	@Insert("INSERT INTO raid (name, instance, date, point, running) "
+			+ "VALUES (#{name}, #{instance}, #{date}, #{point}, true)")
+	public void create(@Param("name") String name, @Param("instance") RaidInstance instance,
+			@Param("date") Date date, @Param("point") int point);
 
-	@Update("UPDATE raid SET name = #{name}, " //
+	@Update("UPDATE raid SET name = #{name}, instance = #{instance}, " //
 			+ "date = #{date}, running = #{running}, point = #{point} " //
 			+ "WHERE id = #{id} ")
 	public void update(Raid raid);

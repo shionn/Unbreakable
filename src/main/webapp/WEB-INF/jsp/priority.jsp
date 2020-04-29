@@ -8,15 +8,14 @@
 			<thead>
 				<tr>
 					<th>Objet</th>
-					<th>Personnage</th>
-					<th>Classe</th>
-					<th>Rang</th>
-					<th>Priorité</th>
-					<c:if test="${user.admin}">
+					<th colspan="3">Personnage</th>
+					<c:if test="${user.mdc}">
+						<th>Priorité</th>
 						<th>Point</th>
 						<th>NbLoot</th>
 						<th>NbRaid</th>
 						<th>NbRaid<br/>Ss Loot</th>
+						<th>NbRaid<br/>Attente</th>
 					</c:if>
 				</tr>
 			</thead>
@@ -28,15 +27,16 @@
 							<td>${p.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 							<td>${p.player.rank}</td>
-							<td>
-								<c:if test="${p.looted}">Obtenu</c:if>
-								<c:if test="${not p.looted}">${p.order}</c:if>
-							</td>
-							<c:if test="${user.admin}">
+							<c:if test="${user.mdc}">
+								<td>
+									<c:if test="${p.looted}">Obtenu</c:if>
+									<c:if test="${not p.looted}">${p.order}</c:if>
+								</td>
 								<td>${p.point} %</td>
 								<td>${p.nbLoot/100}</td>
 								<td>${p.nbRaid/100}</td>
 								<td>${p.nbRaidWithoutLoot/100}</td>
+								<td>${p.nbRaidWait/100}</td>
 							</c:if>
 						</tr>
 					</c:forEach>

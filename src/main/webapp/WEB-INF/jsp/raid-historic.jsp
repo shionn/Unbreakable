@@ -30,7 +30,7 @@
 							<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
 							<td>${e.player.rank}</td>
 							<td>
-								<c:forEach items="${e.items}" var="item">${item.name}, </c:forEach>
+								<c:forEach items="${e.items}" var="item">${item.name} <small>(${item.attribution.shorten})</small>, </c:forEach>
 							</td>
 						</tr>
 					</c:forEach>

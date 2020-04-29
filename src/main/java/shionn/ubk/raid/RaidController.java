@@ -23,6 +23,7 @@ import shionn.ubk.db.dao.RaidDao;
 import shionn.ubk.db.dbo.PlayerWish;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
+import shionn.ubk.db.dbo.RaidInstance;
 import shionn.ubk.db.dbo.SortOrder;
 
 
@@ -43,15 +44,17 @@ public class RaidController implements Serializable {
 		for (Raid raid : raids) {
 			raid.setPlayers(dao.listRunningPlayer(raid.getId(), order));
 		}
-		return new ModelAndView("raid").addObject("runnings", raids);
+		return new ModelAndView("raid").addObject("runnings", raids).addObject("instances",
+				RaidInstance.values());
 	}
 
 	@RequestMapping(value = "/raid/add", method = RequestMethod.POST)
 	public String createRaid(@RequestParam("name") String name,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
 			@RequestParam("point") int point,
+			@RequestParam("instance") RaidInstance instance,
 			RedirectAttributes attr) {
-		session.getMapper(RaidDao.class).create(name, date, point);
+		session.getMapper(RaidDao.class).create(name, instance, date, point);
 		session.commit();
 		return "redirect:/raid";
 	}

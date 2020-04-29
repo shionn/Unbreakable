@@ -33,4 +33,8 @@ public class User {
 	public boolean isAdmin() {
 		return role != null && role.contains("ADMIN");
 	}
+
+	public boolean isMdc() {
+		return role != null && role.contains("MDC") || isAdmin();
+	}
 }

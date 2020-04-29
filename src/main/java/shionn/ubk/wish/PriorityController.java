@@ -13,35 +13,46 @@ import org.springframework.web.servlet.ModelAndView;
 
 import shionn.ubk.db.dao.PriorityDao;
 import shionn.ubk.db.dbo.Priority;
+import shionn.ubk.db.dbo.User;
 
 @Controller
 public class PriorityController {
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private User user;
 
 	@RequestMapping(value = "/priority", method = RequestMethod.GET)
 	public ModelAndView list() {
-		List<Priority> dbs = session.getMapper(PriorityDao.class).list();
-		List<List<Priority>> collect = dbs.stream().map(p -> p.getItem()).distinct()
-				.map(item -> dbs.stream().filter(p -> p.getItem().equals(item))
-						.collect(Collectors.toList()))
-						.collect(Collectors.toList());
-		for (List<Priority> priorities : collect) {
-			Iterator<Priority> ite = priorities.iterator();
-			Priority previous = ite.next();
-			previous.setOrder(1);
-			while (ite.hasNext()) {
-				Priority current = ite.next();
-				if (current.equals(previous)) {
-					current.setOrder(previous.getOrder());
-				} else {
-					current.setOrder(previous.getOrder() + 1);
+		List<Priority> dbs = session.getMapper(PriorityDao.class).list(orderBy());
+		List<List<Priority>> collect = dbs.stream()
+				.map(p -> p.getItem()).distinct().map(item -> dbs.stream()
+						.filter(p -> p.getItem().equals(item)).collect(Collectors.toList()))
+				.collect(Collectors.toList());
+		if (user.isMdc()) {
+			for (List<Priority> priorities : collect) {
+				Iterator<Priority> ite = priorities.iterator();
+				Priority previous = ite.next();
+				previous.setOrder(1);
+				while (ite.hasNext()) {
+					Priority current = ite.next();
+					if (current.equals(previous)) {
+						current.setOrder(previous.getOrder());
+					} else {
+						current.setOrder(previous.getOrder() + 1);
+					}
+					previous = current;
 				}
-				previous = current;
 			}
 		}
-		return new ModelAndView("priority").addObject("priorities",
-				collect);
+		return new ModelAndView("priority").addObject("priorities", collect);
+	}
+
+	private String orderBy() {
+		if (user.isMdc()) {
+			return "item_name ASC, looted ASC, point ASC";
+		}
+		return "item_name ASC, player_name ASC";
 	}
 
 }

@@ -8,6 +8,7 @@ public class Priority {
 	private int ratio;
 	private int nbRaid;
 	private int nbRaidWithoutLoot;
+	private int nbRaidWait;
 	private int nbLoot;
 	private boolean looted;
 
@@ -113,4 +114,13 @@ public class Priority {
 	public void setNbRaidWithoutLoot(int nbRaidWithoutLoot) {
 		this.nbRaidWithoutLoot = nbRaidWithoutLoot;
 	}
+
+	public int getNbRaidWait() {
+		return nbRaidWait;
+	}
+
+	public void setNbRaidWait(int nbRaidWait) {
+		this.nbRaidWait = nbRaidWait;
+	}
+
 }

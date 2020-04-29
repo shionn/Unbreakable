@@ -30,10 +30,9 @@ public interface RaidHistoricDao {
 			@Result(column = "{player=id,raid=raid}", property = "items", many = @Many(select = "listLoot")) })
 	List<RaidEntry> listPlayer(@Param("raid") int raid);
 
-	@Select("SELECT i.name, i.id, l.ratio " //
-			+ "FROM player_loot AS l " //
-			+ "INNER JOIN item AS i ON i.id = l.item "
-			+ "WHERE l.player = #{player} AND l.raid = #{raid} " //
+	@Select("SELECT item_name AS name, attribution " //
+			+ "FROM loot_history " //
+			+ "WHERE player_id = #{player} AND raid = #{raid} " //
 			+ "ORDER BY name ")
 	public List<Item> listLoot(@Param("player") int player, @Param("raid") int raid);
 }

@@ -13,6 +13,7 @@ public class Raid {
 	private boolean running;
 	private int point;
 	private List<RaidEntry> players;
+	private RaidInstance instance;
 
 	public int getId() {
 		return id;
@@ -61,6 +62,14 @@ public class Raid {
 
 	public void setPoint(int point) {
 		this.point = point;
+	}
+
+	public RaidInstance getInstance() {
+		return instance;
+	}
+
+	public void setInstance(RaidInstance instance) {
+		this.instance = instance;
 	}
 
 }
