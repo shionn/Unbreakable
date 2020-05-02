@@ -1,5 +1,6 @@
 package shionn.ubk.db.dbo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerStat {
@@ -8,7 +9,7 @@ public class PlayerStat {
 	private int nbRaid;
 	private int nbRaidWithoutLoot;
 	private int nbLoot;
-	private List<RaidAttendance> attendances;
+	private List<RaidAttendance> attendances = new ArrayList<RaidAttendance>();
 
 	public Player getPlayer() {
 		return player;
@@ -56,6 +57,12 @@ public class PlayerStat {
 
 	public void setAttendances(List<RaidAttendance> attendances) {
 		this.attendances = attendances;
+	}
+
+	public RaidAttendance getAttendance(RaidInstance instance, RaidAttendancePeriod period) {
+		return attendances.stream()
+				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
+				.orElseGet(() -> new RaidAttendance());
 	}
 
 }

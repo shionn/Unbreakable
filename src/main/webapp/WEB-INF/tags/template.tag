@@ -22,7 +22,7 @@
 			<li class="pure-menu-item"><a href='<spring:url value="/priority"/>' class="pure-menu-link">Prioritées</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/historic/raid"/>' class="pure-menu-link">Histo des Raids</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/historic/loot"/>' class="pure-menu-link">Histo des Loots</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/stat/player"/>' class="pure-menu-link">Statistique</a></li>
+			<li class="pure-menu-item"><a href='<spring:url value="/statistic"/>' class="pure-menu-link">Statistique</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Liste de souhait</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
