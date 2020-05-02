@@ -28,7 +28,7 @@ CREATE OR REPLACE VIEW item_point_history AS
 SELECT i.id AS item, i.name AS item_name,
 		p.id AS player, p.name AS player_name,
 		NULL AS item_loot_name,
-		pw.ratio * r.point AS point,
+		r.point AS point,
 		r.date AS date,
 		'raid' AS type
 FROM raid_entry        AS rp
@@ -40,7 +40,7 @@ INNER JOIN item        AS i   ON i.id = pw.item
 SELECT i.id AS item, i.name AS item_name,
 		p.id AS player, p.name AS player_name,
 		il.name AS item_loot_name,
-		-pl.ratio * r.point AS point,
+		-pl.ratio AS point,
 		r.date AS date,
 		'loot' AS type
 FROM player_loot       AS pl
@@ -101,7 +101,7 @@ WHERE pl.ratio >= 10
 GROUP BY e.player;
 
 CREATE OR REPLACE VIEW no_loot AS
-SELECT sum(r.point)*10 AS nb_raid, e.player
+SELECT sum(r.point) AS nb_raid, e.player
 FROM raid AS r
 INNER JOIN raid_entry AS e ON e.raid = r.id
 WHERE r.date > (SELECT loot_date FROM last_player_loot AS lpl WHERE lpl.player = e.player)
@@ -112,9 +112,9 @@ SELECT i.id AS item_id, i.name AS item_name,
 p.id AS player_id, p.name AS player_name,
 r.date AS loot_date, r.id AS raid,
 CASE
-  WHEN pw.ratio IS NOT NULL        THEN 'wishList'
-  WHEN pl.ratio >= 10              THEN 'primary'
-  WHEN i.id IN(82, 143, 144, 147)  THEN 'bag'
+  WHEN pw.ratio IS NOT NULL             THEN 'wishList'
+  WHEN pl.ratio >= 10                   THEN 'primary'
+  WHEN i.id IN(82, 143, 144, 147, 169)  THEN 'bag'
   ELSE 'secondary'
 END AS attribution
 FROM player_loot       AS pl
@@ -124,7 +124,7 @@ INNER JOIN raid        AS r  ON r.id = pl.raid
 LEFT  JOIN player_wish AS pw ON i.id = pw.item AND pw.player = pl.player;
 
 CREATE OR REPLACE VIEW player_wish_wait AS
-SELECT i.id AS item, i.name AS item_name, p.id AS player, p.name AS player_name, p.rank, p.class, sum(r.point*rpw.ratio) AS point
+SELECT i.id AS item, i.name AS item_name, p.id AS player, p.name AS player_name, p.rank, p.class, sum(r.point*rpw.ratio)/10 AS point
 FROM raid_player_wish  AS rpw
 INNER JOIN player_wish AS pw  ON pw.player = rpw.player AND pw.item = rpw.item AND pw.running = true
 INNER JOIN raid        AS r   ON r.id = rpw.raid
@@ -151,3 +151,17 @@ LEFT JOIN player_wish_wait        AS pww ON pww.player = pw.player AND pww.item 
 WHERE pw.running = true
 GROUP BY item, player;
 
+CREATE OR REPLACE VIEW last_raid_attendance AS
+SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) attendance
+FROM raid             AS r
+INNER JOIN raid_entry AS re ON r.id = re.raid
+INNER JOIN player     AS p ON p.id = re.player AND p.rank != 'inactif'
+WHERE r.date >= DATE(DATE_SUB(NOW(), INTERVAL 14 DAY))
+GROUP BY player, instance;
+
+CREATE OR REPLACE VIEW raid_attendance AS
+SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) attendance
+FROM raid             AS r
+INNER JOIN raid_entry AS re ON r.id = re.raid
+INNER JOIN player     AS p ON p.id = re.player AND p.rank != 'inactif'
+GROUP BY player, instance;

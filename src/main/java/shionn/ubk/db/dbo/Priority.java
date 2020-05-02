@@ -1,5 +1,7 @@
 package shionn.ubk.db.dbo;
 
+import java.util.List;
+
 public class Priority {
 	private Item item;
 	private Player player;
@@ -11,6 +13,7 @@ public class Priority {
 	private int nbRaidWait;
 	private int nbLoot;
 	private boolean looted;
+	private List<RaidAttendance> attendances;
 
 	public Item getItem() {
 		return item;
@@ -123,4 +126,17 @@ public class Priority {
 		this.nbRaidWait = nbRaidWait;
 	}
 
+	public List<RaidAttendance> getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(List<RaidAttendance> attendances) {
+		this.attendances = attendances;
+	}
+
+	public RaidAttendance getAttendance(RaidInstance instance, RaidAttendancePeriod period) {
+		return attendances.stream()
+				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
+				.orElseGet(() -> new RaidAttendance());
+	}
 }

@@ -5,7 +5,7 @@
 <t:template>
 	<jsp:attribute name="content">
 		<table class="pure-table pure-table-horizontal">
-			<thead>
+			<thead style="position: sticky;top: 0;">
 				<tr>
 					<th>Objet</th>
 					<th colspan="3">Personnage</th>
@@ -13,11 +13,25 @@
 						<th>Priorité</th>
 						<th>Point</th>
 						<th>NbLoot</th>
-						<th>NbRaid</th>
-						<th>NbRaid<br/>Ss Loot</th>
-						<th>NbRaid<br/>Attente</th>
+						<th colspan="3">NbRaid</th>
+						<th colspan="3">Présence</th>
+						<th colspan="3">Présence / 14j</th>
 					</c:if>
 				</tr>
+				<c:if test="${user.mdc}">
+					<tr>
+						<th colspan="7"></th>
+						<th>Total</th>
+						<th>SsLoot</th>
+						<th>Attente</th>
+						<th>BWL</th>
+						<th>MC</th>
+						<th>ZG</th>
+						<th>BWL</th>
+						<th>MC</th>
+						<th>ZG</th>
+					</tr>
+				</c:if>
 			</thead>
 			<tbody>
 				<c:forEach items="${priorities}" var="entry" varStatus="itemIndex">
@@ -33,10 +47,16 @@
 									<c:if test="${not p.looted}">${p.order}</c:if>
 								</td>
 								<td>${p.point} %</td>
-								<td>${p.nbLoot/100}</td>
-								<td>${p.nbRaid/100}</td>
-								<td>${p.nbRaidWithoutLoot/100}</td>
-								<td>${p.nbRaidWait/100}</td>
+								<td>${p.nbLoot/10}</td>
+								<td>${p.nbRaid/10}</td>
+								<td>${p.nbRaidWithoutLoot/10}</td>
+								<td>${p.nbRaidWait/10}</td>
+								<td>${p.getAttendance('BWL','always').attendance}</td>
+								<td>${p.getAttendance('MC','always').attendance}</td>
+								<td>${p.getAttendance('ZG','always').attendance}</td>
+								<td>${p.getAttendance('BWL','day14').attendance}</td>
+								<td>${p.getAttendance('MC','day14').attendance}</td>
+								<td>${p.getAttendance('ZG','day14').attendance}</td>
 							</c:if>
 						</tr>
 					</c:forEach>
