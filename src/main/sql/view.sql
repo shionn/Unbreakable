@@ -165,3 +165,20 @@ FROM raid             AS r
 INNER JOIN raid_entry AS re ON r.id = re.raid
 INNER JOIN player     AS p ON p.id = re.player AND p.rank != 'inactif'
 GROUP BY player, instance;
+
+CREATE OR REPLACE VIEW loot_history AS
+SELECT i.id AS item_id, i.name AS item_name, i.big AS item_big,
+p.id AS player_id, p.name AS player_name,
+r.date AS loot_date, r.id AS raid,
+CASE
+  WHEN pw.ratio IS NOT NULL             THEN 'wishList'
+  WHEN pl.ratio >= 10                   THEN 'primary'
+  WHEN i.id IN(82, 143, 144, 147, 169)  THEN 'bag'
+  ELSE 'secondary'
+END AS attribution
+FROM player_loot       AS pl
+INNER JOIN item        AS i  ON i.id = pl.item
+INNER JOIN player      AS p  ON p.id = pl.player
+INNER JOIN raid        AS r  ON r.id = pl.raid
+LEFT  JOIN player_wish AS pw ON i.id = pw.item AND pw.player = pl.player;
+

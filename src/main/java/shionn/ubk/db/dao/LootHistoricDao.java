@@ -18,7 +18,7 @@ public interface LootHistoricDao {
 			@Result(column = "class", property = "clazz") })
 	List<Player> listAll();
 
-	@Select("SELECT item_name AS name, loot_date, attribution " //
+	@Select("SELECT item_name AS name, item_big AS big, loot_date, attribution " //
 			+ "FROM loot_history " //
 			+ "WHERE player_id = #{id} " //
 			+ "ORDER BY loot_date DESC ")

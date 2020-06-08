@@ -11,6 +11,9 @@ public class Item {
 	private int ratio;
 	private LootAttribution attribution;
 	private Date lootDate;
+	private boolean big;
+	private ItemSlot slot;
+	private int ilvl;
 
 	public int getId() {
 		return id;
@@ -88,6 +91,30 @@ public class Item {
 
 	public void setLootDate(Date lootDate) {
 		this.lootDate = lootDate;
+	}
+
+	public boolean isBig() {
+		return big;
+	}
+
+	public void setBig(boolean big) {
+		this.big = big;
+	}
+
+	public ItemSlot getSlot() {
+		return slot;
+	}
+
+	public void setSlot(ItemSlot slot) {
+		this.slot = slot;
+	}
+
+	public int getIlvl() {
+		return ilvl;
+	}
+
+	public void setIlvl(int ilvl) {
+		this.ilvl = ilvl;
 	}
 
 }

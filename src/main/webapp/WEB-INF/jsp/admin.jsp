@@ -71,6 +71,22 @@
 				</select>
 			</div>
 			<div class="pure-control-group">
+				<label for="slot">Slot</label>
+				<select name="slot">
+					<c:forEach items="${slots}" var="c">
+						<option value="${c}">${c}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="pure-control-group">
+				<label for="ilvl">Ilvl</label>
+				<input name="ilvl" type="text" required="required">
+			</div>
+			<div class="pure-control-group">
+				<label for="big" class="pure-checkbox">Grosse item</label>
+				<input type="checkbox" name="big" />
+			</div>
+			<div class="pure-control-group">
 				<label for="boss">Boss</label>
 				<input name="boss" type="text" placeholder="Boss" required="required">
 			</div>
@@ -88,7 +104,7 @@
 				<label for="id">Object à éditer</label>
 				<select name="id">
 					<c:forEach items="${items}" var="c">
-						<option value="${c.id}">${c.name}</option>
+						<option value="${c.id}">${c.name} (${c.slot} ${c.ilvl})</option>
 					</c:forEach>
 				</select>
 			</div>

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import shionn.ubk.db.dao.ItemDao;
 import shionn.ubk.db.dao.PlayerDao;
 import shionn.ubk.db.dbo.Item;
+import shionn.ubk.db.dbo.ItemSlot;
 import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
@@ -29,6 +30,7 @@ public class AdminController {
 				.addObject("playerclasses", PlayerClass.values()) //
 				.addObject("playerranks", PlayerRank.values()) //
 				.addObject("raids", RaidInstance.values()) //
+				.addObject("slots", ItemSlot.values()) //
 				.addObject("players", session.getMapper(PlayerDao.class).listPlayers())
 				.addObject("items", session.getMapper(ItemDao.class).list())
 		;
@@ -66,8 +68,9 @@ public class AdminController {
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
 	public String getCreateUser(@RequestParam("name") String name,
 			@RequestParam("boss") String boss, @RequestParam("raid") RaidInstance raid,
-			RedirectAttributes attr) {
-		session.getMapper(ItemDao.class).create(name, raid, boss);
+			@RequestParam(name = "ilvl") int ilvl, @RequestParam(name = "slot") ItemSlot slot,
+			@RequestParam(name = "big", required = false) boolean big, RedirectAttributes attr) {
+		session.getMapper(ItemDao.class).create(name, raid, boss, ilvl, slot, big);
 		session.commit();
 		attr.addFlashAttribute("message", "Item crée");
 		return "redirect:/admin";
@@ -76,17 +79,22 @@ public class AdminController {
 	@RequestMapping(value = "/admin/edit-item", method = RequestMethod.POST)
 	public ModelAndView editItem(@RequestParam(name = "id") int id) {
 		Item item = session.getMapper(ItemDao.class).readOne(id);
-		return new ModelAndView("edit-item").addObject("item", item).addObject("raids",
-				RaidInstance.values());
+		return new ModelAndView("edit-item")
+				.addObject("item", item)
+				.addObject("raids", RaidInstance.values())
+				.addObject("slots", ItemSlot.values());
 	}
 
 	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
 	public String editItem(@PathVariable(name = "id") int id,
 			@RequestParam(name = "raid") RaidInstance raid,
 			@RequestParam(name = "boss") String boss,
-			@RequestParam(name = "name") String name) {
+			@RequestParam(name = "name") String name,
+			@RequestParam(name = "ilvl") int ilvl,
+			@RequestParam(name = "slot") ItemSlot slot,
+			@RequestParam(name = "big", required = false) boolean big) {
 		ItemDao dao = session.getMapper(ItemDao.class);
-		dao.update(id, name, raid, boss);
+		dao.update(id, name, raid, boss, ilvl, slot, big);
 		session.commit();
 		return "redirect:/admin";
 	}

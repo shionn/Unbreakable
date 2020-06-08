@@ -21,8 +21,10 @@ public class StatisticController implements Serializable{
 
 	@RequestMapping(value = "/statistic", method = RequestMethod.GET)
 	public ModelAndView getStatistic() {
-		return new ModelAndView("statistic").addObject("stats",
-				session.getMapper(StatisticDao.class).listStatistic());
+		StatisticDao dao = session.getMapper(StatisticDao.class);
+		return new ModelAndView("statistic")
+				.addObject("players", dao.listPlayerStatistic())
+				.addObject("items", dao.listItemStatistic());
 	}
 
 }

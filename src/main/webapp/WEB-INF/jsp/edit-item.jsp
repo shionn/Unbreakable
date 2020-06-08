@@ -22,6 +22,24 @@
 				</select>
 			</div>
 			<div class="pure-control-group">
+				<label for="slot">Slot</label>
+				<select name="slot">
+					<c:forEach items="${slots}" var="c">
+						<option value="${c}" <c:if test="${item.slot==c}">selected="selected"</c:if>>${c}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="pure-control-group">
+				<label for="ilvl">Ilvl</label>
+				<input name="ilvl" type="text" required="required" value="${item.ilvl}">
+			</div>
+			<div class="pure-control-group">
+				<label for="big" class="pure-checkbox">
+					Grosse item
+				</label>
+				<input type="checkbox" name="big"<c:if test="${item.big}"> checked="checked"</c:if>/>
+			</div>
+			<div class="pure-control-group">
 				<label for="boss">Boss</label>
 				<input name="boss" type="text" required="required" value="${item.boss}">
 			</div>

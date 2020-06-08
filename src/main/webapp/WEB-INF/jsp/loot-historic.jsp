@@ -25,22 +25,46 @@
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('wishList')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
+								<c:forEach items="${player.getLoots('wishList')}" var="item">
+									<li>
+										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
+										<c:if test="${not item.big}">${item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+									</li>
+								</c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('primary')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
+								<c:forEach items="${player.getLoots('primary')}" var="item">
+									<li>
+										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
+										<c:if test="${not item.big}">${item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+									</li>
+								</c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('secondary')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
+								<c:forEach items="${player.getLoots('secondary')}" var="item">
+									<li>
+										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
+										<c:if test="${not item.big}">${item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+									</li>
+								</c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('bag')}" var="item"><li>${item.name} <em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em></li></c:forEach>
+								<c:forEach items="${player.getLoots('bag')}" var="item">
+									<li>
+										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
+										<c:if test="${not item.big}">${item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+									</li>
+								</c:forEach>
 							</ul>
 						</td>
 					</tr>

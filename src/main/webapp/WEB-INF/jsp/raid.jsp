@@ -30,7 +30,7 @@
 					</div>
 					<div class="pure-control-group">
 						<label for="number">Point</label>
-						<input type="text" name="point" value="${raid.point}">
+						<input type="text" name="point" value="${raid.point}"> <em>10=MC/BWL, ZG=5, Improvisé=0</em>
 					</div>
 					<div class="pure-controls">
 						<label for="running">
