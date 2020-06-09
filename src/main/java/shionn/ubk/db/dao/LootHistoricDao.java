@@ -13,7 +13,8 @@ import shionn.ubk.db.dbo.Player;
 
 public interface LootHistoricDao {
 
-	@Select("SELECT * FROM player WHERE rank != 'inactif' ORDER BY class, name")
+	@Select("SELECT id, name, class, rank = 'reroll' AS reroll "
+			+ "FROM player WHERE rank != 'inactif' ORDER BY reroll, class, name")
 	@Results({ @Result(column = "id", property = "loots", many = @Many(select = "listItems")),
 			@Result(column = "class", property = "clazz") })
 	List<Player> listAll();
