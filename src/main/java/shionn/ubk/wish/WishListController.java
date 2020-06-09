@@ -47,7 +47,9 @@ public class WishListController {
 		}
 		List<Integer> items = player.getWishes().stream().map(w -> w.getItem().getId()).filter(id -> id != 0)
 				.collect(Collectors.toList());
-		dao.disable(player.getId(), items);
+		if (!items.isEmpty()) {
+			dao.disable(player.getId(), items);
+		}
 		session.commit();
 		return list(player.getId());
 	}

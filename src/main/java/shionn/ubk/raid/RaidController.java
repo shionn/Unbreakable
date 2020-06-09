@@ -108,8 +108,10 @@ public class RaidController implements Serializable {
 	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.GET)
 	public ModelAndView editRaidLoot(@PathVariable("raid") int raid,
 			@PathVariable("player") int player) {
-		return new ModelAndView("raid-loot").addObject("raid", raid).addObject("player", player)
-				.addObject("items", session.getMapper(ItemDao.class).list());
+		return new ModelAndView("raid-loot") //
+				.addObject("raid", raid) //
+				.addObject("player", player) //
+				.addObject("items", session.getMapper(ItemDao.class).listForRaid(raid));
 	}
 
 	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.POST)

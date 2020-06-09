@@ -32,4 +32,10 @@ public interface ItemDao {
 			@Param("boss") String boss, @Param("ilvl") int ilvl, @Param("slot") ItemSlot slot,
 			@Param("big") boolean big);
 
+	@Select("SELECT * FROM item " //
+			+ "WHERE raid = (SELECT instance FROM raid WHERE id = #{id}) " //
+			+ "OR raid = 'boss' " //
+			+ "ORDER BY raid DESC, name ASC")
+	List<Item> listForRaid(int raid);
+
 }
