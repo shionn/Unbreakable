@@ -70,7 +70,8 @@ public class AdminController {
 			@RequestParam("boss") String boss, @RequestParam("raid") RaidInstance raid,
 			@RequestParam(name = "ilvl") int ilvl, @RequestParam(name = "slot") ItemSlot slot,
 			@RequestParam(name = "big", required = false) boolean big, RedirectAttributes attr) {
-		session.getMapper(ItemDao.class).create(name, raid, boss, ilvl, slot, big);
+		session.getMapper(ItemDao.class).create(name, raid, boss, ilvl, slot, big,
+				new EvgpComputer().computeGp(ilvl, slot));
 		session.commit();
 		attr.addFlashAttribute("message", "Item crée");
 		return "redirect:/admin";
@@ -94,7 +95,7 @@ public class AdminController {
 			@RequestParam(name = "slot") ItemSlot slot,
 			@RequestParam(name = "big", required = false) boolean big) {
 		ItemDao dao = session.getMapper(ItemDao.class);
-		dao.update(id, name, raid, boss, ilvl, slot, big);
+		dao.update(id, name, raid, boss, ilvl, slot, big, new EvgpComputer().computeGp(ilvl, slot));
 		session.commit();
 		return "redirect:/admin";
 	}

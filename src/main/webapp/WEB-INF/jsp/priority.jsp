@@ -13,6 +13,7 @@
 						<th>Priorité</th>
 						<th>Point</th>
 						<th>NbLoot</th>
+						<th colspan="3">EVGP</th>
 						<th colspan="3">NbRaid</th>
 						<th colspan="3">Présence</th>
 						<th colspan="3">Présence / 14j</th>
@@ -21,6 +22,9 @@
 				<c:if test="${user.mdc}">
 					<tr>
 						<th colspan="7"></th>
+						<th>EV</th>
+						<th>GP</th>
+						<th>%</th>
 						<th>Total</th>
 						<th>SsLoot</th>
 						<th>Attente</th>
@@ -48,6 +52,9 @@
 								</td>
 								<td>${p.point} %</td>
 								<td>${p.nbLoot/10}</td>
+								<td>${p.ev}</td>
+								<td>${p.gp}</td>
+								<td>${p.evgpRatio}</td>
 								<td>${p.nbRaid/10}</td>
 								<td>${p.nbRaidWithoutLoot/10}</td>
 								<td>${p.nbRaidWait/10}</td>

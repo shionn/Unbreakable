@@ -17,7 +17,8 @@ public interface PriorityDao {
 			+ "i.name AS item_name, i.id AS item_id, " //
 			+ "ip.point, ip.ratio, ip.nb_raid, ip.nb_loot, " //
 			+ "pl.raid IS NOT NULL AS looted, " //
-			+ "ip.nb_raid_without_loot, ip.nb_raid_wait " //
+			+ "ip.nb_raid_without_loot, ip.nb_raid_wait, " //
+			+ "ip.ev, ip.gp, ip.evgp_ratio " //
 			+ "FROM item_priority AS ip " //
 			+ "INNER JOIN player  AS p      ON p.id = ip.player AND p.rank != 'inactif' "
 			+ "INNER JOIN item    AS i      ON i.id = ip.item "

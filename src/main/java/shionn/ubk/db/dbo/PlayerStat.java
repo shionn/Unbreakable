@@ -9,6 +9,7 @@ public class PlayerStat {
 	private int nbRaid;
 	private int nbRaidWithoutLoot;
 	private int nbLoot;
+	private int ev, gp, evgpRatio;
 	private List<RaidAttendance> attendances = new ArrayList<RaidAttendance>();
 
 	public Player getPlayer() {
@@ -63,6 +64,30 @@ public class PlayerStat {
 		return attendances.stream()
 				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
 				.orElseGet(() -> new RaidAttendance());
+	}
+
+	public int getEv() {
+		return ev;
+	}
+
+	public void setEv(int ev) {
+		this.ev = ev;
+	}
+
+	public int getGp() {
+		return gp;
+	}
+
+	public void setGp(int gp) {
+		this.gp = gp;
+	}
+
+	public int getEvgpRatio() {
+		return evgpRatio;
+	}
+
+	public void setEvgpRatio(int evgpRatio) {
+		this.evgpRatio = evgpRatio;
 	}
 
 }

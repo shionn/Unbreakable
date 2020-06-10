@@ -14,6 +14,7 @@ public class Item {
 	private boolean big;
 	private ItemSlot slot;
 	private int ilvl;
+	private int gp;
 
 	public int getId() {
 		return id;
@@ -117,4 +118,11 @@ public class Item {
 		this.ilvl = ilvl;
 	}
 
+	public int getGp() {
+		return gp;
+	}
+
+	public void setGp(int gp) {
+		this.gp = gp;
+	}
 }

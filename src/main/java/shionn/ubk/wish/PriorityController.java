@@ -50,7 +50,7 @@ public class PriorityController {
 
 	private String orderBy() {
 		if (user.isMdc()) {
-			return "item_name ASC, looted ASC, point ASC";
+			return "item_name ASC, looted ASC, evgp_ratio ASC";
 		}
 		return "item_name ASC, player_name ASC";
 	}

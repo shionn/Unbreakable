@@ -12,6 +12,9 @@ public class Priority {
 	private int nbRaidWithoutLoot;
 	private int nbRaidWait;
 	private int nbLoot;
+	private int ev;
+	private int gp;
+	private int evgpRatio;
 	private boolean looted;
 	private List<RaidAttendance> attendances;
 
@@ -53,37 +56,6 @@ public class Priority {
 
 	public int getRatio() {
 		return ratio;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((item == null) ? 0 : item.hashCode());
-		result = prime * result + point;
-		result = prime * result + ratio;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Priority other = (Priority) obj;
-		if (item == null) {
-			if (other.item != null)
-				return false;
-		} else if (!item.equals(other.item))
-			return false;
-		if (point != other.point)
-			return false;
-		if (ratio != other.ratio)
-			return false;
-		return true;
 	}
 
 	public boolean isLooted() {
@@ -139,4 +111,59 @@ public class Priority {
 				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
 				.orElseGet(() -> new RaidAttendance());
 	}
+
+	public int getEv() {
+		return ev;
+	}
+
+	public void setEv(int ev) {
+		this.ev = ev;
+	}
+
+	public int getGp() {
+		return gp;
+	}
+
+	public void setGp(int gp) {
+		this.gp = gp;
+	}
+
+	public int getEvgpRatio() {
+		return evgpRatio;
+	}
+
+	public void setEvgpRatio(int evgpRatio) {
+		this.evgpRatio = evgpRatio;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + evgpRatio;
+		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Priority other = (Priority) obj;
+		if (evgpRatio != other.evgpRatio)
+			return false;
+		if (item == null) {
+			if (other.item != null)
+				return false;
+		} else if (!item.equals(other.item))
+			return false;
+		return true;
+	}
+
+
+
 }
