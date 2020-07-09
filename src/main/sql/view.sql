@@ -203,7 +203,7 @@ WHERE r.point > 0
 GROUP BY raid;
 
 CREATE OR REPLACE VIEW player_gp AS
-SELECT p.id AS player, p.name, SUM(ROUND(i.gp * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7))) AS gp
+SELECT p.id AS player, p.name, SUM(ROUND(i.gp * POWER(0.85, DATEDIFF(CURDATE(),r.date) div 7))) AS gp
 FROM       player      AS p
 INNER JOIN player_loot AS pl ON p.id = pl.player AND pl.ratio > 0
 INNER JOIN raid        AS r  ON r.id = pl.raid AND r.point > 0
