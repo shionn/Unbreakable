@@ -80,12 +80,4 @@ public class WishListController {
 		return item;
 	}
 
-
-
-//	@RequestMapping(value = "/wish", method = RequestMethod.G)
-//	public ModelAndView open(@RequestParam("player") int player) {
-//		return new ModelAndView("wish") //
-	//				.;
-//	}
-
 }
