@@ -82,9 +82,10 @@ public interface RaidDao {
 	public int addRaidPlayerWish(@Param("raid") int raid, @Param("player") int player,
 			@Param("item") int item, @Param("ratio") int ratio);
 
-	@Insert("INSERT INTO player_loot (raid, player, item, ratio) VALUES(#{raid}, #{player}, #{item}, #{ratio})")
+	@Insert("INSERT INTO player_loot (raid, player, item, ratio, wl) "
+			+ "VALUES(#{raid}, #{player}, #{item}, #{ratio}, #{wl})")
 	public int addLoot(@Param("raid") int raid, @Param("player") int player,
-			@Param("item") int item, @Param("ratio") int ratio);
+			@Param("item") int item, @Param("ratio") int ratio, @Param("wl") boolean wl);
 
 	@Delete("DELETE FROM player_loot WHERE raid = #{raid} AND player = #{player} AND item = #{item}")
 	public int removeLoot(@Param("raid") int raid, @Param("player") int player,
@@ -100,4 +101,9 @@ public interface RaidDao {
 
 	@Update("UPDATE raid SET running = true WHERE id = #{id}")
 	public void startEdit(@Param("id") int id);
+
+	@Select("SELECT IFNULL(SUM(running),0) " //
+			+ "FROM player_wish AS pw " //
+			+ "WHERE player = #{player} AND item = #{item}")
+	public boolean isWl(@Param("player") int player, @Param("item") int item);
 }

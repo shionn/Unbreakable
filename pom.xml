@@ -103,7 +103,6 @@
 	</profiles>
 
 	<dependencies>
-
 		<!-- api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
