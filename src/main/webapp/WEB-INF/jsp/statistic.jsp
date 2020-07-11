@@ -13,8 +13,8 @@
 						<th colspan="3">EVGP</th>
 						<th>NbLoot</th>
 						<th colspan="2">NbRaid</th>
-						<th colspan="3">Présence</th>
-						<th colspan="3">Présence / 14j</th>
+						<th colspan="5">Présence</th>
+						<th colspan="5">Présence / 14j</th>
 					</tr>
 					<tr>
 						<th colspan="3"></th>
@@ -24,12 +24,16 @@
 						<th></th>
 						<th>Total</th>
 						<th>SsLoot</th>
-						<th>BWL</th>
 						<th>MC</th>
-						<th>ZG</th>
 						<th>BWL</th>
-						<th>MC</th>
+						<th>AQ40</th>
 						<th>ZG</th>
+						<th>AQ20</th>
+						<th>MC</th>
+						<th>BWL</th>
+						<th>AQ40</th>
+						<th>ZG</th>
+						<th>AQ20</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,19 +41,23 @@
 						<tr class="${s.player.clazz}">
 							<td>${s.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${s.player.clazz}.jpg"/>'/></td>
-							<td>${s.player.rank}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.player.rank}</td>
 							<td>${s.ev}</td>
 							<td>${s.gp}</td>
-							<td>${s.evgpRatio}</td>
-							<td>${s.nbLoot/10}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.evgpRatio} %</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.nbLoot/10}</td>
 							<td>${s.nbRaid/10}</td>
-							<td>${s.nbRaidWithoutLoot/10}</td>
-							<td>${s.getAttendance('BWL','always').attendance}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.nbRaidWithoutLoot/10}</td>
 							<td>${s.getAttendance('MC','always').attendance}</td>
+							<td>${s.getAttendance('BWL','always').attendance}</td>
+							<td>${s.getAttendance('AQ40','always').attendance}</td>
 							<td>${s.getAttendance('ZG','always').attendance}</td>
-							<td>${s.getAttendance('BWL','day14').attendance}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.getAttendance('AQ20','always').attendance}</td>
 							<td>${s.getAttendance('MC','day14').attendance}</td>
+							<td>${s.getAttendance('BWL','day14').attendance}</td>
+							<td>${s.getAttendance('AQ20','day14').attendance}</td>
 							<td>${s.getAttendance('ZG','day14').attendance}</td>
+							<td>${s.getAttendance('AQ40','day14').attendance}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

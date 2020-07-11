@@ -11,29 +11,34 @@
 					<th colspan="3">Personnage</th>
 					<c:if test="${user.mdc}">
 						<th>Priorité</th>
-						<th>Point</th>
-						<th>NbLoot</th>
 						<th colspan="3">EVGP</th>
+						<th>NbLoot</th>
+						<th>Ratio</th>
 						<th colspan="3">NbRaid</th>
-						<th colspan="3">Présence</th>
-						<th colspan="3">Présence / 14j</th>
+						<th colspan="5">Présence</th>
+						<th colspan="5">Présence / 14j</th>
 					</c:if>
 				</tr>
 				<c:if test="${user.mdc}">
 					<tr>
-						<th colspan="7"></th>
+						<th colspan="5"></th>
 						<th>EV</th>
 						<th>GP</th>
 						<th>%</th>
+						<th colspan="2"></th>
 						<th>Total</th>
 						<th>SsLoot</th>
 						<th>Attente</th>
-						<th>BWL</th>
 						<th>MC</th>
-						<th>ZG</th>
 						<th>BWL</th>
-						<th>MC</th>
+						<th>AQ40</th>
 						<th>ZG</th>
+						<th>AQ20</th>
+						<th>MC</th>
+						<th>BWL</th>
+						<th>AQ40</th>
+						<th>ZG</th>
+						<th>AQ20</th>
 					</tr>
 				</c:if>
 			</thead>
@@ -44,26 +49,30 @@
 							<td>${p.item.name}</td>
 							<td>${p.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-							<td>${p.player.rank}</td>
+							<td style="border-right: 1px solid #cbcbcb">${p.player.rank}</td>
 							<c:if test="${user.mdc}">
-								<td>
+								<td style="border-right: 1px solid #cbcbcb">
 									<c:if test="${p.looted}">Obtenu</c:if>
 									<c:if test="${not p.looted}">${p.order}</c:if>
 								</td>
-								<td>${p.point} %</td>
-								<td>${p.nbLoot/10}</td>
 								<td>${p.ev}</td>
 								<td>${p.gp}</td>
-								<td>${p.evgpRatio}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.evgpRatio} %</td>
+								<td>${p.nbLoot/10}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.point} %</td>
 								<td>${p.nbRaid/10}</td>
 								<td>${p.nbRaidWithoutLoot/10}</td>
-								<td>${p.nbRaidWait/10}</td>
-								<td>${p.getAttendance('BWL','always').attendance}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.nbRaidWait/10}</td>
 								<td>${p.getAttendance('MC','always').attendance}</td>
+								<td>${p.getAttendance('BWL','always').attendance}</td>
+								<td>${p.getAttendance('AQ40','always').attendance}</td>
 								<td>${p.getAttendance('ZG','always').attendance}</td>
-								<td>${p.getAttendance('BWL','day14').attendance}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.getAttendance('AQ20','always').attendance}</td>
 								<td>${p.getAttendance('MC','day14').attendance}</td>
+								<td>${p.getAttendance('BWL','day14').attendance}</td>
+								<td>${p.getAttendance('AQ20','day14').attendance}</td>
 								<td>${p.getAttendance('ZG','day14').attendance}</td>
+								<td>${p.getAttendance('AQ40','day14').attendance}</td>
 							</c:if>
 						</tr>
 					</c:forEach>
