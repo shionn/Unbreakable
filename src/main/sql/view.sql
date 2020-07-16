@@ -249,6 +249,8 @@ CREATE OR REPLACE VIEW loot_history AS
 SELECT i.id AS item_id, i.name AS item_name, i.big AS item_big,
 p.id AS player_id, p.name AS player_name,
 r.date AS loot_date, r.id AS raid,
+i.gp AS initial_gp,
+ROUND(i.gp * POWER(0.85, DATEDIFF(CURDATE(),r.date) div 7)) AS gp,
 CASE
   WHEN pl.wl = true                     THEN 'wishList'
   WHEN pl.ratio >= 10                   THEN 'primary'
@@ -258,8 +260,21 @@ END AS attribution
 FROM player_loot       AS pl
 INNER JOIN item        AS i  ON i.id = pl.item
 INNER JOIN player      AS p  ON p.id = pl.player
-INNER JOIN raid        AS r  ON r.id = pl.raid
-LEFT  JOIN player_wish AS pw ON i.id = pw.item AND pw.player = pl.player;
+INNER JOIN raid        AS r  ON r.id = pl.raid;
+
+CREATE OR REPLACE VIEW raid_ev AS
+SELECT r.id AS raid, r.name, r.instance, r.date, rs.size,
+  sum(i.gp) AS initial_ev,
+  DATEDIFF(CURDATE(),r.date) div 7 AS week_ago,
+  ROUND(sum(i.gp) * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7)) AS ev,
+  sum(i.gp) div rs.size AS ev_per_player_initial,
+  ROUND(sum(i.gp) * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7)) DIV rs.size AS ev_per_player
+FROM raid AS r
+INNER JOIN raid_size   AS rs ON r.id = rs.raid
+INNER JOIN player_loot AS pl ON r.id = pl.raid AND pl.ratio > 0
+INNER JOIN item        AS i ON i.id = pl.item
+WHERE r.point > 0
+GROUP BY raid;
 
 
 

@@ -14,7 +14,9 @@ public class Raid {
 	private int point;
 	private List<RaidEntry> players;
 	private RaidInstance instance;
-
+	private int ev;
+	private int initialEv;
+	
 	public int getId() {
 		return id;
 	}
@@ -70,6 +72,22 @@ public class Raid {
 
 	public void setInstance(RaidInstance instance) {
 		this.instance = instance;
+	}
+
+	public int getEv() {
+		return ev;
+	}
+
+	public void setEv(int ev) {
+		this.ev = ev;
+	}
+
+	public int getInitialEv() {
+		return initialEv;
+	}
+
+	public void setInitialEv(int initialEv) {
+		this.initialEv = initialEv;
 	}
 
 }

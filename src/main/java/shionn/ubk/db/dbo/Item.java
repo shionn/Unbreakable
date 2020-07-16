@@ -15,6 +15,7 @@ public class Item {
 	private ItemSlot slot;
 	private int ilvl;
 	private int gp;
+	private int initialGp;
 
 	public int getId() {
 		return id;
@@ -125,4 +126,13 @@ public class Item {
 	public void setGp(int gp) {
 		this.gp = gp;
 	}
+
+	public int getInitialGp() {
+		return initialGp;
+	}
+
+	public void setInitialGp(int initialGp) {
+		this.initialGp = initialGp;
+	}
+
 }

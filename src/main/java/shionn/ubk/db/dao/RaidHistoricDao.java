@@ -14,7 +14,10 @@ import shionn.ubk.db.dbo.RaidEntry;
 
 public interface RaidHistoricDao {
 
-	@Select("SELECT * FROM raid ORDER BY date DESC")
+	@Select("SELECT r.id, r.name, r.date, r.instance, ev.ev, ev.initial_ev " //
+			+ "FROM      raid    AS r " //
+			+ "LEFT JOIN raid_ev AS ev ON r.id = ev.raid " //
+			+ "ORDER BY date DESC")
 	@Results({ @Result(column = "id", property = "id"),
 			@Result(column = "id", property = "players", many = @Many(select = "listPlayer")) })
 	List<Raid> listAll();
@@ -30,7 +33,7 @@ public interface RaidHistoricDao {
 			@Result(column = "{player=id,raid=raid}", property = "items", many = @Many(select = "listLoot")) })
 	List<RaidEntry> listPlayer(@Param("raid") int raid);
 
-	@Select("SELECT item_name AS name, attribution " //
+	@Select("SELECT item_name AS name, attribution, gp, initial_gp " //
 			+ "FROM loot_history " //
 			+ "WHERE player_id = #{player} AND raid = #{raid} " //
 			+ "ORDER BY name ")
