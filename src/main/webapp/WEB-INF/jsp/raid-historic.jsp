@@ -36,7 +36,7 @@
 								<c:forEach items="${e.items}" var="item">
 									${item.name}
 									<small>(${item.attribution.shorten})</small>
-									<c:if test="${user.mdc and item.attribution.displayGp}"><strong>EV : ${item.gp} (${item.initialGp})</strong></c:if>,
+									<c:if test="${user.mdc and item.attribution.displayGp}"><strong>GP : ${item.gp} (${item.initialGp})</strong></c:if>,
 								</c:forEach>
 							</td>
 						</tr>
