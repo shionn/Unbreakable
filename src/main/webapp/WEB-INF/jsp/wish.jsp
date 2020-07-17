@@ -51,7 +51,7 @@
 	</c:if>
 
 	<table class="pure-table pure-table-horizontal">
-		<thead>
+		<thead style="position: sticky;top: 0;">
 			<tr>
 				<th colspan="3">Joueur</th><th>Objet</th>
 			</tr>

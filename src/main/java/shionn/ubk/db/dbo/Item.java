@@ -1,21 +1,14 @@
 package shionn.ubk.db.dbo;
 
-import java.util.Date;
-
 public class Item {
 
 	private int id;
 	private String name;
 	private RaidInstance raid;
 	private String boss;
-	private int ratio;
-	private LootAttribution attribution;
-	private Date lootDate;
 	private boolean big;
 	private ItemSlot slot;
 	private int ilvl;
-	private int gp;
-	private int initialGp;
 
 	public int getId() {
 		return id;
@@ -49,14 +42,6 @@ public class Item {
 		this.boss = boss;
 	}
 
-	public LootAttribution getAttribution() {
-		return attribution;
-	}
-
-	public void setAttribution(LootAttribution attribution) {
-		this.attribution = attribution;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,22 +62,6 @@ public class Item {
 		if (id != other.id)
 			return false;
 		return true;
-	}
-
-	public int getRatio() {
-		return ratio;
-	}
-
-	public void setRatio(int ratio) {
-		this.ratio = ratio;
-	}
-
-	public Date getLootDate() {
-		return lootDate;
-	}
-
-	public void setLootDate(Date lootDate) {
-		this.lootDate = lootDate;
 	}
 
 	public boolean isBig() {
@@ -117,22 +86,6 @@ public class Item {
 
 	public void setIlvl(int ilvl) {
 		this.ilvl = ilvl;
-	}
-
-	public int getGp() {
-		return gp;
-	}
-
-	public void setGp(int gp) {
-		this.gp = gp;
-	}
-
-	public int getInitialGp() {
-		return initialGp;
-	}
-
-	public void setInitialGp(int initialGp) {
-		this.initialGp = initialGp;
 	}
 
 }

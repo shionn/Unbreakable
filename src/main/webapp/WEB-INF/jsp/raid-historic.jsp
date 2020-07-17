@@ -8,7 +8,7 @@
 	<jsp:attribute name="content">
 		<c:forEach items="${raids}" var="raid" varStatus="i">
 			<table class="pure-table pure-table-horizontal">
-				<thead>
+				<thead style="position: sticky;top: 0;">
 					<tr>
 						<th colspan="4" style="text-align:center">
 							${raid.name}
@@ -33,10 +33,10 @@
 							<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
 							<td>${e.player.rank}</td>
 							<td>
-								<c:forEach items="${e.items}" var="item">
-									${item.name}
-									<small>(${item.attribution.shorten})</small>
-									<c:if test="${user.mdc and item.attribution.displayGp}"><strong>GP : ${item.gp} (${item.initialGp})</strong></c:if>,
+								<c:forEach items="${e.loots}" var="loot">
+									${loot.item.name}
+									<small>(${loot.attribution.shorten})</small>
+									<c:if test="${user.mdc and loot.attribution.displayGp}"><strong>GP : ${loot.gp} (${loot.initialGp})</strong></c:if>,
 								</c:forEach>
 							</td>
 						</tr>

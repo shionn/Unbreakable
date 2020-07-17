@@ -7,7 +7,7 @@
 <t:template>
 	<jsp:attribute name="content">
 		<table class="pure-table pure-table-horizontal">
-			<thead>
+			<thead style="position: sticky;top: 0;">
 				<tr>
 					<th>Joueur</th>
 					<th>Loot en Wish List</th>
@@ -25,44 +25,80 @@
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('wishList')}" var="item">
+								<c:forEach items="${player.getLoots('wishList')}" var="loot">
 									<li>
-										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
-										<c:if test="${not item.big}">${item.name}</c:if>
-										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
+										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${loot.lootDate}"/></small></em>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('primary')}" var="item">
+								<c:forEach items="${player.getLoots('primary')}" var="loot">
 									<li>
-										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
-										<c:if test="${not item.big}">${item.name}</c:if>
-										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
+										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${loot.lootDate}"/></small></em>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('secondary')}" var="item">
+								<c:forEach items="${player.getLoots('secondary')}" var="loot">
 									<li>
-										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
-										<c:if test="${not item.big}">${item.name}</c:if>
-										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
+										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${loot.lootDate}"/></small></em>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 						<td>
 							<ul>
-								<c:forEach items="${player.getLoots('bag')}" var="item">
+								<c:forEach items="${player.getLoots('bag')}" var="loot">
 									<li>
-										<c:if test="${item.big}"><strong>${item.name}</strong></c:if>
-										<c:if test="${not item.big}">${item.name}</c:if>
-										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${item.lootDate}"/></small></em>
+										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
+										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
+										<em><small><fmt:formatDate pattern="dd/MM/yyyy" value="${loot.lootDate}"/></small></em>
+									</li>
+								</c:forEach>
+							</ul>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<table class="pure-table pure-table-horizontal pure-table-striped">
+			<thead style="position: sticky;top: 0;">
+				<tr>
+					<th>Date</th>
+					<th>Loot en Wish List</th>
+					<th>Loot en +1</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${loots.dates}" var="date">
+					<tr>
+						<td><fmt:formatDate pattern="dd/MM/yyyy" value="${date}"/></td>
+						<td>
+							<ul>
+								<c:forEach items="${loots.getLoots(date,'wishList')}" var="loot">
+									<li>${loot.player.name} : 
+										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
+										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
+									</li>
+								</c:forEach>
+							</ul>
+						</td>
+						<td>
+							<ul>
+								<c:forEach items="${loots.getLoots(date,'primary')}" var="loot">
+									<li>${loot.player.name} : 
+										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
+										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
 									</li>
 								</c:forEach>
 							</ul>

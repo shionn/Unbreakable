@@ -13,9 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import shionn.ubk.db.dao.LootHistoricDao;
 import shionn.ubk.db.dao.RaidHistoricDao;
-import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.Raid;
-
 
 @Controller
 @SessionScope
@@ -32,12 +30,12 @@ public class HistoricController implements Serializable {
 		return new ModelAndView("raid-historic").addObject("raids", raids);
 	}
 
-
 	@RequestMapping(value = "/historic/loot", method = RequestMethod.GET)
 	public ModelAndView loots() {
 		LootHistoricDao dao = session.getMapper(LootHistoricDao.class);
-		List<Player> players = dao.listAll();
-		return new ModelAndView("loot-historic").addObject("players", players);
+		return new ModelAndView("loot-historic") //
+				.addObject("players", dao.listAll()) //
+				.addObject("loots", new LootPerDate(dao.listWl()));
 	}
 
 }

@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import shionn.ubk.db.dbo.Item;
+import shionn.ubk.db.dbo.Loot;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
 import shionn.ubk.db.dbo.RaidInstance;
@@ -32,16 +32,17 @@ public interface RaidDao {
 			@Result(column = "name", property = "player.name"),
 			@Result(column = "rank", property = "player.rank"),
 			@Result(column = "class", property = "player.clazz"),
-			@Result(column = "{player=id, raid=raid}", property = "items", many = @Many(select = "listLoot")) })
+			@Result(column = "{player=id, raid=raid}", property = "loots", many = @Many(select = "listLoot")) })
 	public List<RaidEntry> listRunningPlayer(@Param("raid") int raid,
 			@Param("order") SortOrder order);
 
 	@Select("SELECT i.name, i.id, l.ratio " //
-			+ "FROM player_loot AS l "
-			+ "INNER JOIN item AS i ON i.id = l.item "
+			+ "FROM       player_loot AS l " //
+			+ "INNER JOIN item AS i   ON i.id = l.item " //
 			+ "WHERE l.player = #{player} AND l.raid = #{raid} " //
 			+ "ORDER BY name ")
-	public List<Item> listLoot(@Param("player") int player, @Param("raid") int raid);
+	@Results({ @Result(column = "name", property = "item.name") })
+	public List<Loot> listLoot(@Param("player") int player, @Param("raid") int raid);
 
 	@Insert("INSERT INTO raid (name, instance, date, point, running) "
 			+ "VALUES (#{name}, #{instance}, #{date}, #{point}, true)")

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
-import shionn.ubk.db.dbo.Item;
+import shionn.ubk.db.dbo.Loot;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
 
@@ -30,12 +30,13 @@ public interface RaidHistoricDao {
 	@Results({ @Result(column = "name", property = "player.name"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "rank", property = "player.rank"),
-			@Result(column = "{player=id,raid=raid}", property = "items", many = @Many(select = "listLoot")) })
+			@Result(column = "{player=id,raid=raid}", property = "loots", many = @Many(select = "listLoot")) })
 	List<RaidEntry> listPlayer(@Param("raid") int raid);
 
-	@Select("SELECT item_name AS name, attribution, gp, initial_gp " //
+	@Select("SELECT item_name, attribution, gp, initial_gp " //
 			+ "FROM loot_history " //
 			+ "WHERE player_id = #{player} AND raid = #{raid} " //
-			+ "ORDER BY name ")
-	public List<Item> listLoot(@Param("player") int player, @Param("raid") int raid);
+			+ "ORDER BY item_name ")
+	@Results({ @Result(column = "item_name", property = "item.name") })
+	public List<Loot> listLoot(@Param("player") int player, @Param("raid") int raid);
 }

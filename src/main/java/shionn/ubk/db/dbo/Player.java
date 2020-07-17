@@ -10,7 +10,7 @@ public class Player {
 	private PlayerClass clazz;
 	private PlayerRank rank;
 	private List<PlayerWish> wishes;
-	private List<Item> loots;
+	private List<Loot> loots;
 
 	public int getId() {
 		return id;
@@ -52,16 +52,16 @@ public class Player {
 		this.wishes = wishes;
 	}
 
-	public List<Item> getLoots(LootAttribution attribution) {
+	public List<Loot> getLoots(LootAttribution attribution) {
 		return loots.stream().filter(l -> l.getAttribution() == attribution)
 				.collect(Collectors.toList());
 	}
 
-	public List<Item> getLoots() {
+	public List<Loot> getLoots() {
 		return loots;
 	}
 
-	public void setLoots(List<Item> loots) {
+	public void setLoots(List<Loot> loots) {
 		this.loots = loots;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public class RaidEntry {
 	private Player player;
 	private boolean member;
-	private List<Item> items;
+	private List<Loot> loots;
 	private boolean bench;
 	private boolean visible;
 
@@ -25,12 +25,12 @@ public class RaidEntry {
 		this.member = member;
 	}
 
-	public List<Item> getItems() {
-		return items;
+	public List<Loot> getLoots() {
+		return loots;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setLoots(List<Loot> loots) {
+		this.loots = loots;
 	}
 
 	public boolean isBench() {
