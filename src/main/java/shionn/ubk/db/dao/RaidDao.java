@@ -41,7 +41,9 @@ public interface RaidDao {
 			+ "INNER JOIN item AS i   ON i.id = l.item " //
 			+ "WHERE l.player = #{player} AND l.raid = #{raid} " //
 			+ "ORDER BY name ")
-	@Results({ @Result(column = "name", property = "item.name") })
+	@Results({
+			@Result(column = "name", property = "item.name"),
+			@Result(column = "id", property = "item.id") })
 	public List<Loot> listLoot(@Param("player") int player, @Param("raid") int raid);
 
 	@Insert("INSERT INTO raid (name, instance, date, point, running) "
