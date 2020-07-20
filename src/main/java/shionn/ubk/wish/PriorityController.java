@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ public class PriorityController {
 	@Autowired
 	private User user;
 
+	@Cacheable(cacheNames = "priority", keyGenerator = "UserRoleKeyGenerator")
 	@RequestMapping(value = "/priority", method = RequestMethod.GET)
 	public ModelAndView list() {
 		List<Priority> dbs = session.getMapper(PriorityDao.class).list(orderBy());

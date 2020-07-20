@@ -1,5 +1,8 @@
 package shionn.ubk;
 
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +21,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "shionn.ubk" })
-// @EnableCaching()
+@EnableCaching()
 // @EnableScheduling()
 // @PropertySource("classpath:configuration.properties")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
@@ -41,10 +44,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
-	// @Bean
-	// public CacheManager cacheManager() {
-	// return new ConcurrentMapCacheManager("raidHistoric", "lootHistoric", "statistic");
-	// }
+	@Bean
+	public CacheManager cacheManager() {
+		return new ConcurrentMapCacheManager("priority");
+	}
 	//
 	// @CacheEvict(allEntries = true, value = {
 	// "raidHistoric",

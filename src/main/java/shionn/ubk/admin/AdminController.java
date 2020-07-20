@@ -2,6 +2,7 @@ package shionn.ubk.admin;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,7 @@ public class AdminController {
 				.addObject("playerranks", PlayerRank.values());
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/admin/edit-player/{id}", method = RequestMethod.POST)
 	public String editPlayer(@PathVariable(name = "id") int id,
 			@RequestParam(name = "class") PlayerClass clazz,
@@ -86,6 +88,7 @@ public class AdminController {
 				.addObject("slots", ItemSlot.values());
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
 	public String editItem(@PathVariable(name = "id") int id,
 			@RequestParam(name = "raid") RaidInstance raid,

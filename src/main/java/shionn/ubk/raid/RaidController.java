@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -59,6 +60,7 @@ public class RaidController implements Serializable {
 		return "redirect:/raid";
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/raid/update", method = RequestMethod.POST)
 	public String updateRaid(@ModelAttribute("raid") Raid raid, RedirectAttributes attr) {
 		RaidDao dao = session.getMapper(RaidDao.class);
@@ -86,6 +88,7 @@ public class RaidController implements Serializable {
 		return new ModelAndView("raid-member").addObject("raid", raid);
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/raid/edit/member/{id}", method = RequestMethod.POST)
 	public String editRaidMember(@PathVariable("id") int id, @ModelAttribute("raid") Raid raid) {
 		RaidDao dao = session.getMapper(RaidDao.class);
@@ -114,6 +117,7 @@ public class RaidController implements Serializable {
 				.addObject("items", session.getMapper(ItemDao.class).listForRaid(raid));
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.POST)
 	public String addRaidLoot(@PathVariable("raid") int raid,
 			@PathVariable("player") int player, @RequestParam("item") int item,
@@ -124,6 +128,7 @@ public class RaidController implements Serializable {
 		return "redirect:/raid";
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/raid/loot/{raid}/{player}/{item}", method = RequestMethod.GET)
 	public String rmRaidLoot(@PathVariable("raid") int raid,
 			@PathVariable("player") int player, @PathVariable("item") int item) {

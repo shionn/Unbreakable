@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public class WishListController {
 		return view;
 	}
 
+	@CacheEvict(value = "priority", allEntries = true)
 	@RequestMapping(value = "/wish/update", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute("player") Player player) {
 		PlayerWhishDao dao = session.getMapper(PlayerWhishDao.class);
