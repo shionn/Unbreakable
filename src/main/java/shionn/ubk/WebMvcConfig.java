@@ -18,7 +18,9 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "shionn.ubk" })
-//@PropertySource("classpath:configuration.properties")
+// @EnableCaching()
+// @EnableScheduling()
+// @PropertySource("classpath:configuration.properties")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -38,5 +40,19 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setExposedContextBeanNames("user");
 		return viewResolver;
 	}
+
+	// @Bean
+	// public CacheManager cacheManager() {
+	// return new ConcurrentMapCacheManager("raidHistoric", "lootHistoric", "statistic");
+	// }
+	//
+	// @CacheEvict(allEntries = true, value = {
+	// "raidHistoric",
+	// "lootHistoric",
+	// "statistic" })
+	// @Scheduled(fixedDelay = 5 * 60 * 1000, initialDelay = 500)
+	// public void reportCacheEvict() {
+	// System.out.print("Clearing caches");
+	// }
 
 }

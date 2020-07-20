@@ -37,7 +37,6 @@ public interface LootHistoricDao {
 			+ "  lh.attribution,       " //
 			+ "  lh.player_name        " //
 			+ "FROM loot_history AS lh " //
-			+ "WHERE attribution IN ('wishList', 'primary') " //
 			+ "ORDER BY loot_date DESC ")
 	@Results({
 			@Result(column = "player_name", property = "player.name"),

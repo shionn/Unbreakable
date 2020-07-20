@@ -1,7 +1,5 @@
 package shionn.ubk.raid;
 
-import java.io.Serializable;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +12,7 @@ import shionn.ubk.db.dao.StatisticDao;
 
 @Controller
 @SessionScope
-public class StatisticController implements Serializable{
-	private static final long serialVersionUID = -2644193431390094901L;
+public class StatisticController {
 	@Autowired
 	private SqlSession session;
 
