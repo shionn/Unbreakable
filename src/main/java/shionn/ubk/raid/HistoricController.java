@@ -17,14 +17,14 @@ public class HistoricController {
 	@Autowired
 	private SqlSession session;
 
-	@Cacheable(cacheNames = "historic", key = "raid")
+	@Cacheable(cacheNames = "historic", keyGenerator = "MethodNameKeyGenerator")
 	@RequestMapping(value = "/historic/raid", method = RequestMethod.GET)
 	public ModelAndView raids() {
 		RaidHistoricDao dao = session.getMapper(RaidHistoricDao.class);
 		return new ModelAndView("raid-historic").addObject("raids", dao.listAll());
 	}
 
-	@Cacheable(cacheNames = "historic", key = "loot")
+	@Cacheable(cacheNames = "historic", keyGenerator = "MethodNameKeyGenerator")
 	@RequestMapping(value = "/historic/loot", method = RequestMethod.GET)
 	public ModelAndView loots() {
 		LootHistoricDao dao = session.getMapper(LootHistoricDao.class);
