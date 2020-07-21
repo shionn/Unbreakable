@@ -1,11 +1,14 @@
 package shionn.ubk;
 
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -22,7 +25,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "shionn.ubk" })
 @EnableCaching()
-// @EnableScheduling()
+@EnableScheduling()
 // @PropertySource("classpath:configuration.properties")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
@@ -46,16 +49,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public CacheManager cacheManager() {
-		return new ConcurrentMapCacheManager("priority");
+		return new ConcurrentMapCacheManager("priority", "historic", "statistic");
 	}
-	//
-	// @CacheEvict(allEntries = true, value = {
-	// "raidHistoric",
-	// "lootHistoric",
-	// "statistic" })
-	// @Scheduled(fixedDelay = 5 * 60 * 1000, initialDelay = 500)
-	// public void reportCacheEvict() {
-	// System.out.print("Clearing caches");
-	// }
+
+	@CacheEvict(value = { "priority", "historic", "statistic" }, allEntries = true)
+	@Scheduled(cron = "0 0 1 * * *")
+	public void reportCacheEvict() {
+		System.out.print("Clearing caches");
+	}
 
 }

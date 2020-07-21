@@ -37,8 +37,9 @@ public class AdminController {
 		;
 	}
 
+	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/admin/create-player", method = RequestMethod.POST)
-	public String getCreateUser(@RequestParam("pseudo") String pseudo,
+	public String createPlayer(@RequestParam("pseudo") String pseudo,
 			@RequestParam("class") PlayerClass clazz, @RequestParam("rank") PlayerRank rank,
 			RedirectAttributes attr) {
 		session.getMapper(PlayerDao.class).create(pseudo, clazz, rank);
@@ -48,14 +49,14 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/edit-player", method = RequestMethod.POST)
-	public ModelAndView editPlayer(@RequestParam(name = "id") int id) {
+	public ModelAndView openEditPlayer(@RequestParam(name = "id") int id) {
 		Player player = session.getMapper(PlayerDao.class).readOne(id);
 		return new ModelAndView("edit-player").addObject("player", player)
 				.addObject("playerclasses", PlayerClass.values())
 				.addObject("playerranks", PlayerRank.values());
 	}
 
-	@CacheEvict(value = "priority", allEntries = true)
+	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/admin/edit-player/{id}", method = RequestMethod.POST)
 	public String editPlayer(@PathVariable(name = "id") int id,
 			@RequestParam(name = "class") PlayerClass clazz,
@@ -68,7 +69,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
-	public String getCreateUser(@RequestParam("name") String name,
+	public String createItem(@RequestParam("name") String name,
 			@RequestParam("boss") String boss, @RequestParam("raid") RaidInstance raid,
 			@RequestParam(name = "ilvl") int ilvl, @RequestParam(name = "slot") ItemSlot slot,
 			@RequestParam(name = "big", required = false) boolean big, RedirectAttributes attr) {
@@ -80,7 +81,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/edit-item", method = RequestMethod.POST)
-	public ModelAndView editItem(@RequestParam(name = "id") int id) {
+	public ModelAndView openEditItem(@RequestParam(name = "id") int id) {
 		Item item = session.getMapper(ItemDao.class).readOne(id);
 		return new ModelAndView("edit-item")
 				.addObject("item", item)
@@ -88,7 +89,7 @@ public class AdminController {
 				.addObject("slots", ItemSlot.values());
 	}
 
-	@CacheEvict(value = "priority", allEntries = true)
+	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
 	public String editItem(@PathVariable(name = "id") int id,
 			@RequestParam(name = "raid") RaidInstance raid,

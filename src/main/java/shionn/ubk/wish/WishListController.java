@@ -38,7 +38,7 @@ public class WishListController {
 		return view;
 	}
 
-	@CacheEvict(value = "priority", allEntries = true)
+	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/wish/update", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute("player") Player player) {
 		PlayerWhishDao dao = session.getMapper(PlayerWhishDao.class);
