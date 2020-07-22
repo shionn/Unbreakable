@@ -12,14 +12,16 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import shionn.ubk.db.dao.frag.AttendanceFragDao;
 import shionn.ubk.db.dbo.Loot;
+import shionn.ubk.db.dbo.Priority;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
 import shionn.ubk.db.dbo.RaidInstance;
 import shionn.ubk.db.dbo.SortOrder;
 
 
-public interface RaidDao {
+public interface RaidDao extends AttendanceFragDao {
 
 	@Select("SELECT * FROM raid WHERE running IS true ORDER BY date DESC")
 	public List<Raid> listRunnings();
@@ -112,4 +114,25 @@ public interface RaidDao {
 			+ "FROM player_wish AS pw " //
 			+ "WHERE player = #{player} AND item = #{item}")
 	public boolean isWl(@Param("player") int player, @Param("item") int item);
+
+	@Select("SELECT p.name AS player_name, p.rank AS player_rank, p.class AS player_class, p.id AS player_id, "
+			+ "ip.point, ip.ratio, ip.nb_raid, ip.nb_loot, " //
+			+ "pl.raid IS NOT NULL AS looted, " //
+			+ "ip.nb_raid_without_loot, ip.nb_raid_wait, " //
+			+ "ip.ev, ip.gp, ip.evgp_ratio " //
+			+ "FROM item_priority     AS ip " //
+			+ "INNER JOIN player      AS p  ON p.id  = ip.player     AND p.rank != 'inactif' "
+			+ "INNER JOIN raid_entry  AS re ON re.player = ip.player AND re.raid = #{raid} "
+			+ "LEFT  JOIN player_loot AS pl ON pl.player = ip.player AND pl.item = ip.item " //
+			+ "WHERE ip.item = #{item} " //
+			+ "ORDER BY evgp_ratio ASC")
+	@Results({
+			@Result(column = "player_name", property = "player.name"),
+			@Result(column = "player_rank", property = "player.rank"),
+			@Result(column = "player_class", property = "player.clazz"),
+			@Result(column = "player_id", property = "player.id"),
+			@Result(column = "player_id", property = "attendances", many = @Many(select = "listAttendance")) })
+	List<Priority> listItemHelp(@Param("item") int item, @Param("raid") int raid);
+
+
 }

@@ -36,6 +36,8 @@ public class RaidController implements Serializable {
 	@Autowired
 	private SqlSession session;
 
+	private int item = 0;
+
 	private SortOrder order = SortOrder.clazz;
 
 	@RequestMapping(value = "/raid", method = RequestMethod.GET)
@@ -45,8 +47,23 @@ public class RaidController implements Serializable {
 		for (Raid raid : raids) {
 			raid.setPlayers(dao.listRunningPlayer(raid.getId(), order));
 		}
-		return new ModelAndView("raid").addObject("runnings", raids).addObject("instances",
+		ModelAndView view = new ModelAndView("raid").addObject("runnings", raids).addObject(
+				"instances",
 				RaidInstance.values());
+		if (!raids.isEmpty()) {
+			view.addObject("items",
+					session.getMapper(ItemDao.class).listForRaid(raids.get(0).getId()));
+			if (item > 0) {
+				view.addObject("priorities", dao.listItemHelp(item, raids.get(0).getId()));
+			}
+		}
+		return view;
+	}
+
+	@RequestMapping(value = "/raid/itemhelp", method = RequestMethod.POST)
+	public String viewItemHelp(@RequestParam("item") int item) {
+		this.item = item;
+		return "redirect:/raid";
 	}
 
 	@RequestMapping(value = "/raid/add", method = RequestMethod.POST)

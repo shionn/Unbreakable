@@ -1,5 +1,7 @@
 package shionn.ubk.db.dbo;
 
+import java.util.List;
+
 public class Item {
 
 	private int id;
@@ -9,6 +11,7 @@ public class Item {
 	private boolean big;
 	private ItemSlot slot;
 	private int ilvl;
+	private List<PlayerClass> classes;
 
 	public int getId() {
 		return id;
@@ -86,6 +89,14 @@ public class Item {
 
 	public void setIlvl(int ilvl) {
 		this.ilvl = ilvl;
+	}
+
+	public List<PlayerClass> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(List<PlayerClass> classes) {
+		this.classes = classes;
 	}
 
 }
