@@ -131,7 +131,8 @@ public class RaidController implements Serializable {
 		return new ModelAndView("raid-loot") //
 				.addObject("raid", raid) //
 				.addObject("player", player) //
-				.addObject("items", session.getMapper(ItemDao.class).listForRaid(raid));
+				.addObject("items",
+						session.getMapper(ItemDao.class).listForRaidAndPlayer(raid, player));
 	}
 
 	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
