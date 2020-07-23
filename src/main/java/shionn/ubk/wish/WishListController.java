@@ -19,6 +19,7 @@ import shionn.ubk.db.dao.PlayerDao;
 import shionn.ubk.db.dao.PlayerWhishDao;
 import shionn.ubk.db.dbo.Item;
 import shionn.ubk.db.dbo.Player;
+import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerWish;
 
 @Controller
@@ -28,12 +29,13 @@ public class WishListController {
 	private SqlSession session;
 
 	@RequestMapping(value = "/wish", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(defaultValue = "-1", name = "player") int player) {
+	public ModelAndView list(@RequestParam(defaultValue = "-1", name = "player") int playerId) {
 		PlayerDao dao = session.getMapper(PlayerDao.class);
 		ModelAndView view = new ModelAndView("wish").addObject("players", dao.listPlayers())
 				.addObject("wishes", dao.listWishes());
-		if (player !=-1) {
-			view.addObject("player", readPlayer(player)).addObject("items", readItems());
+		if (playerId != -1) {
+			Player player = readPlayer(playerId);
+			view.addObject("player", player).addObject("items", readItems(player.getClazz()));
 		}
 		return view;
 	}
@@ -69,8 +71,8 @@ public class WishListController {
 		return player;
 	}
 
-	private List<Item> readItems() {
-		List<Item> items = new ArrayList<>(session.getMapper(ItemDao.class).list());
+	private List<Item> readItems(PlayerClass clazz) {
+		List<Item> items = new ArrayList<>(session.getMapper(ItemDao.class).listForClass(clazz));
 		items.add(0, noneItem());
 		return items;
 	}

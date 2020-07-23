@@ -31,6 +31,12 @@ public interface ItemDao {
 	@Select("SELECT * FROM item ORDER BY name")
 	List<Item> list();
 
+	@Select("SELECT i.id, i.name " //
+			+ "FROM       item            AS i " //
+			+ "INNER JOIN item_assignment AS ia ON ia.item = i.id AND ia.class = #{class} "
+			+ "ORDER BY name")
+	List<Item> listForClass(PlayerClass clazz);
+
 	@Select("SELECT * FROM item WHERE id = #{id}")
 	@Results({
 			@Result(column = "id", property = "id"),

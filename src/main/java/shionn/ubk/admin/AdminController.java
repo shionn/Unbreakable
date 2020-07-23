@@ -69,7 +69,7 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
-	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createvoid-item", method = RequestMethod.POST)
 	public String createItem(@ModelAttribute("item") Item item, 
 			RedirectAttributes attr) {
 		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot()));
