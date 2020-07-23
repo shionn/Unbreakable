@@ -12,6 +12,7 @@ public class Item {
 	private ItemSlot slot;
 	private int ilvl;
 	private List<PlayerClass> classes;
+	private int gp;
 
 	public int getId() {
 		return id;
@@ -97,6 +98,18 @@ public class Item {
 
 	public void setClasses(List<PlayerClass> classes) {
 		this.classes = classes;
+	}
+
+	public void setGp(int gp) {
+		this.gp = gp;
+	}
+
+	public int getGp() {
+		return gp;
+	}
+
+	public boolean isAvailableFor(PlayerClass clazz) {
+		return classes.contains(clazz);
 	}
 
 }

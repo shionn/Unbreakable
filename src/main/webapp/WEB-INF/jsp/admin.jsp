@@ -90,6 +90,12 @@
 				<label for="boss">Boss</label>
 				<input name="boss" type="text" placeholder="Boss" required="required">
 			</div>
+			<div class="pure-control-group">
+				<label>Disponible pour :</label>
+				<c:forEach items="${playerclasses}" var="cl" varStatus="s">
+					<input type="checkbox" name="classes[${s.index}]" value="${cl}">${cl} &nbsp;
+				</c:forEach>
+			</div>
 			<div class="pure-controls">
 				<button type="submit" class="pure-button pure-button-primary">Valider</button>
 			</div>

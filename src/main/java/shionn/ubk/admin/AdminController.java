@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,12 +70,16 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
-	public String createItem(@RequestParam("name") String name,
-			@RequestParam("boss") String boss, @RequestParam("raid") RaidInstance raid,
-			@RequestParam(name = "ilvl") int ilvl, @RequestParam(name = "slot") ItemSlot slot,
-			@RequestParam(name = "big", required = false) boolean big, RedirectAttributes attr) {
-		session.getMapper(ItemDao.class).create(name, raid, boss, ilvl, slot, big,
-				new EvgpComputer().computeGp(ilvl, slot));
+	public String createItem(@ModelAttribute("item") Item item, 
+			RedirectAttributes attr) {
+		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot()));
+		ItemDao dao = session.getMapper(ItemDao.class);
+		dao.create(item);
+		for (PlayerClass clazz : item.getClasses()) {
+			if (clazz != null) {
+				dao.createItemAssignment(item.getId(), clazz);
+			}
+		}
 		session.commit();
 		attr.addFlashAttribute("message", "Item crée");
 		return "redirect:/admin";
@@ -85,21 +90,24 @@ public class AdminController {
 		Item item = session.getMapper(ItemDao.class).readOne(id);
 		return new ModelAndView("edit-item")
 				.addObject("item", item)
+				.addObject("playerclasses", PlayerClass.values()) //
 				.addObject("raids", RaidInstance.values())
 				.addObject("slots", ItemSlot.values());
 	}
 
 	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/admin/edit-item/{id}", method = RequestMethod.POST)
-	public String editItem(@PathVariable(name = "id") int id,
-			@RequestParam(name = "raid") RaidInstance raid,
-			@RequestParam(name = "boss") String boss,
-			@RequestParam(name = "name") String name,
-			@RequestParam(name = "ilvl") int ilvl,
-			@RequestParam(name = "slot") ItemSlot slot,
-			@RequestParam(name = "big", required = false) boolean big) {
+	public String editItem(@ModelAttribute("item") Item item, @PathVariable("id") int id) {
 		ItemDao dao = session.getMapper(ItemDao.class);
-		dao.update(id, name, raid, boss, ilvl, slot, big, new EvgpComputer().computeGp(ilvl, slot));
+		item.setId(id);
+		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot()));
+		dao.update(item);
+		dao.deleteItemAssignment(item.getId());
+		for (PlayerClass clazz : item.getClasses()) {
+			if (clazz != null) {
+				dao.createItemAssignment(item.getId(), clazz);
+			}
+		}
 		session.commit();
 		return "redirect:/admin";
 	}
