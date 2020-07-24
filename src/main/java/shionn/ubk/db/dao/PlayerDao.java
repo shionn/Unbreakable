@@ -25,8 +25,11 @@ public interface PlayerDao {
 	@Results({ @Result(column = "class", property = "clazz") })
 	Player readOne(int id);
 
-	@Select("SELECT * FROM player ORDER BY name")
+	@Select("SELECT * FROM player WHERE rank != 'inactif' ORDER BY name")
 	List<Player> listPlayers();
+
+	@Select("SELECT * FROM player ORDER BY name")
+	List<Player> listAllPlayers();
 
 	@Select("SELECT p.name, p.class, p.rank, i.name AS item_name " //
 			+ "FROM player           AS p "
