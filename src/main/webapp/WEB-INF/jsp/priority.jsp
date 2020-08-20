@@ -10,6 +10,7 @@
 					<th>Objet</th>
 					<th colspan="3">Personnage</th>
 					<c:if test="${user.mdc}">
+						<th>Sel</th>
 						<th>Priorité</th>
 						<th colspan="3">EVGP</th>
 						<th>NbLoot</th>
@@ -21,7 +22,7 @@
 				</tr>
 				<c:if test="${user.mdc}">
 					<tr>
-						<th colspan="5"></th>
+						<th colspan="6"></th>
 						<th>EV</th>
 						<th>GP</th>
 						<th>%</th>
@@ -51,6 +52,7 @@
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 							<td style="border-right: 1px solid #cbcbcb">${p.player.rank}</td>
 							<c:if test="${user.mdc}">
+								<td><input type="checkbox" data-url="<spring:url value="/priority/${p.player.id}/${p.item.id}"/>" <c:if test="${p.selected}"> checked="checked"</c:if>/></td>
 								<td style="border-right: 1px solid #cbcbcb">
 									<c:if test="${p.looted}">Obtenu</c:if>
 									<c:if test="${not p.looted}">${p.order}</c:if>
@@ -79,5 +81,16 @@
 				</c:forEach>
 			</tbody>
 		</table>
+	</jsp:attribute>
+	<jsp:attribute name="script">
+		<script type="text/javascript">
+			$(function(){
+				$("input[type=checkbox]").on("click", function(e) {
+					$.ajax({
+						url : $(e.target).attr("data-url")
+					})
+				})
+			});
+		</script>
 	</jsp:attribute>
 </t:template>

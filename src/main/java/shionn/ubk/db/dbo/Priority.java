@@ -8,6 +8,7 @@ public class Priority {
 	private int nbRaidWait;
 	private boolean looted;
 	private PlayerStat stat;
+	private boolean selected;
 
 	public Item getItem() {
 		return item;
@@ -64,6 +65,14 @@ public class Priority {
 
 	public void setStat(PlayerStat stat) {
 		this.stat = stat;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 	@Override

@@ -45,4 +45,9 @@ public interface PlayerWhishDao {
 			+ "</script>")
 	int disable(@Param("player") int player, @Param("items") List<Integer> items);
 
+	@Update("UPDATE player_wish " //
+			+ "SET selected = NOT(selected) " //
+			+ "WHERE player = #{player} AND item = #{item}")
+	int updateSelected(@Param("player") int player, @Param("item") int item);
+
 }
