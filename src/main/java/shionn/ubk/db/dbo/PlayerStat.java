@@ -90,4 +90,26 @@ public class PlayerStat {
 		this.evgpRatio = evgpRatio;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + evgpRatio;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PlayerStat other = (PlayerStat) obj;
+		if (evgpRatio != other.evgpRatio)
+			return false;
+		return true;
+	}
+
 }

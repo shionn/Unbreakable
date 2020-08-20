@@ -1,22 +1,13 @@
 package shionn.ubk.db.dbo;
 
-import java.util.List;
-
 public class Priority {
 	private Item item;
 	private Player player;
 	private int order;
 	private int point;
-	private int ratio;
-	private int nbRaid;
-	private int nbRaidWithoutLoot;
 	private int nbRaidWait;
-	private int nbLoot;
-	private int ev;
-	private int gp;
-	private int evgpRatio;
 	private boolean looted;
-	private List<RaidAttendance> attendances;
+	private PlayerStat stat;
 
 	public Item getItem() {
 		return item;
@@ -50,14 +41,6 @@ public class Priority {
 		return point;
 	}
 
-	public void setRatio(int ratio) {
-		this.ratio = ratio;
-	}
-
-	public int getRatio() {
-		return ratio;
-	}
-
 	public boolean isLooted() {
 		return looted;
 	}
@@ -66,29 +49,6 @@ public class Priority {
 		this.looted = looted;
 	}
 
-	public int getNbRaid() {
-		return nbRaid;
-	}
-
-	public void setNbRaid(int nbRaid) {
-		this.nbRaid = nbRaid;
-	}
-
-	public int getNbLoot() {
-		return nbLoot;
-	}
-
-	public void setNbLoot(int nbLoot) {
-		this.nbLoot = nbLoot;
-	}
-
-	public int getNbRaidWithoutLoot() {
-		return nbRaidWithoutLoot;
-	}
-
-	public void setNbRaidWithoutLoot(int nbRaidWithoutLoot) {
-		this.nbRaidWithoutLoot = nbRaidWithoutLoot;
-	}
 
 	public int getNbRaidWait() {
 		return nbRaidWait;
@@ -98,50 +58,20 @@ public class Priority {
 		this.nbRaidWait = nbRaidWait;
 	}
 
-	public List<RaidAttendance> getAttendances() {
-		return attendances;
+	public PlayerStat getStat() {
+		return stat;
 	}
 
-	public void setAttendances(List<RaidAttendance> attendances) {
-		this.attendances = attendances;
-	}
-
-	public RaidAttendance getAttendance(RaidInstance instance, RaidAttendancePeriod period) {
-		return attendances.stream()
-				.filter(a -> a.getInstance() == instance && a.getPeriod() == period).findFirst()
-				.orElseGet(() -> new RaidAttendance());
-	}
-
-	public int getEv() {
-		return ev;
-	}
-
-	public void setEv(int ev) {
-		this.ev = ev;
-	}
-
-	public int getGp() {
-		return gp;
-	}
-
-	public void setGp(int gp) {
-		this.gp = gp;
-	}
-
-	public int getEvgpRatio() {
-		return evgpRatio;
-	}
-
-	public void setEvgpRatio(int evgpRatio) {
-		this.evgpRatio = evgpRatio;
+	public void setStat(PlayerStat stat) {
+		this.stat = stat;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + evgpRatio;
 		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		result = prime * result + ((stat == null) ? 0 : stat.hashCode());
 		return result;
 	}
 
@@ -154,16 +84,18 @@ public class Priority {
 		if (getClass() != obj.getClass())
 			return false;
 		Priority other = (Priority) obj;
-		if (evgpRatio != other.evgpRatio)
-			return false;
 		if (item == null) {
 			if (other.item != null)
 				return false;
 		} else if (!item.equals(other.item))
 			return false;
+		if (stat == null) {
+			if (other.stat != null)
+				return false;
+		} else if (!stat.equals(other.stat))
+			return false;
 		return true;
 	}
-
 
 
 }

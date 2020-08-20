@@ -5,6 +5,7 @@ public class PlayerWish {
 	private Player player;
 	private Item item;
 	private int ratio;
+	private boolean selected;
 
 	public Player getPlayer() {
 		return player;
@@ -28,6 +29,14 @@ public class PlayerWish {
 
 	public void setRatio(int ratio) {
 		this.ratio = ratio;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }

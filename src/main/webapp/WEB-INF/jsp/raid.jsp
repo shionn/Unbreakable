@@ -63,24 +63,24 @@
 								<td>${p.player.name}</td>
 								<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 								<td style="border-right: 1px solid #cbcbcb">${p.player.rank}</td>
-								<td>${p.ev}</td>
-								<td>${p.gp}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.evgpRatio} %</td>
-								<td>${p.nbLoot/10}</td>
+								<td>${p.stat.ev}</td>
+								<td>${p.stat.gp}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.stat.evgpRatio} %</td>
+								<td>${p.stat.nbLoot/10}</td>
 								<td style="border-right: 1px solid #cbcbcb">${p.point} %</td>
-								<td>${p.nbRaid/10}</td>
-								<td>${p.nbRaidWithoutLoot/10}</td>
+								<td>${p.stat.nbRaid/10}</td>
+								<td>${p.stat.nbRaidWithoutLoot/10}</td>
 								<td style="border-right: 1px solid #cbcbcb">${p.nbRaidWait/10}</td>
-								<td>${p.getAttendance('MC','always').attendance}</td>
-								<td>${p.getAttendance('BWL','always').attendance}</td>
-								<td>${p.getAttendance('AQ40','always').attendance}</td>
-								<td>${p.getAttendance('ZG','always').attendance}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.getAttendance('AQ20','always').attendance}</td>
-								<td>${p.getAttendance('MC','day14').attendance}</td>
-								<td>${p.getAttendance('BWL','day14').attendance}</td>
-								<td>${p.getAttendance('AQ20','day14').attendance}</td>
-								<td>${p.getAttendance('ZG','day14').attendance}</td>
-								<td>${p.getAttendance('AQ40','day14').attendance}</td>
+								<td>${p.stat.getAttendance('MC','always').attendance}</td>
+								<td>${p.stat.getAttendance('BWL','always').attendance}</td>
+								<td>${p.stat.getAttendance('AQ40','always').attendance}</td>
+								<td>${p.stat.getAttendance('ZG','always').attendance}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.stat.getAttendance('AQ20','always').attendance}</td>
+								<td>${p.stat.getAttendance('MC','day14').attendance}</td>
+								<td>${p.stat.getAttendance('BWL','day14').attendance}</td>
+								<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>
+								<td>${p.stat.getAttendance('ZG','day14').attendance}</td>
+								<td>${p.stat.getAttendance('AQ40','day14').attendance}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

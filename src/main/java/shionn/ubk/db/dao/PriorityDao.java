@@ -13,7 +13,8 @@ import shionn.ubk.db.dbo.Priority;
 
 public interface PriorityDao extends AttendanceFragDao {
 
-	@Select("SELECT p.name AS player_name, p.rank AS player_rank, p.class AS player_class, p.id AS player_id, "
+	@Select("SELECT p.name AS player_name, p.rank AS player_rank, " //
+			+ "p.class AS player_class, p.id AS player_id, " // .
 			+ "i.name AS item_name, i.id AS item_id, " //
 			+ "ip.point, ip.ratio, ip.nb_raid, ip.nb_loot, " //
 			+ "pl.raid IS NOT NULL AS looted, " //
@@ -28,7 +29,14 @@ public interface PriorityDao extends AttendanceFragDao {
 			@Result(column = "player_rank", property = "player.rank"),
 			@Result(column = "player_class", property = "player.clazz"),
 			@Result(column = "player_id", property = "player.id"),
-			@Result(column = "player_id", property = "attendances", many = @Many(select = "listAttendance")),
+			@Result(column = "player_id", property = "stat.attendances", many = @Many(select = "listAttendance")),
+			@Result(column = "ratio", property = "stat.ratio"),
+			@Result(column = "nb_raid", property = "stat.nbRaid"),
+			@Result(column = "nb_loot", property = "stat.nbLoot"),
+			@Result(column = "nb_raid_without_loot", property = "stat.nbRaidWithoutLoot"),
+			@Result(column = "ev", property = "stat.ev"),
+			@Result(column = "gp", property = "stat.gp"),
+			@Result(column = "evgp_ratio", property = "stat.evgpRatio"),
 			@Result(column = "item_name", property = "item.name"),
 			@Result(column = "item_id", property = "item.id") })
 	List<Priority> list(@Param("orderBy") String orderBy);
