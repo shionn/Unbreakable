@@ -23,6 +23,9 @@
 			<li class="pure-menu-item"><a href='<spring:url value="/historic/raid"/>' class="pure-menu-link">Histo des Raids</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/historic/loot"/>' class="pure-menu-link">Histo des Loots</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/statistic"/>' class="pure-menu-link">Statistique</a></li>
+			<c:if test="${user.admin or user.mdc}">
+				<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Pré Raid</a></li>
+			</c:if>
 			<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Liste de souhait</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>

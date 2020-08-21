@@ -153,7 +153,7 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "INNER JOIN raid_entry  AS re ON re.player = ip.player AND re.raid = #{raid} "
 			+ "LEFT  JOIN player_loot AS pl ON pl.player = ip.player AND pl.item = ip.item " //
 			+ "WHERE ip.selected = true " //
-			+ "ORDER BY item_id, evgp_ratio ASC")
+			+ "ORDER BY item_name, evgp_ratio ASC")
 	@Results({
 			@Result(column = "item_id", property = "item.id"),
 			@Result(column = "item_name", property = "item.name"),
