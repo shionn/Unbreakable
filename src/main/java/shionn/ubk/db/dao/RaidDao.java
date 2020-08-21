@@ -142,5 +142,33 @@ public interface RaidDao extends AttendanceFragDao {
 			@Result(column = "evgp_ratio", property = "stat.evgpRatio") })
 	List<Priority> listItemHelp(@Param("item") int item, @Param("raid") int raid);
 
+	@Select("SELECT p.name AS player_name, p.rank AS player_rank, " //
+			+ "p.class AS player_class, p.id AS player_id, " //
+			+ "ip.point, ip.ratio, ip.nb_raid, ip.nb_loot, " //
+			+ "pl.raid IS NOT NULL AS looted, " //
+			+ "ip.nb_raid_without_loot, ip.nb_raid_wait, " //
+			+ "ip.ev, ip.gp, ip.evgp_ratio, ip.item AS item_id, ip.item_name " //
+			+ "FROM item_priority     AS ip " //
+			+ "INNER JOIN player      AS p  ON p.id  = ip.player     AND p.rank != 'inactif' "
+			+ "INNER JOIN raid_entry  AS re ON re.player = ip.player AND re.raid = #{raid} "
+			+ "LEFT  JOIN player_loot AS pl ON pl.player = ip.player AND pl.item = ip.item " //
+			+ "WHERE ip.selected = true " //
+			+ "ORDER BY item_id, evgp_ratio ASC")
+	@Results({
+			@Result(column = "item_id", property = "item.id"),
+			@Result(column = "item_name", property = "item.name"),
+			@Result(column = "player_name", property = "player.name"),
+			@Result(column = "player_rank", property = "player.rank"),
+			@Result(column = "player_class", property = "player.clazz"),
+			@Result(column = "player_id", property = "player.id"),
+			@Result(column = "player_id", property = "stat.attendances", many = @Many(select = "listAttendance")),
+			@Result(column = "ratio", property = "stat.ratio"),
+			@Result(column = "nb_raid", property = "stat.nbRaid"),
+			@Result(column = "nb_loot", property = "stat.nbLoot"),
+			@Result(column = "nb_raid_without_loot", property = "stat.nbRaidWithoutLoot"),
+			@Result(column = "ev", property = "stat.ev"),
+			@Result(column = "gp", property = "stat.gp"),
+			@Result(column = "evgp_ratio", property = "stat.evgpRatio") })
+	List<Priority> listSelectedWishList(@Param("raid") int id);
 
 }

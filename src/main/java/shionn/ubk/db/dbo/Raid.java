@@ -2,6 +2,7 @@ package shionn.ubk.db.dbo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,6 +17,7 @@ public class Raid {
 	private RaidInstance instance;
 	private int ev;
 	private int initialEv;
+	private Map<Item, List<Priority>> selectedWishList;
 	
 	public int getId() {
 		return id;
@@ -90,4 +92,11 @@ public class Raid {
 		this.initialEv = initialEv;
 	}
 
+	public void setSelectedWishList(Map<Item, List<Priority>> selectedWishList) {
+		this.selectedWishList = selectedWishList;
+	}
+
+	public Map<Item, List<Priority>> getSelectedWishList() {
+		return selectedWishList;
+	}
 }

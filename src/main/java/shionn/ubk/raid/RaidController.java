@@ -26,6 +26,7 @@ import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
 import shionn.ubk.db.dbo.RaidInstance;
 import shionn.ubk.db.dbo.SortOrder;
+import shionn.ubk.wish.PrioritiesBuilder;
 
 
 @Controller
@@ -46,6 +47,8 @@ public class RaidController implements Serializable {
 		List<Raid> raids = dao.listRunnings();
 		for (Raid raid : raids) {
 			raid.setPlayers(dao.listRunningPlayer(raid.getId(), order));
+			raid.setSelectedWishList(
+					new PrioritiesBuilder().groupByItem(dao.listSelectedWishList(raid.getId())));
 		}
 		ModelAndView view = new ModelAndView("raid").addObject("runnings", raids).addObject(
 				"instances",
