@@ -5,7 +5,6 @@ import java.util.List;
 
 public class PlayerStat {
 	private Player player;
-	private int ratio;
 	private int nbRaid;
 	private int nbRaidWithoutLoot;
 	private int nbLoot;
@@ -21,11 +20,7 @@ public class PlayerStat {
 	}
 
 	public int getRatio() {
-		return ratio;
-	}
-
-	public void setRatio(int ratio) {
-		this.ratio = ratio;
+		return nbLoot * 100 / nbRaid;
 	}
 
 	public int getNbRaid() {

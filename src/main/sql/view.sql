@@ -287,7 +287,7 @@ SELECT  i.id   AS item,      p.id   AS player,
         ROUND(IFNULL(sum(l.point), 0)) AS nb_loot,
         IFNULL(sum(r.point), 0) AS nb_raid,
         IFNULL(nl.nb_raid, 0)   AS nb_raid_without_loot,
-        IFNULL(pww.point, 0)    AS nb_raid_wait, 
+        IFNULL(pww.point, 0)    AS nb_raid_wait,
         pw.selected
 FROM player_wish                  AS pw
 INNER JOIN item                   AS i   ON pw.item   = i.id
@@ -296,6 +296,61 @@ LEFT JOIN item_point_history_loot AS l   ON pw.item   = l.item AND pw.player = l
 LEFT JOIN item_point_history_raid AS r   ON pw.item   = r.item AND pw.player = r.player
 LEFT JOIN no_loot                 AS nl  ON nl.player = p.id
 LEFT JOIN player_wish_wait        AS pww ON pww.player = pw.player AND pww.item = pw.item
+LEFT JOIN evgp                           ON evgp.player = p.id
+WHERE pw.running = true
+GROUP BY item, player;
+
+-- supression des l'ancien systeme de point
+
+CREATE OR REPLACE VIEW player_wish_wait AS
+SELECT i.id AS item,   i.name AS item_name,
+       p.id AS player, p.name AS player_name, p.rank, p.class,
+       0 AS point,
+       count(rpw.raid) AS nb_raid
+FROM raid_player_wish  AS rpw
+INNER JOIN player_wish AS pw  ON pw.player = rpw.player AND pw.item = rpw.item AND pw.running = true
+INNER JOIN player      AS p   ON p.id = rpw.player
+INNER JOIN item        AS i   ON i.id = rpw.item
+GROUP BY item, player;
+
+CREATE OR REPLACE VIEW no_loot AS
+SELECT count(e.raid) AS nb_raid, e.player
+FROM raid AS r
+INNER JOIN raid_entry AS e ON e.raid = r.id
+WHERE r.date > (SELECT loot_date FROM last_player_loot AS lpl WHERE lpl.player = e.player)
+GROUP BY player;
+
+CREATE OR REPLACE VIEW player_nb_loot AS
+SELECT count(p.item) AS nb_loot, p.player
+FROM   player_loot   AS p
+GROUP BY player;
+
+CREATE OR REPLACE VIEW player_nb_raid AS
+SELECT count(e.raid) AS nb_raid, e.player
+FROM   raid_entry    AS e
+GROUP BY player;
+
+CREATE OR REPLACE VIEW item_priority AS
+SELECT  i.id   AS item,      p.id   AS player,
+        i.name AS item_name, p.name AS player_name,
+        0         AS point,
+        pw.ratio  AS ratio,
+        evgp.ev                 AS ev,
+        evgp.gp                 AS gp,
+        ROUND(evgp.ratio * 100) AS evgp_ratio,
+        pnl.nb_loot             AS nb_loot,
+        pnr.nb_raid             AS nb_raid,
+        IFNULL(nl.nb_raid, 0)     AS nb_raid_without_loot,
+        IFNULL(pww.nb_raid, 0)    AS nb_raid_wait,
+        pw.selected
+FROM player_wish                  AS pw
+INNER JOIN item                   AS i   ON pw.item     = i.id
+INNER JOIN player                 AS p   ON pw.player   = p.id
+LEFT JOIN no_loot                 AS nl  ON nl.player   = p.id
+LEFT JOIN player_nb_loot          AS pnl ON pnl.player  = p.id
+LEFT JOIN player_nb_raid          AS pnr ON pnr.player  = p.id
+LEFT JOIN player_wish_wait        AS pww ON pww.player  = pw.player
+                                        AND pww.item    = pw.item
 LEFT JOIN evgp                           ON evgp.player = p.id
 WHERE pw.running = true
 GROUP BY item, player;

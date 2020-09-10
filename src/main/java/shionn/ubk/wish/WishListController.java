@@ -24,7 +24,7 @@ import shionn.ubk.db.dbo.PlayerWish;
 
 @Controller
 public class WishListController {
-	private static final int MAX_ITEM = 20;
+	private static final int MAX_ITEM = 10;
 	@Autowired
 	private SqlSession session;
 
@@ -63,7 +63,7 @@ public class WishListController {
 		while (player.getWishes().size() < MAX_ITEM) {
 			PlayerWish wish = new PlayerWish();
 			wish.setItem(noneItem());
-			wish.setRatio(0);
+			wish.setRatio(10);
 			List<PlayerWish> wishes = new ArrayList<PlayerWish>(player.getWishes());
 			wishes.add(wish);
 			player.setWishes(wishes);

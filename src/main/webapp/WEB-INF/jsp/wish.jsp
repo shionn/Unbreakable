@@ -39,7 +39,7 @@
 									<option value="${item.id}" <c:if test="${w.item.id==item.id}">selected="selected"</c:if>>${item.name}</option>
 								</c:forEach>
 							</select>
-							<input name="wishes[${s.index}].ratio" type="text" value="${w.ratio}">
+							<input name="wishes[${s.index}].ratio" type="text" value="${w.ratio}" readonly="readonly">
 						</div>
 					</c:forEach>
 					<div class="pure-controls">

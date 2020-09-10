@@ -66,11 +66,11 @@
 								<td>${p.stat.ev}</td>
 								<td>${p.stat.gp}</td>
 								<td style="border-right: 1px solid #cbcbcb">${p.stat.evgpRatio} %</td>
-								<td>${p.stat.nbLoot/10}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.point} %</td>
-								<td>${p.stat.nbRaid/10}</td>
-								<td>${p.stat.nbRaidWithoutLoot/10}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.nbRaidWait/10}</td>
+								<td>${p.stat.nbLoot}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.stat.ratio} %</td>
+								<td>${p.stat.nbRaid}</td>
+								<td>${p.stat.nbRaidWithoutLoot}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.nbRaidWait}</td>
 								<td>${p.stat.getAttendance('MC','always').attendance}</td>
 								<td>${p.stat.getAttendance('BWL','always').attendance}</td>
 								<td>${p.stat.getAttendance('AQ40','always').attendance}</td>
@@ -87,7 +87,7 @@
 				</table>
 			</c:if>
 		</c:if>
-		
+
 		<c:forEach items="${runnings}" var="raid" varStatus="i">
 			<spring:url value="/raid/update" var="url"/>
 			<form:form method="POST" class="pure-form-aligned" modelAttribute="raid" action="${url}">

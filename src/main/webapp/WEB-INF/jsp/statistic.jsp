@@ -45,9 +45,9 @@
 							<td>${s.ev}</td>
 							<td>${s.gp}</td>
 							<td style="border-right: 1px solid #cbcbcb">${s.evgpRatio} %</td>
-							<td style="border-right: 1px solid #cbcbcb">${s.nbLoot/10}</td>
-							<td>${s.nbRaid/10}</td>
-							<td style="border-right: 1px solid #cbcbcb">${s.nbRaidWithoutLoot/10}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.nbLoot}</td>
+							<td>${s.nbRaid}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.nbRaidWithoutLoot}</td>
 							<td>${s.getAttendance('MC','always').attendance}</td>
 							<td>${s.getAttendance('BWL','always').attendance}</td>
 							<td>${s.getAttendance('AQ40','always').attendance}</td>
