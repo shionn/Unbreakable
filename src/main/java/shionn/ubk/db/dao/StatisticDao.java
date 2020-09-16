@@ -14,18 +14,14 @@ import shionn.ubk.db.dbo.RaidAttendance;
 
 public interface StatisticDao {
 
-	@Select("SELECT p.id AS player, p.name, p.class, p.rank, " //
-			+ "IFNULL(ip.point,0) AS point, " //
-			+ "IFNULL(ip.nb_loot,0) AS nb_loot, " //
-			+ "IFNULL(ip.nb_raid,0) AS nb_raid, " //
-			+ "IFNULL(ip.nb_raid_without_loot,0) AS nb_raid_without_loot, " //
-			+ "evgp.ev, evgp.gp, ROUND(evgp.ratio*100) AS evgp_ratio, " //
-			+ "p.rank = 'reroll' AS reroll " //
-			+ "FROM player             AS p " //
-			+ "LEFT JOIN item_priority AS ip ON p.id = ip.player " //
-			+ "LEFT JOIN evgp                ON p.id = evgp.player " //
-			+ "WHERE p.rank != 'inactif' " //
-			+ "GROUP BY p.id " //
+	@Select("SELECT player, name, class, rank, " //
+			+ "nb_loot, " //
+			+ "nb_raid, " //
+			+ "nb_raid_without_loot, " //
+			+ "ev, gp, ROUND(ratio*100) AS evgp_ratio, " //
+			+ "rank = 'reroll' AS reroll " //
+			+ "FROM player_statistic " //
+			+ "WHERE rank != 'inactif' " //
 			+ "ORDER BY reroll, class, name ")
 	@Results({ @Result(column = "player", property = "player.id"),
 			@Result(column = "name", property = "player.name"),

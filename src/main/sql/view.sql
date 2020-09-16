@@ -355,4 +355,20 @@ LEFT JOIN evgp                           ON evgp.player = p.id
 WHERE pw.running = true
 GROUP BY item, player;
 
+CREATE OR REPLACE VIEW player_nb_loot AS
+SELECT count(p.item) AS nb_loot, p.player
+FROM   player_loot   AS p
+WHERE  p.ratio = 10
+GROUP BY player;
 
+CREATE OR REPLACE VIEW player_statistic AS
+SELECT p.id AS player, p.name, p.class, p.rank,
+e.ev, e.gp, e.ratio,
+IFNULL(pnl.nb_loot, 0) AS nb_loot,
+IFNULL(pnr.nb_raid, 0) AS nb_raid,
+IFNULL(nl.nb_raid, 0)  AS nb_raid_without_loot
+FROM player              AS p
+LEFT JOIN evgp           AS e   ON e.player   = p.id
+LEFT JOIN player_nb_loot AS pnl ON pnl.player = p.id
+LEFT JOIN player_nb_raid AS pnr ON pnr.player = p.id
+LEFT JOIN no_loot        AS nl  ON nl.player  = p.id;
