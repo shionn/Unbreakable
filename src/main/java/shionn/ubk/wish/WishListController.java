@@ -2,7 +2,6 @@ package shionn.ubk.wish;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +43,11 @@ public class WishListController {
 	@RequestMapping(value = "/wish/update", method = RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute("player") Player player) {
 		PlayerWhishDao dao = session.getMapper(PlayerWhishDao.class);
+		dao.disableAll(player.getId());
 		for (PlayerWish wish : player.getWishes()) {
 			if (wish.getItem().getId() != 0) {
 				dao.update(player, wish);
 			}
-		}
-		List<Integer> items = player.getWishes().stream().map(w -> w.getItem().getId()).filter(id -> id != 0)
-				.collect(Collectors.toList());
-		if (!items.isEmpty()) {
-			dao.disable(player.getId(), items);
 		}
 		session.commit();
 		return list(player.getId());

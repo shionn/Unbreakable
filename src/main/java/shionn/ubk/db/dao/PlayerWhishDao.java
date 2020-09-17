@@ -37,13 +37,10 @@ public interface PlayerWhishDao {
 			+ "ON DUPLICATE KEY UPDATE ratio = #{wish.ratio}, running = true")
 	int update(@Param("player") Player player, @Param("wish") PlayerWish wish);
 
-	@Update("<script>UPDATE player_wish " //
+	@Update("UPDATE player_wish " //
 			+ "  SET running = false " //
-			+ "WHERE player = #{player} " //
-			+ "  AND item NOT IN "
-			+ "<foreach item='r' collection='items' open='(' close=')' separator=','>#{r}</foreach>"
-			+ "</script>")
-	int disable(@Param("player") int player, @Param("items") List<Integer> items);
+			+ "WHERE player = #{player}")
+	int disableAll(@Param("player") int player);
 
 	@Update("UPDATE player_wish " //
 			+ "SET selected = NOT(selected) " //

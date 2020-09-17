@@ -31,12 +31,12 @@ public interface PlayerDao {
 	@Select("SELECT * FROM player ORDER BY name")
 	List<Player> listAllPlayers();
 
-	@Select("SELECT p.name, p.class, p.rank, i.name AS item_name " //
+	@Select("SELECT p.name, p.class, p.rank, i.name AS item_name, rank = 'reroll' AS reroll " //
 			+ "FROM player           AS p "
 			+ "LEFT JOIN player_wish AS pw ON p.id = pw.player AND pw.running = true "
 			+ "LEFT JOIN item        AS i  ON i.id = pw.item " //
 			+ "WHERE p.rank != 'inactif' " //
-			+ "ORDER BY p.class, p.name ")
+			+ "ORDER BY reroll, p.class, p.name ")
 	@Results({ @Result(column = "name", property = "player.name"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "rank", property = "player.rank"),
