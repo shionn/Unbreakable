@@ -26,7 +26,7 @@
 				<label for="rank">Grade</label>
 				<select name="rank">
 					<c:forEach items="${playerranks}" var="r">
-						<option value="${r}">${r}</option>
+						<option value="${r}">${r.fr}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -74,7 +74,7 @@
 				<label for="slot">Slot</label>
 				<select name="slot">
 					<c:forEach items="${slots}" var="c">
-						<option value="${c}">${c}</option>
+						<option value="${c}">${c.fr}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -110,7 +110,7 @@
 				<label for="id">Object à éditer</label>
 				<select name="id">
 					<c:forEach items="${items}" var="c">
-						<option value="${c.id}">${c.name} (${c.slot} ${c.ilvl})</option>
+						<option value="${c.id}">${c.name} (${c.slot.fr} ${c.ilvl})</option>
 					</c:forEach>
 				</select>
 			</div>

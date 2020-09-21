@@ -62,7 +62,7 @@
 							<tr>
 								<td>${p.player.name}</td>
 								<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-								<td style="border-right: 1px solid #cbcbcb">${p.player.rank}</td>
+								<td style="border-right: 1px solid #cbcbcb">${p.player.rank.fr}</td>
 								<td>${p.stat.ev}</td>
 								<td>${p.stat.gp}</td>
 								<td style="border-right: 1px solid #cbcbcb">${p.stat.evgpRatio} %</td>
@@ -146,7 +146,7 @@
 										<c:if test="${not e.visible}"><i class="fa fa-eye-slash" aria-hidden="true"></i></c:if>
 									</td>
 									<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
-									<td>${e.player.rank}</td>
+									<td>${e.player.rank.fr}</td>
 									<td>
 										<c:forEach items="${e.loots}" var="loot">
 											<a class="pure-button button-error button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}/${loot.item.id}"/>'>- ${loot.item.name} (${loot.ratio})</a>,

@@ -50,7 +50,7 @@
 							<td>${p.item.name}</td>
 							<td>${p.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-							<td style="border-right: 1px solid #cbcbcb">${p.player.rank}</td>
+							<td style="border-right: 1px solid #cbcbcb">${p.player.rank.fr}</td>
 							<c:if test="${user.mdc}">
 								<td><input type="checkbox" data-url="<spring:url value="/priority/${p.player.id}/${p.item.id}"/>" <c:if test="${p.selected}"> checked="checked"</c:if>/></td>
 								<td style="border-right: 1px solid #cbcbcb">

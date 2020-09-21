@@ -41,7 +41,7 @@
 						<tr class="${s.player.clazz}">
 							<td>${s.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${s.player.clazz}.jpg"/>'/></td>
-							<td style="border-right: 1px solid #cbcbcb">${s.player.rank}</td>
+							<td style="border-right: 1px solid #cbcbcb">${s.player.rank.fr}</td>
 							<td>${s.ev}</td>
 							<td>${s.gp}</td>
 							<td style="border-right: 1px solid #cbcbcb">${s.evgpRatio} %</td>

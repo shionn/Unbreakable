@@ -31,7 +31,7 @@
 								<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true" title="Bench"></i></c:if>
 							</td>
 							<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
-							<td>${e.player.rank}</td>
+							<td>${e.player.rank.fr}</td>
 							<td>
 								<c:forEach items="${e.loots}" var="loot">
 									${loot.item.name}

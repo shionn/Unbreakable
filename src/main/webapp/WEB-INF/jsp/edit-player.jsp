@@ -25,7 +25,7 @@
 				<label for="rank">Grade</label>
 				<select name="rank">
 					<c:forEach items="${playerranks}" var="r">
-						<option value="${r}" <c:if test="${player.rank==r}">selected="selected"</c:if>>${r}</option>
+						<option value="${r}" <c:if test="${player.rank==r}">selected="selected"</c:if>>${r.fr}</option>
 					</c:forEach>
 				</select>
 			</div>

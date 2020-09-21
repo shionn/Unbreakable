@@ -61,7 +61,7 @@
 				<tr class="${wish.player.clazz}">
 					<td>${wish.player.name}</td>
 					<td><img class="class" src='<spring:url value="/img/${wish.player.clazz}.jpg"/>'/></td>
-					<td>${wish.player.rank}</td>
+					<td>${wish.player.rank.fr}</td>
 					<td>${wish.item.name}</td>
 				</tr>
 			</c:forEach>

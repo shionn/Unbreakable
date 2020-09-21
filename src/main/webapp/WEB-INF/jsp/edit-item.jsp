@@ -25,7 +25,7 @@
 				<label for="slot">Slot</label>
 				<select name="slot">
 					<c:forEach items="${slots}" var="c">
-						<option value="${c}" <c:if test="${item.slot==c}">selected="selected"</c:if>>${c}</option>
+						<option value="${c}" <c:if test="${item.slot==c}">selected="selected"</c:if>>${c.fr}</option>
 					</c:forEach>
 				</select>
 			</div>

@@ -47,7 +47,7 @@
 						<td>${p.item.name}</td>
 						<td>${p.player.name}</td>
 						<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-						<td style="border-right: 1px solid #cbcbcb">${p.player.rank}</td>
+						<td style="border-right: 1px solid #cbcbcb">${p.player.rank.fr}</td>
 						<c:if test="${user.admin or user.mdc}">
 							<td>${p.stat.ev}</td>
 							<td>${p.stat.gp}</td>

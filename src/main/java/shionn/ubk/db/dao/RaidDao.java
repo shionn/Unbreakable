@@ -64,11 +64,11 @@ public interface RaidDao extends AttendanceFragDao {
 	@Select("SELECT p.id, p.name, p.class, p.rank, " //
 			+ "  r.raid AS member, r.bench, " //
 			+ "  IFNULL(r.visible, true) AS visible, " //
-			+ "  p.rank = 'reroll' AS reroll " //
+			+ "  p.rank = 'reroll' AS reroll, p.rank = 'pu' AS pu " //
 			+ "FROM       player      AS p " //
 			+ "LEFT JOIN  raid_entry  AS r ON r.player = p.id AND r.raid = #{raid} " //
 			+ "WHERE p.rank != 'inactif' " //
-			+ "ORDER BY reroll, class, name")
+			+ "ORDER BY pu, reroll, class, name")
 	@Results({ @Result(column = "id", property = "player.id"),
 			@Result(column = "name", property = "player.name"),
 			@Result(column = "class", property = "player.clazz"),

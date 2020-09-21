@@ -15,14 +15,12 @@ import shionn.ubk.db.dbo.RaidAttendance;
 public interface StatisticDao {
 
 	@Select("SELECT player, name, class, rank, " //
-			+ "nb_loot, " //
-			+ "nb_raid, " //
-			+ "nb_raid_without_loot, " //
+			+ "nb_loot, nb_raid, nb_raid_without_loot, " //
 			+ "ev, gp, ROUND(ratio*100) AS evgp_ratio, " //
-			+ "rank = 'reroll' AS reroll " //
+			+ "rank = 'reroll' AS reroll, rank = 'pu' AS pu  " //
 			+ "FROM player_statistic " //
 			+ "WHERE rank != 'inactif' " //
-			+ "ORDER BY reroll, class, name ")
+			+ "ORDER BY pu, reroll, class, name ")
 	@Results({ @Result(column = "player", property = "player.id"),
 			@Result(column = "name", property = "player.name"),
 			@Result(column = "class", property = "player.clazz"),
