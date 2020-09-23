@@ -1,5 +1,7 @@
 package shionn.ubk;
 
+import java.io.IOException;
+
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -26,7 +29,6 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({ "shionn.ubk" })
 @EnableCaching()
 @EnableScheduling()
-// @PropertySource("classpath:configuration.properties")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -45,6 +47,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		viewResolver.setSuffix(".jsp");
 		viewResolver.setExposedContextBeanNames("user");
 		return viewResolver;
+	}
+
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver getResolver() throws IOException {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setMaxUploadSizePerFile(1024 * 1024);// 1MB
+		return resolver;
 	}
 
 	@Bean

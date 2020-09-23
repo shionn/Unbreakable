@@ -75,4 +75,52 @@ table.dkp-history {
 	}
 }
 
+div.rh.col {
+	display: flex;
+	flex-direction: column;
+
+	span.rh.player {
+		display: block;
+		width: 200px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-align: center;
+
+		.fa-university {
+			display: none;
+		}
+
+		&:hover .fa {
+			display: initial;
+		}
+
+		a {
+			text-decoration : none;
+			color: black;
+		}
+
+		&.Tank, &.Warrior {
+			background-color: burlywood;
+		}
+		&.Bear, &.RestoDruid, &.Feral, &.Balance {
+			background-color: orange;
+		}
+		&.ProtPaladin, &.HolyPaladin, &.Retri {
+			background-color: lightpink;
+		}
+		&.Mage {
+			background-color: lightblue;
+		}
+		&.Warlock {
+			background-color: lightsteelblue;
+		}
+		&.Rogue {
+			background-color: lightgoldenrodyellow;
+		}
+		&.Hunter {
+			background-color: lightgreen;
+		}
+	}
+}
+
 @import "button.less";

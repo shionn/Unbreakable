@@ -27,8 +27,9 @@
 				<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Pré Raid</a></li>
 			</c:if>
 			<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid</a></li>
+			<li class="pure-menu-item"><a href='<spring:url value="/raid-dispatcher"/>' class="pure-menu-link">Raid répartiteur</a></li>
 			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Liste de souhait</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
+<%-- 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li> --%>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
 			<c:if test="${user.admin}"><li class="pure-menu-item" style="color: red">ADMIN</li></c:if>
 			<c:if test="${user.mdc and not user.admin}"><li class="pure-menu-item" style="color: red">MDC</li></c:if>
