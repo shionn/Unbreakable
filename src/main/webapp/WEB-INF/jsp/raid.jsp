@@ -123,7 +123,7 @@
 					<div class="pure-controls">
 						<button type="submit" class="pure-button pure-button-primary">Sauvegarder</button>
 					</div>
-					<t:priority-table priorities="${raid.selectedWishList}"/>
+<%-- 					<t:priority-table priorities="${raid.selectedWishList}"/> --%>
 					<table class="pure-table pure-table-horizontal">
 						<thead>
 							<tr>

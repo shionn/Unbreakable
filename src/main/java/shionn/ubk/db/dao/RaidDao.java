@@ -23,7 +23,7 @@ import shionn.ubk.db.dbo.SortOrder;
 
 public interface RaidDao extends AttendanceFragDao {
 
-	@Select("SELECT * FROM raid WHERE running IS true ORDER BY date DESC")
+	@Select("SELECT * FROM raid WHERE running IS true ORDER BY date ASC")
 	public List<Raid> listRunnings();
 
 	@Select("SELECT * " //
@@ -148,9 +148,11 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "ip.nb_raid_without_loot, ip.nb_raid_wait, " //
 			+ "ip.ev, ip.gp, ip.evgp_ratio, ip.item AS item_id, ip.item_name " //
 			+ "FROM item_priority     AS ip " //
-			+ "INNER JOIN player      AS p  ON p.id  = ip.player     AND p.rank != 'inactif' "
-			+ "INNER JOIN raid_entry  AS re ON re.player = ip.player AND re.raid = #{raid} "
-			+ "LEFT  JOIN player_loot AS pl ON pl.player = ip.player AND pl.item = ip.item " //
+			+ "INNER JOIN player      AS p  ON ip.player = p.id      AND p.rank != 'inactif' "
+			+ "INNER JOIN raid_entry  AS re ON ip.player = re.player AND re.raid = #{raid} "
+//			+ "INNER JOIN raid        AS r  ON r.id      = #{raid} "
+//			+ "INNER JOIN item        AS i  ON ip.item   = i.id      AND i.raid  = r.instance "
+			+ "LEFT  JOIN player_loot AS pl ON ip.player = pl.player AND pl.item = ip.item "
 			+ "WHERE ip.selected = true " //
 			+ "ORDER BY item_name, evgp_ratio ASC")
 	@Results({

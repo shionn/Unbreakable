@@ -4,7 +4,7 @@ public enum PlayerRank {
 	test("Test"),
 	casu("Casu"),
 	reroll("Reroll"),
-	pu("Pick Up"),
+	pu("Associé"),
 	membre("Membre"),
 	inactif("Inactif");
 

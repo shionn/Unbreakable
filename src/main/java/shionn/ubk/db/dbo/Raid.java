@@ -1,8 +1,10 @@
 package shionn.ubk.db.dbo;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,7 +20,7 @@ public class Raid {
 	private int ev;
 	private int initialEv;
 	private Map<Item, List<Priority>> selectedWishList;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -46,6 +48,11 @@ public class Raid {
 
 	public List<RaidEntry> getPlayers() {
 		return players;
+	}
+
+	public List<RaidEntry> getPlayers(PlayerRank... ranks) {
+		return players.stream().filter(p -> Arrays.asList(ranks).contains(p.getPlayer().getRank()))
+				.collect(Collectors.toList());
 	}
 
 	public void setPlayers(List<RaidEntry> players) {
