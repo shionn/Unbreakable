@@ -1,5 +1,6 @@
 package shionn.ubk.db.dbo;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,5 +64,9 @@ public class Player {
 
 	public void setLoots(List<Loot> loots) {
 		this.loots = loots;
+	}
+
+	public boolean isRank(PlayerRank... ranks) {
+		return Arrays.asList(ranks).contains(rank);
 	}
 }
