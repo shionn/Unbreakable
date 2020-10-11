@@ -6,7 +6,6 @@ public class Loot {
 
 	private Player player;
 	private Item item;
-	private int ratio;
 	private int gp;
 	private int initialGp;
 	private LootAttribution attribution;
@@ -60,11 +59,4 @@ public class Loot {
 		this.lootDate = lootDate;
 	}
 
-	public int getRatio() {
-		return ratio;
-	}
-
-	public void setRatio(int ratio) {
-		this.ratio = ratio;
-	}
 }

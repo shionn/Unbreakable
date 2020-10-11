@@ -23,7 +23,7 @@ public interface PlayerWhishDao {
 
 	@Select("SELECT i.name   AS item_name, " //
 			+ "     i.id     AS item_id, " //
-			+ "     pw.ratio " //
+			+ "     pw.attribution " //
 			+ "FROM       player_wish AS pw " //
 			+ "INNER JOIN item        AS i  ON i.id = pw.item " //
 			+ "WHERE player   = #{id} "//
@@ -32,9 +32,9 @@ public interface PlayerWhishDao {
 			@Result(column = "item_id", property = "item.id") })
 	List<PlayerWish> viewPlayerWish(@Param("id") int player);
 
-	@Insert("INSERT INTO player_wish (player, item, ratio) "
-			+ "VALUES (#{player.id}, #{wish.item.id}, #{wish.ratio}) "
-			+ "ON DUPLICATE KEY UPDATE ratio = #{wish.ratio}, running = true")
+	@Insert("INSERT INTO player_wish (player, item, attribution) "
+			+ "VALUES (#{player.id}, #{wish.item.id}, #{wish.attribution}) "
+			+ "ON DUPLICATE KEY UPDATE attribution = #{wish.attribution}, running = true")
 	int update(@Param("player") Player player, @Param("wish") PlayerWish wish);
 
 	@Update("UPDATE player_wish " //

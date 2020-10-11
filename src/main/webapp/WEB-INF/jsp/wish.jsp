@@ -39,7 +39,11 @@
 									<option value="${item.id}" <c:if test="${w.item.id==item.id}">selected="selected"</c:if>>${item.name}</option>
 								</c:forEach>
 							</select>
-							<input name="wishes[${s.index}].ratio" type="text" value="${w.ratio}" readonly="readonly">
+							<select name="wishes[${s.index}].attribution">
+								<c:forEach items="${attributions}" var="attribution">
+									<option value="${attribution}" <c:if test="${w.attribution==attribution}">selected="selected"</c:if>>${attribution.shorten}</option>
+								</c:forEach>
+							</select>
 						</div>
 					</c:forEach>
 					<div class="pure-controls">
@@ -53,7 +57,7 @@
 	<table class="pure-table pure-table-horizontal">
 		<thead style="position: sticky;top: 0;">
 			<tr>
-				<th colspan="3">Joueur</th><th>Objet</th>
+				<th colspan="3">Joueur</th><th>Objet</th><th> </th>
 			</tr>
 		</thead>
 		<tbody>
@@ -63,6 +67,7 @@
 					<td><img class="class" src='<spring:url value="/img/${wish.player.clazz}.jpg"/>'/></td>
 					<td>${wish.player.rank.fr}</td>
 					<td>${wish.item.name}</td>
+					<td>${wish.attribution.shorten}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

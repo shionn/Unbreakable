@@ -31,7 +31,7 @@ public interface PlayerDao {
 	@Select("SELECT * FROM player ORDER BY name")
 	List<Player> listAllPlayers();
 
-	@Select("SELECT p.name, p.class, p.rank, i.name AS item_name, "
+	@Select("SELECT p.name, p.class, p.rank, i.name AS item_name, pw.attribution, "
 			+ "  p.rank = 'reroll' AS reroll, p.rank = 'pu' AS pu " //
 			+ "FROM player           AS p "
 			+ "LEFT JOIN player_wish AS pw ON p.id = pw.player AND pw.running = true "

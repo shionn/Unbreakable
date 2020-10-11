@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Update;
 
 import shionn.ubk.db.dao.frag.AttendanceFragDao;
 import shionn.ubk.db.dbo.Loot;
+import shionn.ubk.db.dbo.LootAttribution;
 import shionn.ubk.db.dbo.Priority;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
@@ -38,7 +39,7 @@ public interface RaidDao extends AttendanceFragDao {
 	public List<RaidEntry> listRunningPlayer(@Param("raid") int raid,
 			@Param("order") SortOrder order);
 
-	@Select("SELECT i.name, i.id, l.ratio " //
+	@Select("SELECT i.name, i.id, l.attribution " //
 			+ "FROM       player_loot AS l " //
 			+ "INNER JOIN item AS i   ON i.id = l.item " //
 			+ "WHERE l.player = #{player} AND l.raid = #{raid} " //
@@ -85,15 +86,18 @@ public interface RaidDao extends AttendanceFragDao {
 	public int addMember(@Param("raid") int raid, @Param("player") int player,
 			@Param("bench") boolean bench, @Param("visible") boolean visible);
 
-	@Insert("INSERT INTO raid_player_wish (raid, player, item, ratio) "
-			+ "VALUES (#{raid}, #{player}, #{item}, #{ratio})")
+	@Insert("INSERT INTO raid_player_wish (raid, player, item, attribution) "
+			+ "VALUES (#{raid}, #{player}, #{item}, #{attribution})")
 	public int addRaidPlayerWish(@Param("raid") int raid, @Param("player") int player,
-			@Param("item") int item, @Param("ratio") int ratio);
+			@Param("item") int item, @Param("attribution") LootAttribution attribution);
 
-	@Insert("INSERT INTO player_loot (raid, player, item, ratio, wl) "
-			+ "VALUES(#{raid}, #{player}, #{item}, #{ratio}, #{wl})")
-	public int addLoot(@Param("raid") int raid, @Param("player") int player,
-			@Param("item") int item, @Param("ratio") int ratio, @Param("wl") boolean wl);
+	@Insert("INSERT INTO player_loot (raid, player, item, attribution, wl) "
+			+ "VALUES(#{raid}, #{player}, #{item}, #{attribution}, #{wl})")
+	public int addLoot(@Param("raid") int raid, //
+			@Param("player") int player, //
+			@Param("item") int item, //
+			@Param("attribution") LootAttribution attribution, //
+			@Param("wl") boolean wl);
 
 	@Delete("DELETE FROM player_loot WHERE raid = #{raid} AND player = #{player} AND item = #{item}")
 	public int removeLoot(@Param("raid") int raid, @Param("player") int player,
@@ -110,17 +114,20 @@ public interface RaidDao extends AttendanceFragDao {
 	@Update("UPDATE raid SET running = true WHERE id = #{id}")
 	public void startEdit(@Param("id") int id);
 
-	@Select("SELECT IFNULL(SUM(running),0) " //
-			+ "FROM player_wish AS pw " //
-			+ "WHERE player = #{player} AND item = #{item}")
-	public boolean isWl(@Param("player") int player, @Param("item") int item);
-
-	@Select("SELECT p.name AS player_name, p.rank AS player_rank, " //
-			+ "p.class AS player_class, p.id AS player_id, " //
-			+ "ip.point, ip.ratio, ip.nb_raid, ip.nb_loot, " //
-			+ "pl.raid IS NOT NULL AS looted, " //
-			+ "ip.nb_raid_without_loot, ip.nb_raid_wait, " //
-			+ "ip.ev, ip.gp, ip.evgp_ratio " //
+	@Select("SELECT p.name        AS player_name, " //
+			+ "  p.rank           AS player_rank, " //
+			+ "  p.class          AS player_class, " //
+			+ "  p.id             AS player_id, " //
+			+ "  ip.point, " //
+			+ "  ip.attribution, " //
+			+ "  ip.nb_raid, " //
+			+ "  ip.nb_loot, " //
+			+ "  pl.raid          IS NOT NULL AS looted, " //
+			+ "  ip.nb_raid_without_loot, " //
+			+ "  ip.nb_raid_wait, " //
+			+ "  ip.ev, " //
+			+ "  ip.gp, " //
+			+ "  ip.evgp_ratio " //
 			+ "FROM item_priority     AS ip " //
 			+ "INNER JOIN player      AS p  ON p.id  = ip.player     AND p.rank != 'inactif' "
 			+ "INNER JOIN raid_entry  AS re ON re.player = ip.player AND re.raid = #{raid} "
@@ -141,12 +148,22 @@ public interface RaidDao extends AttendanceFragDao {
 			@Result(column = "evgp_ratio", property = "stat.evgpRatio") })
 	List<Priority> listItemHelp(@Param("item") int item, @Param("raid") int raid);
 
-	@Select("SELECT p.name AS player_name, p.rank AS player_rank, " //
-			+ "p.class AS player_class, p.id AS player_id, " //
-			+ "ip.point, ip.ratio, ip.nb_raid, ip.nb_loot, " //
-			+ "pl.raid IS NOT NULL AS looted, " //
-			+ "ip.nb_raid_without_loot, ip.nb_raid_wait, " //
-			+ "ip.ev, ip.gp, ip.evgp_ratio, ip.item AS item_id, ip.item_name " //
+	@Select("SELECT p.name      AS player_name, " //
+			+ "  p.rank         AS player_rank, " //
+			+ "  p.class        AS player_class, " //
+			+ "  p.id           AS player_id, " //
+			+ "  ip.point, " // ?
+			+ "  ip.attribution, " //
+			+ "  ip.nb_raid, " //
+			+ "  ip.nb_loot, " //
+			+ "  pl.raid IS NOT NULL   AS looted, " //
+			+ "  ip.nb_raid_without_loot, " //
+			+ "  ip.nb_raid_wait, " //
+			+ "  ip.ev, " //
+			+ "  ip.gp, " //
+			+ "  ip.evgp_ratio, " //
+			+ "  ip.item AS item_id, " //
+			+ "  ip.item_name " //
 			+ "FROM item_priority     AS ip " //
 			+ "INNER JOIN player      AS p  ON ip.player = p.id      AND p.rank != 'inactif' "
 			+ "INNER JOIN raid_entry  AS re ON ip.player = re.player AND re.raid = #{raid} "

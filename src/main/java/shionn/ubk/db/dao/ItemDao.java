@@ -56,10 +56,11 @@ public interface ItemDao {
 			+ "ORDER BY raid DESC, name ASC")
 	List<Item> listForRaid(int raid);
 
-	@Select("SELECT i.id, i.name " //
+	@Select("SELECT i.id, i.name, pw.attribution " //
 			+ "FROM       item            AS i "
 			+ "INNER JOIN item_assignment AS ia ON ia.item = i.id "
 			+ "INNER JOIN player          AS p  ON p.class = ia.class AND p.id = #{player} " //
+			+ "LEFT  JOIN player_wish     AS pw ON pw.item = i.id AND pw.player = p.id AND pw.running " //
 			+ "WHERE i.raid = (SELECT instance FROM raid WHERE id = #{raid}) " //
 			+ "ORDER BY raid DESC, name ASC")
 	List<Item> listForRaidAndPlayer(@Param("raid") int raid, @Param("player") int player);

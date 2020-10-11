@@ -1,6 +1,7 @@
 package shionn.ubk.wish;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,6 +18,7 @@ import shionn.ubk.db.dao.ItemDao;
 import shionn.ubk.db.dao.PlayerDao;
 import shionn.ubk.db.dao.PlayerWhishDao;
 import shionn.ubk.db.dbo.Item;
+import shionn.ubk.db.dbo.LootAttribution;
 import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerWish;
@@ -30,11 +32,15 @@ public class WishListController {
 	@RequestMapping(value = "/wish", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam(defaultValue = "-1", name = "player") int playerId) {
 		PlayerDao dao = session.getMapper(PlayerDao.class);
-		ModelAndView view = new ModelAndView("wish").addObject("players", dao.listPlayers())
+		ModelAndView view = new ModelAndView("wish") //
+				.addObject("players", dao.listPlayers()) //
 				.addObject("wishes", dao.listWishes());
 		if (playerId != -1) {
 			Player player = readPlayer(playerId);
-			view.addObject("player", player).addObject("items", readItems(player.getClazz()));
+			view.addObject("player", player) //
+					.addObject("items", readItems(player.getClazz())) //
+					.addObject("attributions",
+							Arrays.asList(LootAttribution.primary, LootAttribution.secondary));
 		}
 		return view;
 	}
@@ -58,7 +64,7 @@ public class WishListController {
 		while (player.getWishes().size() < MAX_ITEM) {
 			PlayerWish wish = new PlayerWish();
 			wish.setItem(noneItem());
-			wish.setRatio(10);
+			wish.setAttribution(LootAttribution.primary);
 			List<PlayerWish> wishes = new ArrayList<PlayerWish>(player.getWishes());
 			wishes.add(wish);
 			player.setWishes(wishes);

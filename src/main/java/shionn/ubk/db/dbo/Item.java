@@ -12,6 +12,7 @@ public class Item {
 	private ItemSlot slot;
 	private int ilvl;
 	private List<PlayerClass> classes;
+	private LootAttribution attribution;
 	private int gp;
 
 	public int getId() {
@@ -112,4 +113,11 @@ public class Item {
 		return classes.contains(clazz);
 	}
 
+	public LootAttribution getAttribution() {
+		return attribution;
+	}
+
+	public void setAttribution(LootAttribution attribution) {
+		this.attribution = attribution;
+	}
 }

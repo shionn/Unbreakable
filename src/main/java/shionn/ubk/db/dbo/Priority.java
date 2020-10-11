@@ -9,6 +9,7 @@ public class Priority {
 	private boolean looted;
 	private PlayerStat stat;
 	private boolean selected;
+	private LootAttribution attribution;
 
 	public Item getItem() {
 		return item;
@@ -75,6 +76,14 @@ public class Priority {
 		this.selected = selected;
 	}
 
+	public LootAttribution getAttribution() {
+		return attribution;
+	}
+
+	public void setAttribution(LootAttribution attribution) {
+		this.attribution = attribution;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,6 +114,7 @@ public class Priority {
 			return false;
 		return true;
 	}
+
 
 
 }

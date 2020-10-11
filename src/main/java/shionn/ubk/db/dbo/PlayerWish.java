@@ -4,8 +4,8 @@ public class PlayerWish {
 
 	private Player player;
 	private Item item;
-	private int ratio;
 	private boolean selected;
+	private LootAttribution attribution;
 
 	public Player getPlayer() {
 		return player;
@@ -23,20 +23,20 @@ public class PlayerWish {
 		this.item = item;
 	}
 
-	public int getRatio() {
-		return ratio;
-	}
-
-	public void setRatio(int ratio) {
-		this.ratio = ratio;
-	}
-
 	public boolean isSelected() {
 		return selected;
 	}
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	public LootAttribution getAttribution() {
+		return attribution;
+	}
+
+	public void setAttribution(LootAttribution attribution) {
+		this.attribution = attribution;
 	}
 
 }

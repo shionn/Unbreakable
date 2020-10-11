@@ -6,7 +6,7 @@
 	<table class="pure-table pure-table-horizontal">
 		<thead>
 			<tr>
-				<th>Objet</th>
+				<th colspan="2" style="text-align: center">Objet</th>
 				<th colspan="3">Personnage</th>
 				<c:if test="${user.admin or user.mdc}">
 					<th colspan="3">EVGP</th>
@@ -19,7 +19,7 @@
 			</tr>
 			<c:if test="${user.admin or user.mdc}">
 				<tr>
-					<th colspan="4"></th>
+					<th colspan="5"></th>
 					<th>EV</th>
 					<th>GP</th>
 					<th>%</th>
@@ -44,6 +44,7 @@
 			<c:forEach items="${priorities.entrySet()}" var="e" varStatus="itemIndex">
 				<c:forEach items="${e.value}" var="p">
 					<tr class="${(itemIndex.index%2==0)?'pure-table-odd':'pure-table-even'}">
+						<td>${p.attribution.shorten}</td>
 						<td>${p.item.name}</td>
 						<td>${p.player.name}</td>
 						<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
@@ -64,9 +65,9 @@
 							<td class="border-right">${p.stat.getAttendance('AQ20','always').attendance}</td>
 							<td>${p.stat.getAttendance('MC','day14').attendance}</td>
 							<td>${p.stat.getAttendance('BWL','day14').attendance}</td>
-							<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>
-							<td>${p.stat.getAttendance('ZG','day14').attendance}</td>
 							<td>${p.stat.getAttendance('AQ40','day14').attendance}</td>
+							<td>${p.stat.getAttendance('ZG','day14').attendance}</td>
+							<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>
 						</c:if>
 					</tr>
 				</c:forEach>

@@ -1,6 +1,7 @@
 package shionn.ubk.raid;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import shionn.ubk.db.dao.ItemDao;
 import shionn.ubk.db.dao.PlayerWhishDao;
 import shionn.ubk.db.dao.RaidDao;
+import shionn.ubk.db.dbo.LootAttribution;
 import shionn.ubk.db.dbo.PlayerWish;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
@@ -120,7 +122,7 @@ public class RaidController implements Serializable {
 				for (PlayerWish w : session.getMapper(PlayerWhishDao.class)
 						.viewPlayerWish(e.getPlayer().getId())) {
 					dao.addRaidPlayerWish(id, e.getPlayer().getId(), w.getItem().getId(),
-							w.getRatio());
+							w.getAttribution());
 				}
 			}
 		}
@@ -134,17 +136,22 @@ public class RaidController implements Serializable {
 		return new ModelAndView("raid-loot") //
 				.addObject("raid", raid) //
 				.addObject("player", player) //
+				.addObject("attributions",
+						Arrays.asList(LootAttribution.primary, LootAttribution.secondary,
+								LootAttribution.bag)) //
 				.addObject("items",
 						session.getMapper(ItemDao.class).listForRaidAndPlayer(raid, player));
 	}
 
 	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/raid/loot/{raid}/{player}", method = RequestMethod.POST)
-	public String addRaidLoot(@PathVariable("raid") int raid,
-			@PathVariable("player") int player, @RequestParam("item") int item,
-			@RequestParam("ratio") int ratio) {
+	public String addRaidLoot(@PathVariable("raid") int raid, //
+			@PathVariable("player") int player, //
+			@RequestParam("item") int item, //
+			@RequestParam("attribution") LootAttribution attribution,
+			@RequestParam(name = "wishlist", defaultValue = "false") boolean wishlist) {
 		RaidDao dao = session.getMapper(RaidDao.class);
-		dao.addLoot(raid, player, item, ratio, dao.isWl(player, item));
+		dao.addLoot(raid, player, item, attribution, wishlist);
 		session.commit();
 		return "redirect:/raid";
 	}
