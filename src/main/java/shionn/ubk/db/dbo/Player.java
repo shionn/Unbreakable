@@ -12,6 +12,7 @@ public class Player {
 	private PlayerRank rank;
 	private List<PlayerWish> wishes;
 	private List<Loot> loots;
+	private String token;
 
 	public int getId() {
 		return id;
@@ -68,5 +69,13 @@ public class Player {
 
 	public boolean isRank(PlayerRank... ranks) {
 		return Arrays.asList(ranks).contains(rank);
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

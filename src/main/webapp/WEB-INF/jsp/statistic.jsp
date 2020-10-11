@@ -41,23 +41,23 @@
 						<tr class="${s.player.clazz}">
 							<td>${s.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${s.player.clazz}.jpg"/>'/></td>
-							<td style="border-right: 1px solid #cbcbcb">${s.player.rank.fr}</td>
+							<td class="border-right">${s.player.rank.fr}</td>
 							<td>${s.ev}</td>
 							<td>${s.gp}</td>
-							<td style="border-right: 1px solid #cbcbcb">${s.evgpRatio} %</td>
-							<td style="border-right: 1px solid #cbcbcb">${s.nbLoot}</td>
+							<td class="border-right">${s.evgpRatio} %</td>
+							<td class="border-right">${s.nbLoot}</td>
 							<td>${s.nbRaid}</td>
-							<td style="border-right: 1px solid #cbcbcb">${s.nbRaidWithoutLoot}</td>
+							<td class="border-right">${s.nbRaidWithoutLoot}</td>
 							<td>${s.getAttendance('MC','always').attendance}</td>
 							<td>${s.getAttendance('BWL','always').attendance}</td>
 							<td>${s.getAttendance('AQ40','always').attendance}</td>
 							<td>${s.getAttendance('ZG','always').attendance}</td>
-							<td style="border-right: 1px solid #cbcbcb">${s.getAttendance('AQ20','always').attendance}</td>
+							<td class="border-right">${s.getAttendance('AQ20','always').attendance}</td>
 							<td>${s.getAttendance('MC','day14').attendance}</td>
 							<td>${s.getAttendance('BWL','day14').attendance}</td>
-							<td>${s.getAttendance('AQ20','day14').attendance}</td>
-							<td>${s.getAttendance('ZG','day14').attendance}</td>
 							<td>${s.getAttendance('AQ40','day14').attendance}</td>
+							<td>${s.getAttendance('ZG','day14').attendance}</td>
+							<td>${s.getAttendance('AQ20','day14').attendance}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

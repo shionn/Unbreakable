@@ -9,6 +9,7 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({ "shionn.ubk" })
 @EnableCaching()
 @EnableScheduling()
+@PropertySource("classpath:configuration.properties")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override

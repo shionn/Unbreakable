@@ -29,6 +29,13 @@
 					</c:forEach>
 				</select>
 			</div>
+			<c:if test="${user.admin}">
+			<div class="pure-control-group">
+				<label for="url-inscription">Lien d'inscription</label>
+				<input style="width: 550px" type="text" readonly="readonly"
+						value="http://ubk.shionn.org/Unbreakable/raid-inscription/${player.token}">
+			</div>
+			</c:if>
 			<div class="pure-controls">
 				<button type="submit" class="pure-button pure-button-primary">Valider</button>
 			</div>

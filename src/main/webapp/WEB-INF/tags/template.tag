@@ -20,14 +20,24 @@
 		<a href="#" class="pure-menu-heading pure-menu-link">Unbreakable</a>
 		<ul class="pure-menu-list">
 			<li class="pure-menu-item"><a href='<spring:url value="/priority"/>' class="pure-menu-link">Prioritées</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/historic/raid"/>' class="pure-menu-link">Histo des Raids</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/historic/loot"/>' class="pure-menu-link">Histo des Loots</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/statistic"/>' class="pure-menu-link">Statistique</a></li>
-			<c:if test="${user.admin or user.mdc}">
-				<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Pré Raid</a></li>
-			</c:if>
-			<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid</a></li>
-			<li class="pure-menu-item"><a href='<spring:url value="/raid-dispatcher"/>' class="pure-menu-link">Raid répartiteur</a></li>
+			<li class="pure-menu-item pure-menu-has-children">
+				<a href="#" class="pure-menu-link">Historique</a>
+				<ul class="pure-menu-children">
+					<li class="pure-menu-item"><a href='<spring:url value="/statistic"/>' class="pure-menu-link">Statistique</a></li>
+					<li class="pure-menu-item"><a href='<spring:url value="/historic/raid"/>' class="pure-menu-link">Raids</a></li>
+					<li class="pure-menu-item"><a href='<spring:url value="/historic/loot"/>' class="pure-menu-link">Loots</a></li>
+				</ul>
+			</li>
+			<li class="pure-menu-item pure-menu-has-children">
+				<a href="#" class="pure-menu-link">Raid</a>
+				<ul class="pure-menu-children">
+					<c:if test="${user.admin or user.mdc}">
+						<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid en Cours</a></li>
+						<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Préparation</a></li>
+<%-- 						<li class="pure-menu-item"><a href='<spring:url value="/raid-dispatcher"/>' class="pure-menu-link">Répartiteur</a></li> --%>
+					</c:if>
+				</ul>
+			</li>
 			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Liste de souhait</a></li>
 <%-- 			<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li> --%>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
@@ -47,6 +57,7 @@
 	<script src="<spring:url value="/js/jquery-ui-datepicker-fr-1.12.1.js"/>"></script>
 	<script src="<spring:url value="/js/jquery-ui-timepicker-addon.min.js"/>"></script>
 	<script src="<spring:url value="/js/jquery-ui-timepicker-fr.js"/>"></script>
+	<script src="<spring:url value="/js/menu.js"/>"></script>
 	<jsp:invoke fragment="script" />
 </body>
 </html>

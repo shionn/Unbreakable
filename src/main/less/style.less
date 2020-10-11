@@ -28,8 +28,29 @@ img.class {
 	height:18px;
 }
 
+div.pure-menu {
+	border-bottom: 1px solid #cbcbcb;
+}
+
+html table.pure-table.class-color {
+	border: 1px solid #000;
+}
+
+html table.pure-table-horizontal.class-color {
+	td, th {
+		border-bottom: 1px solid #000;
+		&.border-right {
+			border-right: 1px solid #000;
+		}
+	}
+}
+
 table {
 	margin-top: .5em;
+
+	td.border-right {
+		border-right: 1px solid #cbcbcb;
+	}
 
 	tr td:not(:first-child), tr th:not(:first-child) {
 		text-align: center;
@@ -69,6 +90,7 @@ table {
 		list-style: none;
 	}
 }
+
 table.dkp-history {
 	td, th {
 		text-align: center;

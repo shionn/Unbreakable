@@ -6,7 +6,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="content">
-		<table class="pure-table pure-table-horizontal">
+		<table class="pure-table pure-table-horizontal class-color">
 			<thead style="position: sticky;top: 0;">
 				<tr>
 					<th>Joueur</th>
@@ -86,7 +86,7 @@
 						<td>
 							<ul>
 								<c:forEach items="${loots.getLoots(date,'wishList')}" var="loot">
-									<li>${loot.player.name} : 
+									<li>${loot.player.name} :
 										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
 										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
 									</li>
@@ -96,7 +96,7 @@
 						<td>
 							<ul>
 								<c:forEach items="${loots.getLoots(date,'primary')}" var="loot">
-									<li>${loot.player.name} : 
+									<li>${loot.player.name} :
 										<c:if test="${loot.item.big}"><strong>${loot.item.name}</strong></c:if>
 										<c:if test="${not loot.item.big}">${loot.item.name}</c:if>
 									</li>

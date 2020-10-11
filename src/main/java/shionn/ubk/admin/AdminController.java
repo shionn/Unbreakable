@@ -20,11 +20,15 @@ import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
 import shionn.ubk.db.dbo.RaidInstance;
+import shionn.ubk.security.PlayerToken;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private SqlSession session;
+
+	@Autowired
+	private PlayerToken token;
 
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView admin() {
@@ -43,7 +47,7 @@ public class AdminController {
 	public String createPlayer(@RequestParam("pseudo") String pseudo,
 			@RequestParam("class") PlayerClass clazz, @RequestParam("rank") PlayerRank rank,
 			RedirectAttributes attr) {
-		session.getMapper(PlayerDao.class).create(pseudo, clazz, rank);
+		session.getMapper(PlayerDao.class).create(pseudo, clazz, rank, token.build(pseudo));
 		session.commit();
 		attr.addFlashAttribute("message", "Personnage crée");
 		return "redirect:/admin";
@@ -64,13 +68,13 @@ public class AdminController {
 			@RequestParam(name = "rank") PlayerRank rank,
 			@RequestParam(name = "name") String name) {
 		PlayerDao dao = session.getMapper(PlayerDao.class);
-		dao.updatePlayer(id, name, clazz, rank);
+		dao.updatePlayer(id, name, clazz, rank, token.build(name));
 		session.commit();
 		return "redirect:/admin";
 	}
 
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
-	public String createItem(@ModelAttribute("item") Item item, 
+	public String createItem(@ModelAttribute("item") Item item,
 			RedirectAttributes attr) {
 		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot()));
 		ItemDao dao = session.getMapper(ItemDao.class);

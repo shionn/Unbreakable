@@ -86,7 +86,8 @@
 				<mybatis.url>jdbc:mysql://${ubk.db.host}/ubk?serverTimezone=Europe/Paris</mybatis.url>
 				<mybatis.username>${ubk.db.user}</mybatis.username>
 				<mybatis.password>${ubk.db.pass}</mybatis.password>
-			</properties>
+				<player.token.salt>test</player.token.salt>
+		</properties>
 		</profile>
 		<profile>
 			<id>dedibox</id>
@@ -94,6 +95,7 @@
 				<skiptest>true</skiptest>
 				<tomcat.url>http://51.15.172.54:8080/manager/text</tomcat.url>
 				<tomcat.server>DediBox</tomcat.server>
+				<player.token.salt>${ubk.player.token.salt}</player.token.salt>
 				<mybatis.driver>com.mysql.cj.jdbc.Driver</mybatis.driver>
 				<mybatis.url>jdbc:mysql://${ubk.db.host}/ubk?serverTimezone=Europe/Paris</mybatis.url>
 				<mybatis.username>${ubk.db.user}</mybatis.username>

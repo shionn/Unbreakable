@@ -50,26 +50,26 @@
 							<td>${p.item.name}</td>
 							<td>${p.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-							<td style="border-right: 1px solid #cbcbcb">${p.player.rank.fr}</td>
+							<td class="border-right">${p.player.rank.fr}</td>
 							<c:if test="${user.mdc}">
 								<td><input type="checkbox" data-url="<spring:url value="/priority/${p.player.id}/${p.item.id}"/>" <c:if test="${p.selected}"> checked="checked"</c:if>/></td>
-								<td style="border-right: 1px solid #cbcbcb">
+								<td class="border-right">
 									<c:if test="${p.looted}">Obtenu</c:if>
 									<c:if test="${not p.looted}">${p.order}</c:if>
 								</td>
 								<td>${p.stat.ev}</td>
 								<td>${p.stat.gp}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.stat.evgpRatio} %</td>
+								<td class="border-right">${p.stat.evgpRatio} %</td>
 								<td>${p.stat.nbLoot}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.stat.ratio} %</td>
+								<td class="border-right">${p.stat.ratio} %</td>
 								<td>${p.stat.nbRaid}</td>
 								<td>${p.stat.nbRaidWithoutLoot}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.nbRaidWait}</td>
+								<td class="border-right">${p.nbRaidWait}</td>
 								<td>${p.stat.getAttendance('MC','always').attendance}</td>
 								<td>${p.stat.getAttendance('BWL','always').attendance}</td>
 								<td>${p.stat.getAttendance('AQ40','always').attendance}</td>
 								<td>${p.stat.getAttendance('ZG','always').attendance}</td>
-								<td style="border-right: 1px solid #cbcbcb">${p.stat.getAttendance('AQ20','always').attendance}</td>
+								<td class="border-right">${p.stat.getAttendance('AQ20','always').attendance}</td>
 								<td>${p.stat.getAttendance('MC','day14').attendance}</td>
 								<td>${p.stat.getAttendance('BWL','day14').attendance}</td>
 								<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>

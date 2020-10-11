@@ -17,9 +17,9 @@ import shionn.ubk.db.dbo.PlayerWish;
 
 public interface PlayerDao {
 
-	@Insert("INSERT INTO player(name, class, rank) VALUES (#{name}, #{class}, #{rank})")
+	@Insert("INSERT INTO player(name, class, rank, token) VALUES (#{name}, #{class}, #{rank}, #{token})")
 	void create(@Param("name") String name, @Param("class") PlayerClass clazz,
-			@Param("rank") PlayerRank rank);
+			@Param("rank") PlayerRank rank, @Param("token") String token);
 
 	@Select("SELECT * FROM player WHERE id = #{id}")
 	@Results({ @Result(column = "class", property = "clazz") })
@@ -45,8 +45,9 @@ public interface PlayerDao {
 	List<PlayerWish> listWishes();
 
 	@Update("UPDATE player " //
-			+ "SET name = #{name}, class = #{class}, rank = #{rank} " //
+			+ "SET name = #{name}, class = #{class}, rank = #{rank}, token = #{token} " //
 			+ "WHERE id = #{id}")
-	int updatePlayer(@Param("id") int id, @Param("name") String name,
-			@Param("class") PlayerClass clazz, @Param("rank") PlayerRank rank);
+	int updatePlayer(@Param("id") int id, @Param("name") String name, //
+			@Param("class") PlayerClass clazz, @Param("rank") PlayerRank rank, //
+			@Param("token") String token);
 }
