@@ -16,8 +16,9 @@
 						<th>NbLoot</th>
 						<th>Ratio</th>
 						<th colspan="3">NbRaid</th>
-						<th colspan="5">Présence</th>
-						<th colspan="5">Présence / 14j</th>
+						<th colspan="3">Présence</th>
+						<th colspan="3">Présence / 14j</th>
+						<th colspan="3">Présence / 28j</th>
 					</c:if>
 				</tr>
 				<c:if test="${user.mdc}">
@@ -33,13 +34,12 @@
 						<th>MC</th>
 						<th>BWL</th>
 						<th>AQ40</th>
-						<th>ZG</th>
-						<th>AQ20</th>
 						<th>MC</th>
 						<th>BWL</th>
 						<th>AQ40</th>
-						<th>ZG</th>
-						<th>AQ20</th>
+						<th>MC</th>
+						<th>BWL</th>
+						<th>AQ40</th>
 					</tr>
 				</c:if>
 			</thead>
@@ -68,14 +68,13 @@
 								<td class="border-right">${p.nbRaidWait}</td>
 								<td>${p.stat.getAttendance('MC','always').attendance}</td>
 								<td>${p.stat.getAttendance('BWL','always').attendance}</td>
-								<td>${p.stat.getAttendance('AQ40','always').attendance}</td>
-								<td>${p.stat.getAttendance('ZG','always').attendance}</td>
-								<td class="border-right">${p.stat.getAttendance('AQ20','always').attendance}</td>
+								<td class="border-right">${p.stat.getAttendance('AQ40','always').attendance}</td>
 								<td>${p.stat.getAttendance('MC','day14').attendance}</td>
 								<td>${p.stat.getAttendance('BWL','day14').attendance}</td>
-								<td>${p.stat.getAttendance('AQ40','day14').attendance}</td>
-								<td>${p.stat.getAttendance('ZG','day14').attendance}</td>
-								<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>
+								<td class="border-right">${p.stat.getAttendance('AQ40','day14').attendance}</td>
+								<td>${p.stat.getAttendance('MC','day28').attendance}</td>
+								<td>${p.stat.getAttendance('BWL','day28').attendance}</td>
+								<td>${p.stat.getAttendance('AQ40','day28').attendance}</td>
 							</c:if>
 						</tr>
 					</c:forEach>

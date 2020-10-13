@@ -3,16 +3,15 @@ package shionn.ubk.db.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import shionn.ubk.db.dao.frag.AttendanceFragDao;
 import shionn.ubk.db.dbo.ItemStatic;
 import shionn.ubk.db.dbo.PlayerStat;
-import shionn.ubk.db.dbo.RaidAttendance;
 
-public interface StatisticDao {
+public interface StatisticDao extends AttendanceFragDao {
 
 	@Select("SELECT player, name, class, rank, " //
 			+ "nb_loot, nb_raid, nb_raid_without_loot, " //
@@ -27,17 +26,6 @@ public interface StatisticDao {
 			@Result(column = "rank", property = "player.rank"),
 			@Result(column = "player", property = "attendances", many = @Many(select = "listAttendance")) })
 	List<PlayerStat> listPlayerStatistic();
-
-	@Select("( " //
-			+ "  SELECT instance, attendance, 'always' AS period " //
-			+ "  FROM raid_attendance " //
-			+ "  WHERE player = #{id} " //
-			+ ") UNION ( " //
-			+ "  SELECT instance, attendance, 'day14' AS period " //
-			+ "  FROM last_raid_attendance " //
-			+ "  WHERE player = #{id} " //
-			+ ") ORDER BY period ASC, instance ASC")
-	List<RaidAttendance> listAttendance(@Param("id") int player);
 
 	@Select("SELECT i.id, i.name, count(pl.player) AS count, max(r.date) AS last " //
 			+ "FROM       item        AS i " //
