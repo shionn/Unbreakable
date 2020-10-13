@@ -20,7 +20,7 @@ public interface StatisticDao {
 			+ "rank = 'reroll' AS reroll, rank = 'pu' AS pu  " //
 			+ "FROM player_statistic " //
 			+ "WHERE rank != 'inactif' " //
-			+ "ORDER BY pu, reroll, class, name ")
+			+ "ORDER BY reroll, class, name ")
 	@Results({ @Result(column = "player", property = "player.id"),
 			@Result(column = "name", property = "player.name"),
 			@Result(column = "class", property = "player.clazz"),

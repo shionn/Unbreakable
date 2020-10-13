@@ -78,9 +78,9 @@
 								<td class="border-right">${p.stat.getAttendance('AQ20','always').attendance}</td>
 								<td>${p.stat.getAttendance('MC','day14').attendance}</td>
 								<td>${p.stat.getAttendance('BWL','day14').attendance}</td>
-								<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>
-								<td>${p.stat.getAttendance('ZG','day14').attendance}</td>
 								<td>${p.stat.getAttendance('AQ40','day14').attendance}</td>
+								<td>${p.stat.getAttendance('ZG','day14').attendance}</td>
+								<td>${p.stat.getAttendance('AQ20','day14').attendance}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
