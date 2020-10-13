@@ -20,7 +20,7 @@ public class PlayerStat {
 	}
 
 	public int getRatio() {
-		return nbLoot * 100 / nbRaid;
+		return nbRaid == 0 ? 0 : nbLoot * 100 / nbRaid;
 	}
 
 	public int getNbRaid() {
