@@ -5,7 +5,7 @@
 <t:template>
 	<jsp:attribute name="content">
 		<table class="pure-table pure-table-horizontal">
-			<thead style="position: sticky;top: 0;">
+			<thead>
 				<tr>
 					<th colspan="2">Objet</th>
 					<th colspan="3">Personnage</th>
