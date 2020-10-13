@@ -32,8 +32,8 @@ public interface PlayerWhishDao {
 			@Result(column = "item_id", property = "item.id") })
 	List<PlayerWish> viewPlayerWish(@Param("id") int player);
 
-	@Insert("INSERT INTO player_wish (player, item, attribution) "
-			+ "VALUES (#{player.id}, #{wish.item.id}, #{wish.attribution}) "
+	@Insert("INSERT INTO player_wish (player, item, attribution, created) "
+			+ "VALUES (#{player.id}, #{wish.item.id}, #{wish.attribution}, NOW()) "
 			+ "ON DUPLICATE KEY UPDATE attribution = #{wish.attribution}, running = true")
 	int update(@Param("player") Player player, @Param("wish") PlayerWish wish);
 

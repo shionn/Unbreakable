@@ -7,7 +7,7 @@
 <t:template>
 	<jsp:attribute name="content">
 		<table class="pure-table pure-table-horizontal class-color">
-			<thead style="position: sticky;top: 0;">
+			<thead>
 				<tr>
 					<th>Joueur</th>
 					<th>Loot en Wish List</th>
@@ -72,7 +72,7 @@
 			</tbody>
 		</table>
 		<table class="pure-table pure-table-horizontal pure-table-striped">
-			<thead style="position: sticky;top: 0;">
+			<thead>
 				<tr>
 					<th>Date</th>
 					<th>Loot en Wish List</th>

@@ -496,6 +496,37 @@ INNER JOIN item        AS i  ON i.id = pl.item
 INNER JOIN player      AS p  ON p.id = pl.player
 INNER JOIN raid        AS r  ON r.id = pl.raid;
 
+-- attendance --
+
+CREATE OR REPLACE VIEW raid_attendance_internal AS
+(
+	SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) AS always, 0 AS day28, 0 AS day14
+	FROM player           AS p
+	INNER JOIN raid_entry AS re ON p.id = re.player
+	INNER JOIN raid       AS r  ON r.id = re.raid
+	GROUP BY player, instance
+) UNION (
+	SELECT p.id AS player, p.name AS player_name, r.instance,0 AS always, count(r.id) AS day28, 0 AS day14
+	FROM player           AS p
+	INNER JOIN raid_entry AS re ON p.id = re.player
+	INNER JOIN raid       AS r  ON r.id = re.raid AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 28 DAY))
+	GROUP BY player, instance
+) UNION (
+	SELECT p.id AS player, p.name AS player_name, r.instance,0 AS always, 0 AS day28, count(r.id) AS day14
+	FROM player           AS p
+	INNER JOIN raid_entry AS re ON p.id = re.player
+	INNER JOIN raid       AS r  ON r.id = re.raid AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 14 DAY))
+	GROUP BY player, instance
+);
+
+CREATE OR REPLACE VIEW raid_attendance AS
+SELECT player, player_name, instance, max(always) AS always, max(day28) AS day28, max(day14) AS day14
+FROM raid_attendance_internal
+GROUP BY player, instance;
+
+
+
+
 
 
 

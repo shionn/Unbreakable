@@ -55,9 +55,9 @@
 	</c:if>
 
 	<table class="pure-table pure-table-horizontal">
-		<thead style="position: sticky;top: 0;">
+		<thead>
 			<tr>
-				<th colspan="3">Joueur</th><th>Objet</th><th> </th>
+				<th colspan="3">Joueur</th><th>Objet</th><th> </th><th>Date d'ajout</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -68,6 +68,7 @@
 					<td>${wish.player.rank.fr}</td>
 					<td>${wish.item.name}</td>
 					<td>${wish.attribution.shorten}</td>
+					<td><fmt:formatDate value="${wish.created}" pattern="dd/MM/yyyy"/></td>
 				</tr>
 			</c:forEach>
 		</tbody>

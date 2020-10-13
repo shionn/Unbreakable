@@ -7,14 +7,14 @@
 	<jsp:attribute name="content">
 		<c:if test="${user.mdc}">
 			<table class="pure-table pure-table-horizontal">
-				<thead style="position: sticky;top: 0;">
+				<thead>
 					<tr>
 						<th colspan="3">Personnage</th>
 						<th colspan="3">EVGP</th>
 						<th>NbLoot</th>
 						<th colspan="2">NbRaid</th>
-						<th colspan="5">Présence</th>
-						<th colspan="5">Présence / 14j</th>
+						<th colspan="3">Présence</th>
+						<th colspan="3">Présence / 14j</th>
 					</tr>
 					<tr>
 						<th colspan="3"></th>
@@ -27,13 +27,9 @@
 						<th>MC</th>
 						<th>BWL</th>
 						<th>AQ40</th>
-						<th>ZG</th>
-						<th>AQ20</th>
 						<th>MC</th>
 						<th>BWL</th>
 						<th>AQ40</th>
-						<th>ZG</th>
-						<th>AQ20</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,21 +46,17 @@
 							<td class="border-right">${s.nbRaidWithoutLoot}</td>
 							<td>${s.getAttendance('MC','always').attendance}</td>
 							<td>${s.getAttendance('BWL','always').attendance}</td>
-							<td>${s.getAttendance('AQ40','always').attendance}</td>
-							<td>${s.getAttendance('ZG','always').attendance}</td>
-							<td class="border-right">${s.getAttendance('AQ20','always').attendance}</td>
+							<td class="border-right">${s.getAttendance('AQ40','always').attendance}</td>
 							<td>${s.getAttendance('MC','day14').attendance}</td>
 							<td>${s.getAttendance('BWL','day14').attendance}</td>
 							<td>${s.getAttendance('AQ40','day14').attendance}</td>
-							<td>${s.getAttendance('ZG','day14').attendance}</td>
-							<td>${s.getAttendance('AQ20','day14').attendance}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</c:if>
 		<table class="pure-table pure-table-horizontal">
-			<thead style="position: sticky;top: 0;">
+			<thead>
 				<tr>
 					<th>Nom</th>
 					<th>NbLoot</th>

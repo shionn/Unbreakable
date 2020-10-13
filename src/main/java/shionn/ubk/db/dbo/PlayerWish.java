@@ -1,11 +1,14 @@
 package shionn.ubk.db.dbo;
 
+import java.util.Date;
+
 public class PlayerWish {
 
 	private Player player;
 	private Item item;
 	private boolean selected;
 	private LootAttribution attribution;
+	private Date created;
 
 	public Player getPlayer() {
 		return player;
@@ -37,6 +40,14 @@ public class PlayerWish {
 
 	public void setAttribution(LootAttribution attribution) {
 		this.attribution = attribution;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 }

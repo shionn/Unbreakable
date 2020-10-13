@@ -8,7 +8,7 @@
 	<jsp:attribute name="content">
 		<c:forEach items="${raids}" var="raid" varStatus="i">
 			<table class="pure-table pure-table-horizontal">
-				<thead style="position: sticky;top: 0;">
+				<thead>
 					<tr>
 						<th colspan="4" style="text-align:center">
 							${raid.name}

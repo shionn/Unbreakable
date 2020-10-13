@@ -26,7 +26,7 @@
 			</form:form>
 			<c:if test="${priorities != null}">
 				<table class="pure-table pure-table-horizontal">
-					<thead style="position: sticky;top: 0;">
+					<thead>
 						<tr>
 							<th colspan="3">Personnage</th>
 							<th colspan="3">EVGP</th>
