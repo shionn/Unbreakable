@@ -2,10 +2,10 @@ package shionn.ubk.db.dbo;
 
 public enum PlayerRank {
 	test("Test"),
-	casu("Casu"),
+	casu("Membre"),
 	reroll("Reroll"),
 	pu("Associé"),
-	membre("Membre"),
+	membre("Raider"),
 	inactif("Inactif");
 
 	private String fr;

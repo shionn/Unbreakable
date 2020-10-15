@@ -33,7 +33,7 @@
 				<configuration>
 					<url>${tomcat.url}</url>
 					<server>${tomcat.server}</server>
-					<path>/Unbreakable</path>
+					<path>/Cerberus</path>
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
