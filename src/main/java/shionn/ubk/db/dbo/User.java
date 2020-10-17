@@ -1,5 +1,7 @@
 package shionn.ubk.db.dbo;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class User {
 
 	private int id;
@@ -36,5 +38,9 @@ public class User {
 
 	public boolean isMdc() {
 		return role != null && role.contains("MDC") || isAdmin();
+	}
+
+	public String getRoles() {
+		return StringUtils.join(role, ", ");
 	}
 }

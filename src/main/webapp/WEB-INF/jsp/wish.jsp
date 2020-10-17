@@ -7,7 +7,7 @@
 <t:template>
 <jsp:attribute name="content">
 
-	<c:if test="${user.admin}">
+	<c:if test="${user.mdc}">
 		<spring:url value="/wish" var="url"/>
 		<form:form method="GET" class="pure-form-aligned" action="${url}">
 			<fieldset>

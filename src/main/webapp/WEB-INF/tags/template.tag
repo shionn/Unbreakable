@@ -13,11 +13,11 @@
 		integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47"
 		crossorigin="anonymous">
 <link rel="stylesheet" href="<spring:url value="/css/generated/style.css"/>" />
-<title>Unbreakable</title>
+<title>Cerberus</title>
 </head>
 <body>
 	<div class="pure-menu pure-menu-horizontal">
-		<a href="#" class="pure-menu-heading pure-menu-link">Unbreakable</a>
+		<a href="#" class="pure-menu-heading pure-menu-link">Cerberus</a>
 		<ul class="pure-menu-list">
 			<li class="pure-menu-item"><a href='<spring:url value="/priority"/>' class="pure-menu-link">Prioritées</a></li>
 			<li class="pure-menu-item pure-menu-has-children">
