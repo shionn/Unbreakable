@@ -109,10 +109,6 @@
 						<label for="date">Date</label>
 						<input type="date" name="date" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${raid.date}"/>">
 					</div>
-					<div class="pure-control-group">
-						<label for="number">Point</label>
-						<input type="text" name="point" value="${raid.point}"> <em>10=MC/BWL, ZG=5, Improvisé=0</em>
-					</div>
 					<div class="pure-controls">
 						<label for="running">
 							<input type="checkbox" name="running" <c:if test="${raid.running}"> checked="checked"</c:if>>
@@ -178,10 +174,6 @@
 				<div class="pure-control-group">
 					<label for="date">Date</label>
 					<input type="date" name="date" required="required" >
-				</div>
-				<div class="pure-control-group">
-					<label for="number">Point</label>
-					<input type="text" name="point" value="10">
 				</div>
 				<div class="pure-controls">
 					<button type="submit" class="pure-button pure-button-primary">Ajouter un raid</button>

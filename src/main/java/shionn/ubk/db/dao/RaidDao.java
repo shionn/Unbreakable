@@ -49,13 +49,13 @@ public interface RaidDao extends AttendanceFragDao {
 			@Result(column = "id", property = "item.id") })
 	public List<Loot> listLoot(@Param("player") int player, @Param("raid") int raid);
 
-	@Insert("INSERT INTO raid (name, instance, date, point, running) "
-			+ "VALUES (#{name}, #{instance}, #{date}, #{point}, true)")
+	@Insert("INSERT INTO raid (name, instance, date, running) " //
+			+ "VALUES (#{name}, #{instance}, #{date}, true)")
 	public void create(@Param("name") String name, @Param("instance") RaidInstance instance,
-			@Param("date") Date date, @Param("point") int point);
+			@Param("date") Date date);
 
 	@Update("UPDATE raid SET name = #{name}, instance = #{instance}, " //
-			+ "date = #{date}, running = #{running}, point = #{point} " //
+			+ "date = #{date}, running = #{running} " //
 			+ "WHERE id = #{id} ")
 	public void update(Raid raid);
 

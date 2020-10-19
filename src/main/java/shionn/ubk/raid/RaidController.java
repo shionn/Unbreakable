@@ -74,10 +74,9 @@ public class RaidController implements Serializable {
 	@RequestMapping(value = "/raid/add", method = RequestMethod.POST)
 	public String createRaid(@RequestParam("name") String name,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
-			@RequestParam("point") int point,
 			@RequestParam("instance") RaidInstance instance,
 			RedirectAttributes attr) {
-		session.getMapper(RaidDao.class).create(name, instance, date, point);
+		session.getMapper(RaidDao.class).create(name, instance, date);
 		session.commit();
 		return "redirect:/raid";
 	}
