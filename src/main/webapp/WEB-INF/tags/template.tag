@@ -34,7 +34,9 @@
 					<ul class="pure-menu-children">
 						<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid en Cours</a></li>
 						<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Préparation</a></li>
-<%-- 						<li class="pure-menu-item"><a href='<spring:url value="/raid-dispatcher"/>' class="pure-menu-link">Répartiteur</a></li> --%>
+						<c:if test="${user.superAdmin}">
+							<li class="pure-menu-item"><a href='<spring:url value="/raid-dispatcher"/>' class="pure-menu-link">Répartiteur</a></li>
+						</c:if>
 					</ul>
 				</li>
 			</c:if>
@@ -42,7 +44,7 @@
 			<c:if test="${user.mdc}">
 				<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
 			</c:if>
-			<c:if test="${user.admin and user.superAdmin}">
+			<c:if test="${user.superAdmin}">
 				<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
 			</c:if>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>

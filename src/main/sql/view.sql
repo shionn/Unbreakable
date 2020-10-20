@@ -14,7 +14,6 @@ INNER JOIN raid_entry AS e ON r.id = e.raid
 GROUP BY raid;
 
 -- supression des l'ancien systeme de point
-
 CREATE OR REPLACE VIEW no_loot AS
 SELECT count(e.raid) AS nb_raid, e.player
 FROM raid AS r
@@ -40,7 +39,6 @@ LEFT JOIN player_nb_raid AS pnr ON pnr.player = p.id
 LEFT JOIN no_loot        AS nl  ON nl.player  = p.id;
 
 -- suppression colonne ratio --
-
 CREATE OR REPLACE VIEW item_priority AS
 SELECT  i.id                      AS item,
         p.id                      AS player,
@@ -126,7 +124,6 @@ INNER JOIN player      AS p  ON p.id = pl.player
 INNER JOIN raid        AS r  ON r.id = pl.raid;
 
 -- attendance --
-
 CREATE OR REPLACE VIEW raid_attendance AS
 (
 	SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) AS attendance , 'always' AS period
@@ -151,7 +148,6 @@ CREATE OR REPLACE VIEW raid_attendance AS
 );
 
 -- suppression raid.point --
-
 CREATE OR REPLACE VIEW player_gp AS
 SELECT p.id AS player,
        p.name,
@@ -178,4 +174,25 @@ INNER JOIN raid_size   AS rs ON r.id = rs.raid
 INNER JOIN player_loot AS pl ON r.id = pl.raid AND pl.attribution = 'primary'
 INNER JOIN item        AS i  ON i.id = pl.item
 GROUP BY raid;
+
+-- inprogress armory --
+
+CREATE OR REPLACE VIEW armory AS (
+	SELECT pl.player, p.name AS player_name, p.class, p.rank,
+	  pl.item, i.name AS item_name, i.slot, i.ilvl, i.raid,
+	  pl.attribution, pl.wl, true AS optained
+	FROM player_loot     AS pl
+	INNER JOIN item      AS i  ON i.id = pl.item
+	INNER JOIN player    AS p  ON p.id = pl.player
+	WHERE p.rank <> 'inactif'
+) UNION (
+	SELECT pw.player, p.name AS player_name, p.class, p.rank,
+	  pw.item, i.name AS item_name, i.slot, i.ilvl, i.raid,
+	  pw.attribution, true AS wl, false AS optained
+	FROM player_wish     AS pw
+	INNER JOIN item      AS i  ON i.id = pw.item
+	INNER JOIN player    AS p  ON p.id = pw.player
+	WHERE p.rank <> 'inactif'
+	  AND pw.running IS true
+);
 
