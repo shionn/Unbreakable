@@ -29,7 +29,7 @@ public interface ArmoryDao {
 
 	@Select("SELECT item, item_name, class AS clazz " //
 			+ "FROM armory WHERE raid = #{raid} " //
-			+ "GROUP BY item ORDER BY item_name")
+			+ "GROUP BY item, clazz ORDER BY item_name")
 	List<Armory> listItems(@Param("raid") RaidInstance raid);
 
 	@Select("SELECT * FROM armory WHERE raid = #{raid} ")
