@@ -13,7 +13,7 @@
 						<th colspan="4" style="text-align:center">
 							${raid.name}
 							<fmt:formatDate pattern="dd/MM/yyyy" value="${raid.date}"/>
-							(${raid.players.size()}<c:if test="${user.admin}"> - ${raid.point}</c:if>)
+							(${raid.players.size()})
 							<c:if test="${user.admin}">
 								<a href='<spring:url value="/raid/edit/${raid.id}"/>'>edit</a>
 							</c:if>

@@ -14,7 +14,6 @@ public class Raid {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	private boolean running;
-	private int point;
 	private List<RaidEntry> players;
 	private RaidInstance instance;
 	private int ev;
@@ -65,14 +64,6 @@ public class Raid {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
 	}
 
 	public RaidInstance getInstance() {

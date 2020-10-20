@@ -4,7 +4,6 @@ public class Priority {
 	private Item item;
 	private Player player;
 	private int order;
-	private int point;
 	private int nbRaidWait;
 	private boolean looted;
 	private PlayerStat stat;
@@ -33,14 +32,6 @@ public class Priority {
 
 	public int getOrder() {
 		return order;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
-
-	public int getPoint() {
-		return point;
 	}
 
 	public boolean isLooted() {
