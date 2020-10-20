@@ -40,6 +40,10 @@ public class User {
 		return role != null && role.contains("MDC") || isAdmin();
 	}
 
+	public boolean isSuperAdmin() {
+		return role != null && role.contains("SUPER_ADMIN");
+	}
+
 	public String getRoles() {
 		return StringUtils.join(role, ", ");
 	}

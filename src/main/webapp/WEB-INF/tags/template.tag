@@ -39,8 +39,11 @@
 				</li>
 			</c:if>
 			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Liste de souhait</a></li>
-			<c:if test="${user.admin or user.mdc}">
+			<c:if test="${user.mdc}">
 				<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
+			</c:if>
+			<c:if test="${user.admin and user.superAdmin}">
+				<li class="pure-menu-item"><a href='<spring:url value="/armory"/>' class="pure-menu-link">Armurerie</a></li>
 			</c:if>
 			<li class="pure-menu-item"><a href='<spring:url value="/admin"/>' class="pure-menu-link">Admin</a></li>
 			<c:if test="${user.admin}"><li class="pure-menu-item" style="color: red">ADMIN</li></c:if>
