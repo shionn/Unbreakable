@@ -6,87 +6,6 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="content">
-		<c:if test="${items != null}" >
-			<spring:url value="/raid/itemhelp" var="url"/>
-			<form:form method="POST" class="pure-form-aligned" action="${url}">
-				<fieldset>
-					<legend>Aide à l'attribution</legend>
-					<div class="pure-control-group">
-						<label for="item">Item</label>
-						<select name="item">
-							<c:forEach items="${items}" var="item">
-								<option value="${item.id}">${item.name}</option>
-							</c:forEach>
-						</select>
-					</div>
-					<div class="pure-controls">
-						<button type="submit" class="pure-button pure-button-primary">Voir</button>
-					</div>
-				</fieldset>
-			</form:form>
-			<c:if test="${priorities != null}">
-				<table class="pure-table pure-table-horizontal">
-					<thead>
-						<tr>
-							<th colspan="3">Personnage</th>
-							<th colspan="3">EVGP</th>
-							<th>NbLoot</th>
-							<th>Ratio</th>
-							<th colspan="3">NbRaid</th>
-							<th colspan="3">Présence</th>
-							<th colspan="3">Présence / 14j</th>
-							<th colspan="3">Présence / 28j</th>
-						</tr>
-						<tr>
-							<th colspan="3"></th>
-							<th>EV</th>
-							<th>GP</th>
-							<th>%</th>
-							<th colspan="2"></th>
-							<th>Total</th>
-							<th>SsLoot</th>
-							<th>Attente</th>
-							<th>MC</th>
-							<th>BWL</th>
-							<th>AQ40</th>
-							<th>MC</th>
-							<th>BWL</th>
-							<th>AQ40</th>
-							<th>MC</th>
-							<th>BWL</th>
-							<th>AQ40</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${priorities}" var="p">
-							<tr>
-								<td>${p.player.name}</td>
-								<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
-								<td class="border-right">${p.player.rank.fr}</td>
-								<td>${p.stat.ev}</td>
-								<td>${p.stat.gp}</td>
-								<td class="border-right">${p.stat.evgpRatio} %</td>
-								<td>${p.stat.nbLoot}</td>
-								<td class="border-right">${p.stat.ratio} %</td>
-								<td>${p.stat.nbRaid}</td>
-								<td>${p.stat.nbRaidWithoutLoot}</td>
-								<td class="border-right">${p.nbRaidWait}</td>
-								<td>${p.stat.getAttendance('MC','always').attendance}</td>
-								<td>${p.stat.getAttendance('BWL','always').attendance}</td>
-								<td class="border-right">${p.stat.getAttendance('AQ40','always').attendance}</td>
-								<td>${p.stat.getAttendance('MC','day14').attendance}</td>
-								<td>${p.stat.getAttendance('BWL','day14').attendance}</td>
-								<td class="border-right">${p.stat.getAttendance('AQ40','day14').attendance}</td>
-								<td>${p.stat.getAttendance('MC','day28').attendance}</td>
-								<td>${p.stat.getAttendance('BWL','day28').attendance}</td>
-								<td>${p.stat.getAttendance('AQ40','day28').attendance}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</c:if>
-		</c:if>
-
 		<c:forEach items="${runnings}" var="raid" varStatus="i">
 			<spring:url value="/raid/update" var="url"/>
 			<form:form method="POST" class="pure-form-aligned" modelAttribute="raid" action="${url}">
@@ -118,7 +37,7 @@
 					<div class="pure-controls">
 						<button type="submit" class="pure-button pure-button-primary">Sauvegarder</button>
 					</div>
-<%-- 					<t:priority-table priorities="${raid.selectedWishList}"/> --%>
+					<t:priority-table priorities="${raid.selectedWishList}"/>
 					<table class="pure-table pure-table-horizontal">
 						<thead>
 							<tr>

@@ -167,10 +167,9 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "FROM item_priority     AS ip " //
 			+ "INNER JOIN player      AS p  ON ip.player = p.id      AND p.rank != 'inactif' "
 			+ "INNER JOIN raid_entry  AS re ON ip.player = re.player AND re.raid = #{raid} "
-//			+ "INNER JOIN raid        AS r  ON r.id      = #{raid} "
-//			+ "INNER JOIN item        AS i  ON ip.item   = i.id      AND i.raid  = r.instance "
+			+ "INNER JOIN raid        AS r  ON re.raid   = r.id "
+			+ "INNER JOIN item        AS i  ON ip.item   = i.id      AND i.raid  = r.instance "
 			+ "LEFT  JOIN player_loot AS pl ON ip.player = pl.player AND pl.item = ip.item "
-			+ "WHERE ip.selected = true " //
 			+ "ORDER BY item_name, evgp_ratio ASC")
 	@Results({
 			@Result(column = "item_id", property = "item.id"),
@@ -186,6 +185,6 @@ public interface RaidDao extends AttendanceFragDao {
 			@Result(column = "ev", property = "stat.ev"),
 			@Result(column = "gp", property = "stat.gp"),
 			@Result(column = "evgp_ratio", property = "stat.evgpRatio") })
-	List<Priority> listSelectedWishList(@Param("raid") int id);
+	List<Priority> listWishList(@Param("raid") int id);
 
 }
