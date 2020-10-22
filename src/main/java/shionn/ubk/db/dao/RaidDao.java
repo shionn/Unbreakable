@@ -163,7 +163,8 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "  ip.gp, " //
 			+ "  ip.evgp_ratio, " //
 			+ "  ip.item AS item_id, " //
-			+ "  ip.item_name " //
+			+ "  ip.item_name, " //
+			+ "  i.boss AS item_boss " //
 			+ "FROM item_priority     AS ip " //
 			+ "INNER JOIN player      AS p  ON ip.player = p.id      AND p.rank != 'inactif' "
 			+ "INNER JOIN raid_entry  AS re ON ip.player = re.player AND re.raid = #{raid} "
@@ -174,6 +175,7 @@ public interface RaidDao extends AttendanceFragDao {
 	@Results({
 			@Result(column = "item_id", property = "item.id"),
 			@Result(column = "item_name", property = "item.name"),
+			@Result(column = "item_boss", property = "item.boss"),
 			@Result(column = "player_name", property = "player.name"),
 			@Result(column = "player_rank", property = "player.rank"),
 			@Result(column = "player_class", property = "player.clazz"),

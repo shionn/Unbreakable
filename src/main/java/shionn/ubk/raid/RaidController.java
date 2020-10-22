@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -24,6 +26,7 @@ import shionn.ubk.db.dao.PlayerWhishDao;
 import shionn.ubk.db.dao.RaidDao;
 import shionn.ubk.db.dbo.LootAttribution;
 import shionn.ubk.db.dbo.PlayerWish;
+import shionn.ubk.db.dbo.Priority;
 import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
 import shionn.ubk.db.dbo.RaidInstance;
@@ -40,6 +43,7 @@ public class RaidController implements Serializable {
 	private SqlSession session;
 
 	private SortOrder order = SortOrder.clazz;
+	private String boss = "";
 
 	@RequestMapping(value = "/raid", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -47,11 +51,19 @@ public class RaidController implements Serializable {
 		List<Raid> raids = dao.listRunnings();
 		for (Raid raid : raids) {
 			raid.setPlayers(dao.listRunningPlayer(raid.getId(), order));
-			raid.setSelectedWishList(
-					new PrioritiesBuilder().groupByItem(dao.listWishList(raid.getId())));
+			List<Priority> wishList = dao.listWishList(raid.getId());
+			raid.setBosses(wishList.stream().map(wl -> wl.getItem().getBoss()).distinct().sorted()
+					.collect(Collectors.toList()));
+			if (StringUtils.isNotBlank(boss)) {
+				wishList = wishList.stream().filter(wl -> wl.getItem().getBoss().equals(boss))
+						.collect(Collectors.toList());
+			}
+			raid.setSelectedWishList(new PrioritiesBuilder().groupByItem(wishList));
 		}
-		return new ModelAndView("raid").addObject("runnings", raids).addObject(
-				"instances", RaidInstance.values());
+		return new ModelAndView("raid") //
+				.addObject("runnings", raids) //
+				.addObject("instances", RaidInstance.values()) //
+				.addObject("boss", boss);
 	}
 
 	@RequestMapping(value = "/raid/add", method = RequestMethod.POST)
@@ -150,6 +162,12 @@ public class RaidController implements Serializable {
 	@RequestMapping(value = "/raid/sort/{order}", method = RequestMethod.GET)
 	public String orderBy(@PathVariable("order") SortOrder order) {
 		this.order = order;
+		return "redirect:/raid";
+	}
+
+	@RequestMapping(value = "/raid/filterboss", method = RequestMethod.POST)
+	public String filterBoss(@RequestParam("boss") String boss) {
+		this.boss = boss;
 		return "redirect:/raid";
 	}
 

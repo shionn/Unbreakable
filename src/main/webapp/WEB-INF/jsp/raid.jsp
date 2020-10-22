@@ -8,7 +8,7 @@
 	<jsp:attribute name="content">
 		<c:forEach items="${runnings}" var="raid" varStatus="i">
 			<spring:url value="/raid/update" var="url"/>
-			<form:form method="POST" class="pure-form-aligned" modelAttribute="raid" action="${url}">
+			<form:form method="POST" class="pure-form pure-form-aligned" modelAttribute="raid" action="${url}">
 				<fieldset>
 					<legend>${raid.name}</legend>
 					<input type="hidden" name="id" value="${raid.id}">
@@ -37,42 +37,62 @@
 					<div class="pure-controls">
 						<button type="submit" class="pure-button pure-button-primary">Sauvegarder</button>
 					</div>
-					<t:priority-table priorities="${raid.selectedWishList}"/>
-					<table class="pure-table pure-table-horizontal">
-						<thead>
-							<tr>
-								<th colspan="4">Membre participant (<a href='<spring:url value="/raid/edit/member/${raid.id}"/>'>Editer / Ajouter</a>)</th>
-							</tr>
-							<tr>
-								<th><a href='<spring:url value="/raid/sort/name"/>' style="text-decoration: none; color: black;">Personnage ${raid.players.size()}</a></th>
-								<th><a href='<spring:url value="/raid/sort/clazz"/>' style="text-decoration: none; color: black;">Classe</a></th>
-								<th>Rang</th>
-								<th>Loot</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${raid.players}" var="e" varStatus="i">
-								<tr class="${e.player.clazz}">
-									<td>
-										<input type="hidden" name="players[${i.index}].player.id" value="${e.player.id}">
-										${e.player.name}
-										<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true"></i></c:if>
-										<c:if test="${not e.visible}"><i class="fa fa-eye-slash" aria-hidden="true"></i></c:if>
-									</td>
-									<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
-									<td>${e.player.rank.fr}</td>
-									<td>
-										<c:forEach items="${e.loots}" var="loot">
-											<a class="pure-button button-error button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}/${loot.item.id}"/>'>- ${loot.item.name} (${loot.attribution.shorten})</a>,
-										</c:forEach>
-										<a class="pure-button button-success button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}"/>'>+</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
 				</fieldset>
 			</form:form>
+			<spring:url value="/raid/filterboss" var="url"/>
+			<form:form method="POST" class="pure-form pure-form-stacked" modelAttribute="raid" action="${url}">
+				<fieldset>
+					<legend>Liste de Souhait</legend>
+					<div class="pure-g" style="width:1000px">
+						<div class="pure-u-1-3">
+							<label for=boss>Boss</label>
+							<select name="boss">
+								<option value="${b}">Tous</option>
+								<c:forEach items="${raid.bosses}" var="b">
+									<option value="${b}"<c:if test="${b == boss}"> selected="selected"</c:if>>${b}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="pure-u-1-3" style="display: flex;flex-direction: column-reverse;">
+							<button type="submit" class="pure-button pure-button-primary">Filtrer</button>
+						</div>
+					</div>
+				</fieldset>
+			</form:form>
+			<t:priority-table priorities="${raid.selectedWishList}"/>
+			<table class="pure-table pure-table-horizontal">
+				<thead>
+					<tr>
+						<th colspan="4">Membre participant (<a href='<spring:url value="/raid/edit/member/${raid.id}"/>'>Editer / Ajouter</a>)</th>
+					</tr>
+					<tr>
+						<th><a href='<spring:url value="/raid/sort/name"/>' style="text-decoration: none; color: black;">Personnage ${raid.players.size()}</a></th>
+						<th><a href='<spring:url value="/raid/sort/clazz"/>' style="text-decoration: none; color: black;">Classe</a></th>
+						<th>Rang</th>
+						<th>Loot</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${raid.players}" var="e" varStatus="i">
+						<tr class="${e.player.clazz}">
+							<td>
+								<input type="hidden" name="players[${i.index}].player.id" value="${e.player.id}">
+								${e.player.name}
+								<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true"></i></c:if>
+								<c:if test="${not e.visible}"><i class="fa fa-eye-slash" aria-hidden="true"></i></c:if>
+							</td>
+							<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
+							<td>${e.player.rank.fr}</td>
+							<td>
+								<c:forEach items="${e.loots}" var="loot">
+									<a class="pure-button button-error button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}/${loot.item.id}"/>'>- ${loot.item.name} (${loot.attribution.shorten})</a>,
+								</c:forEach>
+								<a class="pure-button button-success button-xsmall" href='<spring:url value="/raid/loot/${raid.id}/${e.player.id}"/>'>+</a>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</c:forEach>
 		<spring:url value="/raid/add" var="url"/>
 		<form:form method="POST" class="pure-form-aligned" action="${url}">

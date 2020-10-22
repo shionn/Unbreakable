@@ -19,6 +19,7 @@ public class Raid {
 	private int ev;
 	private int initialEv;
 	private Map<Item, List<Priority>> selectedWishList;
+	private List<String> bosses;
 
 	public int getId() {
 		return id;
@@ -96,5 +97,13 @@ public class Raid {
 
 	public Map<Item, List<Priority>> getSelectedWishList() {
 		return selectedWishList;
+	}
+
+	public void setBosses(List<String> bosses) {
+		this.bosses = bosses;
+	}
+
+	public List<String> getBosses() {
+		return bosses;
 	}
 }
