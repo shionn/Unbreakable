@@ -12,17 +12,17 @@
 				<table class="pure-table pure-table-horizontal">
 					<thead>
 						<tr>
-							<th>#</th>
-							<c:forEach items="${g.getPlayers(class)}" var="p">
+							<th>${clas}</th>
+							<c:forEach items="${g.getPlayers(clas)}" var="p">
 								<th>${p.playerName}</th>
 							</c:forEach>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${g.getItems(class)}" var="i">
+						<c:forEach items="${g.getItems(clas)}" var="i">
 							<tr>
 								<td>${i.itemName}</td>
-								<c:forEach items="${g.getPlayers(class)}" var="p">
+								<c:forEach items="${g.getPlayers(clas)}" var="p">
 									<td style="background-color: ${g.getBgColor(i.item, p.player)}">
 										<c:if test="${g.isEditable(i.item, p.player)}">
 											<a href="<spring:url value="/armory/${p.player}/${i.item}"/>">${g.getStatus(i.item, p.player)}</a>
