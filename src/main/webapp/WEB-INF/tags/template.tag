@@ -19,7 +19,13 @@
 	<div class="pure-menu pure-menu-horizontal">
 		<a href="#" class="pure-menu-heading pure-menu-link">Cerberus</a>
 		<ul class="pure-menu-list">
-			<li class="pure-menu-item"><a href='<spring:url value="/priority"/>' class="pure-menu-link">Prioritées</a></li>
+			<li class="pure-menu-item pure-menu-has-children">
+				<a href="#" class="pure-menu-link">Liste de souhait</a>
+				<ul class="pure-menu-children">
+					<li class="pure-menu-item"><a href='<spring:url value="/priority"/>' class="pure-menu-link">Par Loots</a></li>
+					<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Par Personnage</a></li>
+				</ul>
+			</li>
 			<li class="pure-menu-item pure-menu-has-children">
 				<a href="#" class="pure-menu-link">Historique</a>
 				<ul class="pure-menu-children">
@@ -40,7 +46,6 @@
 					</ul>
 				</li>
 			</c:if>
-			<li class="pure-menu-item"><a href='<spring:url value="/wish"/>' class="pure-menu-link">Liste de souhait</a></li>
 			<c:if test="${user.mdc}">
 				<li class="pure-menu-item"><a href='<spring:url value="/info"/>' class="pure-menu-link">Info</a></li>
 			</c:if>
