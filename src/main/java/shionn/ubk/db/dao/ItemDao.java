@@ -65,5 +65,10 @@ public interface ItemDao {
 			+ "ORDER BY raid DESC, name ASC")
 	List<Item> listForRaidAndPlayer(@Param("raid") int raid, @Param("player") int player);
 
+	@Select("SELECT distinct(boss) AS boss FROM item ORDER BY boss")
+	List<String> listBosses();
+
+	@Update("UPDATE item SET boss = #{newBossName} WHERE boss = #{bossName}")
+	int renameBosses(@Param("bossName") String bossName, @Param("newBossName") String newBossName);
 
 }

@@ -39,6 +39,7 @@ public class AdminController {
 				.addObject("slots", ItemSlot.values()) //
 				.addObject("players", session.getMapper(PlayerDao.class).listAllPlayers())
 				.addObject("items", session.getMapper(ItemDao.class).list())
+				.addObject("bosses", session.getMapper(ItemDao.class).listBosses())
 		;
 	}
 
@@ -112,6 +113,14 @@ public class AdminController {
 				dao.createItemAssignment(item.getId(), clazz);
 			}
 		}
+		session.commit();
+		return "redirect:/admin";
+	}
+
+	@RequestMapping(value = "/admin/edit-boss", method = RequestMethod.POST)
+	public String editBoss(@RequestParam(name = "bossname") String bossName,
+			@RequestParam(name = "newbossname") String newBossName) {
+		session.getMapper(ItemDao.class).renameBosses(bossName, newBossName);
 		session.commit();
 		return "redirect:/admin";
 	}
