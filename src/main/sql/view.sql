@@ -180,7 +180,7 @@ GROUP BY raid;
 CREATE OR REPLACE VIEW armory AS (
 	SELECT pl.player, p.name AS player_name, p.class, p.rank,
 	  pl.item, i.name AS item_name, i.slot, i.ilvl, i.raid,
-	  pl.attribution, pl.wl, true AS optained
+	  pl.attribution, pl.wl, true AS optained, false AS editable
 	FROM player_loot     AS pl
 	INNER JOIN item      AS i  ON i.id = pl.item
 	INNER JOIN player    AS p  ON p.id = pl.player
@@ -188,11 +188,19 @@ CREATE OR REPLACE VIEW armory AS (
 ) UNION (
 	SELECT pw.player, p.name AS player_name, p.class, p.rank,
 	  pw.item, i.name AS item_name, i.slot, i.ilvl, i.raid,
-	  pw.attribution, true AS wl, false AS optained
+	  pw.attribution, true AS wl, false AS optained, false AS editable
 	FROM player_wish     AS pw
 	INNER JOIN item      AS i  ON i.id = pw.item
 	INNER JOIN player    AS p  ON p.id = pw.player
 	WHERE p.rank <> 'inactif'
 	  AND pw.running IS true
+) UNION(
+	SELECT ps.player, p.name AS player_name, p.class, p.rank,
+	  ps.item, i.name AS item_name, i.slot, i.ilvl, i.raid,
+	  null AS attribution, false AS wl, true AS optained, true AS editable
+	FROM player_stuff    AS ps
+	INNER JOIN item      AS i  ON i.id = ps.item
+	INNER JOIN player    AS p  ON p.id = ps.player
+	WHERE p.rank <> 'inactif'
 );
 

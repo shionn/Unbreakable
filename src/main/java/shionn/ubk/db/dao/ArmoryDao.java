@@ -2,6 +2,8 @@ package shionn.ubk.db.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
@@ -34,5 +36,14 @@ public interface ArmoryDao {
 
 	@Select("SELECT * FROM armory WHERE raid = #{raid} ")
 	List<Armory> listArmories(@Param("raid") RaidInstance raid);
+
+	@Select("SELECT count(*) FROM player_stuff WHERE player = #{player} AND item = #{item}")
+	boolean isPlayerStuff(@Param("player") int player, @Param("item") int item);
+
+	@Insert("INSERT INTO player_stuff (player, item) VALUES (#{player}, #{item})")
+	int addPlayerStuff(@Param("player") int player, @Param("item") int item);
+
+	@Delete("DELETE FROM player_stuff WHERE player = #{player} AND item = #{item}")
+	int removePlayerStuff(@Param("player") int player, @Param("item") int item);
 
 }

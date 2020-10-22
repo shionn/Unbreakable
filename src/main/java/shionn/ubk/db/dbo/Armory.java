@@ -10,6 +10,7 @@ public class Armory {
 	private LootAttribution attribution;
 	private boolean wl;
 	private boolean optained;
+	private boolean editable;
 
 
 	public int getItem() {
@@ -76,9 +77,17 @@ public class Armory {
 		return optained;
 	}
 
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
 	public String getStatus() {
 		if (attribution == null) {
-			return "";
+			return "af";
 		}
 		if (wl) {
 			return LootAttribution.wishList.getShorten();
@@ -87,9 +96,6 @@ public class Armory {
 	}
 
 	public String getBgColor() {
-		if (attribution == null) {
-			return "white";
-		}
 		if (!optained) {
 			return "yellow";
 		}

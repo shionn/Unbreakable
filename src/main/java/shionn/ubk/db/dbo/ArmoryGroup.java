@@ -50,13 +50,18 @@ public class ArmoryGroup {
 	}
 
 	public String getStatus(int item, int player) {
-		return armories.stream().filter(a -> a.getItem() == item && a.getPlayer() == player).findFirst()
-				.orElse(new Armory()).getStatus();
+		return armories.stream().filter(a -> a.getItem() == item && a.getPlayer() == player)
+				.map(a -> a.getStatus()).findFirst().orElse("-");
 	}
 
 	public String getBgColor(int item, int player) {
-		return armories.stream().filter(a -> a.getItem() == item && a.getPlayer() == player).findFirst()
-				.orElse(new Armory()).getBgColor();
+		return armories.stream().filter(a -> a.getItem() == item && a.getPlayer() == player)
+				.map(a -> a.getBgColor()).findFirst().orElse("");
+	}
+
+	public boolean isEditable(int item, int player) {
+		return armories.stream().filter(a -> a.getItem() == item && a.getPlayer() == player)
+				.map(a -> a.isEditable()).findFirst().orElse(true);
 	}
 
 }
