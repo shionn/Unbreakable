@@ -34,7 +34,6 @@ import shionn.ubk.db.dbo.SortOrder;
 import shionn.ubk.db.dbo.User;
 import shionn.ubk.wish.PrioritiesBuilder;
 
-
 @Controller
 @SessionScope
 public class RaidController implements Serializable {
@@ -57,11 +56,16 @@ public class RaidController implements Serializable {
 			List<Priority> wishList = dao.listWishList(raid.getId());
 			raid.setBosses(wishList.stream().map(wl -> wl.getItem().getBoss()).distinct().sorted()
 					.collect(Collectors.toList()));
-			if (StringUtils.isNotBlank(boss)) {
-				wishList = wishList.stream().filter(wl -> wl.getItem().getBoss().equals(boss))
-						.collect(Collectors.toList());
+			if (!"None".equals(boss)) {
+				if (StringUtils.isNotBlank(boss)) {
+					wishList = wishList.stream()
+							.filter(wl -> boss.equals(wl.getItem().getBoss())
+									|| "Multiple Boss".equals(wl.getItem().getBoss()))
+							.collect(Collectors.toList());
+
+				}
+				raid.setSelectedWishList(new PrioritiesBuilder().groupByItem(wishList, user));
 			}
-			raid.setSelectedWishList(new PrioritiesBuilder().groupByItem(wishList, user));
 		}
 		return new ModelAndView("raid") //
 				.addObject("runnings", raids) //
@@ -72,8 +76,7 @@ public class RaidController implements Serializable {
 	@RequestMapping(value = "/raid/add", method = RequestMethod.POST)
 	public String createRaid(@RequestParam("name") String name,
 			@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
-			@RequestParam("instance") RaidInstance instance,
-			RedirectAttributes attr) {
+			@RequestParam("instance") RaidInstance instance, RedirectAttributes attr) {
 		session.getMapper(RaidDao.class).create(name, instance, date);
 		session.commit();
 		return "redirect:/raid";
@@ -155,8 +158,8 @@ public class RaidController implements Serializable {
 
 	@CacheEvict(cacheNames = { "priority", "historic", "statistic" }, allEntries = true)
 	@RequestMapping(value = "/raid/loot/{raid}/{player}/{item}", method = RequestMethod.GET)
-	public String rmRaidLoot(@PathVariable("raid") int raid,
-			@PathVariable("player") int player, @PathVariable("item") int item) {
+	public String rmRaidLoot(@PathVariable("raid") int raid, @PathVariable("player") int player,
+			@PathVariable("item") int item) {
 		session.getMapper(RaidDao.class).removeLoot(raid, player, item);
 		session.commit();
 		return "redirect:/raid";
