@@ -25,7 +25,8 @@ public interface ArmoryDao {
 	List<ArmoryGroup> listGroups();
 
 	@Select("SELECT player, player_name, class AS clazz " //
-			+ "FROM armory WHERE raid = #{raid} " //
+			+ "FROM armory "//
+			+ "WHERE rank IN ('casu','membre') " //
 			+ "GROUP BY player ORDER BY player_name")
 	List<Armory> listPlayers(@Param("raid") RaidInstance raid);
 

@@ -6,13 +6,14 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="content">
+		<a href="<spring:url value="/armory/all"/>">Afficher tout</a>
 		<c:forEach items="${groups}" var="g">
-			<h1>${g.raid}</h1>
+			<h1><a href="<spring:url value="/armory/raid/${g.raid}"/>">${g.raid}</a></h1>
 			<c:forEach items="${classes}" var="clas">
 				<table class="pure-table pure-table-horizontal">
 					<thead>
 						<tr>
-							<th>${clas}</th>
+							<th><a href="<spring:url value="/armory/class/${clas}"/>">${clas}</a></th>
 							<c:forEach items="${g.getPlayers(clas)}" var="p">
 								<th>${p.playerName}</th>
 							</c:forEach>

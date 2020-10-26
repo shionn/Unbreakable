@@ -47,7 +47,8 @@
 						<div class="pure-u-1-3">
 							<label for=boss>Boss</label>
 							<select name="boss">
-								<option value="${b}">Tous</option>
+								<option value="">Tous</option>
+								<option value="FooBarQix">Aucun</option>
 								<c:forEach items="${raid.bosses}" var="b">
 									<option value="${b}"<c:if test="${b == boss}"> selected="selected"</c:if>>${b}</option>
 								</c:forEach>

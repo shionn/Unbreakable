@@ -163,7 +163,7 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "  ip.gp, " //
 			+ "  ip.evgp_ratio, " //
 			+ "  ip.item AS item_id, " //
-			+ "  ip.item_name, " //
+			+ "  ip.item_name AS item_name, " //
 			+ "  i.boss AS item_boss " //
 			+ "FROM item_priority     AS ip " //
 			+ "INNER JOIN player      AS p  ON ip.player = p.id      AND p.rank != 'inactif' "

@@ -1,7 +1,7 @@
 <%@ tag pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ attribute name="priorities" fragment="false" type="java.util.Map"%>
+<%@ attribute name="priorities" fragment="false" type="java.util.List"%>
 <c:if test="${not empty priorities}">
 	<table class="pure-table pure-table-horizontal">
 		<thead>
@@ -41,8 +41,8 @@
 			</c:if>
 		</thead>
 		<tbody>
-			<c:forEach items="${priorities.entrySet()}" var="e" varStatus="itemIndex">
-				<c:forEach items="${e.value}" var="p">
+			<c:forEach items="${priorities}" var="e" varStatus="itemIndex">
+				<c:forEach items="${e}" var="p">
 					<tr class="${(itemIndex.index%2==0)?'pure-table-odd':'pure-table-even'}">
 						<td>${p.attribution.shorten}</td>
 						<td>${p.item.name}</td>

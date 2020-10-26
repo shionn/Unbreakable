@@ -31,6 +31,7 @@ import shionn.ubk.db.dbo.Raid;
 import shionn.ubk.db.dbo.RaidEntry;
 import shionn.ubk.db.dbo.RaidInstance;
 import shionn.ubk.db.dbo.SortOrder;
+import shionn.ubk.db.dbo.User;
 import shionn.ubk.wish.PrioritiesBuilder;
 
 
@@ -41,6 +42,8 @@ public class RaidController implements Serializable {
 
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private User user;
 
 	private SortOrder order = SortOrder.clazz;
 	private String boss = "";
@@ -58,7 +61,7 @@ public class RaidController implements Serializable {
 				wishList = wishList.stream().filter(wl -> wl.getItem().getBoss().equals(boss))
 						.collect(Collectors.toList());
 			}
-			raid.setSelectedWishList(new PrioritiesBuilder().groupByItem(wishList));
+			raid.setSelectedWishList(new PrioritiesBuilder().groupByItem(wishList, user));
 		}
 		return new ModelAndView("raid") //
 				.addObject("runnings", raids) //

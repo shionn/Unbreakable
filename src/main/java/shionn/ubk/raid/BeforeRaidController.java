@@ -8,18 +8,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import shionn.ubk.db.dao.PriorityDao;
+import shionn.ubk.db.dbo.User;
 import shionn.ubk.wish.PrioritiesBuilder;
 
 @Controller
 public class BeforeRaidController {
 	@Autowired
 	private SqlSession session;
+	@Autowired
+	private User user;
 
 	@RequestMapping(value = "/beforeraid", method = RequestMethod.GET)
 	public ModelAndView viewPreRaid() {
 		PriorityDao dao = session.getMapper(PriorityDao.class);
 		return new ModelAndView("before-raid").addObject("priorities",
-				new PrioritiesBuilder().groupByItem(dao.listSelected()));
+				new PrioritiesBuilder().groupByItem(dao.listSelected(), user));
 	}
 
 }
