@@ -13,6 +13,7 @@ public class Raid {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date date;
 	private boolean running;
+	private boolean rerollAsMain;
 	private List<RaidEntry> players;
 	private RaidInstance instance;
 	private int ev;
@@ -104,5 +105,13 @@ public class Raid {
 
 	public List<String> getBosses() {
 		return bosses;
+	}
+
+	public void setRerollAsMain(boolean rerollAsMain) {
+		this.rerollAsMain = rerollAsMain;
+	}
+
+	public boolean isRerollAsMain() {
+		return rerollAsMain;
 	}
 }

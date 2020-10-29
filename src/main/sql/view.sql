@@ -204,3 +204,36 @@ CREATE OR REPLACE VIEW armory AS (
 	WHERE p.rank <> 'inactif'
 );
 
+-- in progress reroll count --
+CREATE OR REPLACE VIEW raid_ev AS
+SELECT r.id AS raid, r.name, r.instance, r.date, rs.size, r.reroll_as_main,
+  sum(i.gp)                                                                    AS initial_ev,
+  DATEDIFF(CURDATE(),r.date) div 7                                             AS week_ago,
+  ROUND(sum(i.gp) * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7))              AS ev,
+  sum(i.gp) div rs.size                                                        AS ev_per_player_initial,
+  ROUND(sum(i.gp) * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7)) DIV rs.size  AS ev_per_player
+FROM raid AS r
+INNER JOIN raid_size   AS rs ON r.id = rs.raid
+INNER JOIN player_loot AS pl ON r.id = pl.raid AND pl.attribution = 'primary'
+INNER JOIN item        AS i  ON i.id = pl.item
+GROUP BY raid;
+
+
+CREATE OR REPLACE VIEW player_ev AS
+SELECT IFNULL(m.id, p.id)      AS player,
+       IFNULL(m.id, p.id)      AS player_id,
+       IFNULL(m.name, p.name)  AS name,
+       SUM(CASE
+         WHEN m.id IS NULL THEN ev.ev_per_player
+         ELSE ev.ev_per_player DIV 2
+         END) AS ev
+FROM       player      AS p
+INNER JOIN raid_entry  AS re ON p.id    = re.player
+INNER JOIN raid_ev     AS ev ON re.raid = ev.raid
+LEFT  JOIN player      AS m  ON m.id    = p.main
+                            AND p.rank  = 'reroll'
+                            AND ev.reroll_as_main IS TRUE
+                            AND NOT EXISTS (SELECT * FROM player_loot AS pl WHERE pl.raid = ev.raid AND pl.player = p.id AND pl.attribution = 'primary')
+GROUP BY player_id;
+
+

@@ -49,7 +49,7 @@
 						<label for="id">Joueur à éditer</label>
 						<select name="id">
 							<c:forEach items="${players}" var="c">
-								<option value="${c.id}">${c.name}</option>
+								<option value="${c.id}">${c.displayName}</option>
 							</c:forEach>
 						</select>
 					</div>

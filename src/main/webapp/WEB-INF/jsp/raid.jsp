@@ -35,6 +35,12 @@
 						</label>
 					</div>
 					<div class="pure-controls">
+						<label for="rerollAsMain">
+							<input type="checkbox" name="rerollAsMain" <c:if test="${raid.rerollAsMain}"> checked="checked"</c:if>>
+							Comptabiliser la présence des rerolls sur leurs mains.
+						</label>
+					</div>
+					<div class="pure-controls">
 						<button type="submit" class="pure-button pure-button-primary">Sauvegarder</button>
 					</div>
 				</fieldset>

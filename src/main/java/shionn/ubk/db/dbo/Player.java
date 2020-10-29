@@ -8,11 +8,13 @@ public class Player {
 
 	private int id;
 	private String name;
+	private String displayName;
 	private PlayerClass clazz;
 	private PlayerRank rank;
 	private List<PlayerWish> wishes;
 	private List<Loot> loots;
 	private String token;
+	private int main;
 
 	public int getId() {
 		return id;
@@ -77,5 +79,21 @@ public class Player {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getDisplayName() {
+		return displayName == null ? name : displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public int getMain() {
+		return main;
+	}
+
+	public void setMain(int main) {
+		this.main = main;
 	}
 }

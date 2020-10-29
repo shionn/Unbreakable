@@ -29,6 +29,15 @@
 					</c:forEach>
 				</select>
 			</div>
+			<div class="pure-control-group">
+				<label for="main">Main (pour les rerolls)</label>
+				<select name="main">
+					<option value="0">--</option>
+					<c:forEach items="${mainPlayers}" var="r">
+						<option value="${r.id}" <c:if test="${player.main==r.id}">selected="selected"</c:if>>${r.name}</option>
+					</c:forEach>
+				</select>
+			</div>
 			<c:if test="${user.admin}">
 			<div class="pure-control-group">
 				<label for="url-inscription">Lien d'inscription</label>

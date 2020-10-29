@@ -28,6 +28,9 @@ public interface PlayerDao {
 	@Select("SELECT * FROM player WHERE rank != 'inactif' ORDER BY name")
 	List<Player> listPlayers();
 
+	@Select("SELECT * FROM player WHERE rank NOT IN ('inactif', 'reroll') ORDER BY name")
+	List<Player> listMainPlayers();
+
 	@Select("SELECT * FROM player ORDER BY name")
 	List<Player> listAllPlayers();
 
@@ -46,9 +49,11 @@ public interface PlayerDao {
 	List<PlayerWish> listWishes();
 
 	@Update("UPDATE player " //
-			+ "SET name = #{name}, class = #{class}, rank = #{rank}, token = #{token} " //
+			+ "SET name = #{name}, class = #{class}, rank = #{rank}, token = #{token}, "
+			+ "  main = #{main}, display_name = #{displayName} " //
 			+ "WHERE id = #{id}")
 	int updatePlayer(@Param("id") int id, @Param("name") String name, //
 			@Param("class") PlayerClass clazz, @Param("rank") PlayerRank rank, //
-			@Param("token") String token);
+			@Param("token") String token, @Param("displayName") String displayName,
+			@Param("main") int main);
 }

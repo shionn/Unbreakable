@@ -16,7 +16,6 @@ import shionn.ubk.db.dao.ItemDao;
 import shionn.ubk.db.dao.PlayerDao;
 import shionn.ubk.db.dbo.Item;
 import shionn.ubk.db.dbo.ItemSlot;
-import shionn.ubk.db.dbo.Player;
 import shionn.ubk.db.dbo.PlayerClass;
 import shionn.ubk.db.dbo.PlayerRank;
 import shionn.ubk.db.dbo.RaidInstance;
@@ -56,8 +55,9 @@ public class AdminController {
 
 	@RequestMapping(value = "/admin/edit-player", method = RequestMethod.POST)
 	public ModelAndView openEditPlayer(@RequestParam(name = "id") int id) {
-		Player player = session.getMapper(PlayerDao.class).readOne(id);
-		return new ModelAndView("edit-player").addObject("player", player)
+		PlayerDao dao = session.getMapper(PlayerDao.class);
+		return new ModelAndView("edit-player").addObject("player", dao.readOne(id))
+				.addObject("mainPlayers", dao.listMainPlayers())
 				.addObject("playerclasses", PlayerClass.values())
 				.addObject("playerranks", PlayerRank.values());
 	}
@@ -66,10 +66,15 @@ public class AdminController {
 	@RequestMapping(value = "/admin/edit-player/{id}", method = RequestMethod.POST)
 	public String editPlayer(@PathVariable(name = "id") int id,
 			@RequestParam(name = "class") PlayerClass clazz,
+			@RequestParam(name = "main") int main,
 			@RequestParam(name = "rank") PlayerRank rank,
 			@RequestParam(name = "name") String name) {
 		PlayerDao dao = session.getMapper(PlayerDao.class);
-		dao.updatePlayer(id, name, clazz, rank, token.build(name));
+		String displayName = rank == PlayerRank.reroll
+				? name + "[" + dao.readOne(main).getName() + "]"
+				: name;
+		dao.updatePlayer(id, name, clazz, rank, token.build(name),
+				displayName, main);
 		session.commit();
 		return "redirect:/admin";
 	}

@@ -55,7 +55,7 @@ public interface RaidDao extends AttendanceFragDao {
 			@Param("date") Date date);
 
 	@Update("UPDATE raid SET name = #{name}, instance = #{instance}, " //
-			+ "date = #{date}, running = #{running} " //
+			+ "date = #{date}, running = #{running}, reroll_as_main = #{rerollAsMain} " //
 			+ "WHERE id = #{id} ")
 	public void update(Raid raid);
 
