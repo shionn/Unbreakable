@@ -111,30 +111,6 @@ INNER JOIN item        AS i  ON i.id = pl.item
 INNER JOIN player      AS p  ON p.id = pl.player
 INNER JOIN raid        AS r  ON r.id = pl.raid;
 
--- attendance --
-CREATE OR REPLACE VIEW raid_attendance AS
-(
-	SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) AS attendance , 'always' AS period
-	FROM player           AS p
-	INNER JOIN raid_entry AS re ON p.id = re.player
-	INNER JOIN raid       AS r  ON r.id = re.raid
-	GROUP BY player, instance
-) UNION (
-	SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) AS attendance, 'day28' AS period
-	FROM player           AS p
-	INNER JOIN raid_entry AS re ON p.id = re.player
-	INNER JOIN raid       AS r  ON r.id = re.raid
-	                     AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 28 DAY))
-	GROUP BY player, instance
-) UNION (
-	SELECT p.id AS player, p.name AS player_name, r.instance, count(r.id) AS attendance, 'day14' AS period
-	FROM player           AS p
-	INNER JOIN raid_entry AS re ON p.id = re.player
-	INNER JOIN raid       AS r  ON r.id = re.raid
-	                     AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 14 DAY))
-	GROUP BY player, instance
-);
-
 -- suppression raid.point --
 CREATE OR REPLACE VIEW player_gp AS
 SELECT p.id AS player,
@@ -235,3 +211,68 @@ LEFT JOIN evgp           AS e   ON e.player   = p.id
 LEFT JOIN player_nb_loot AS pnl ON pnl.player = p.id
 LEFT JOIN player_nb_raid AS pnr ON pnr.player = p.id
 LEFT JOIN no_loot        AS nl  ON nl.player  = p.id;
+
+-- reroll attendance as main --
+
+CREATE OR REPLACE VIEW raid_attendance AS
+(
+	SELECT IFNULL(m.id, p.id) AS player,
+	  IFNULL(m.id, p.id)      AS player_id,
+	  IFNULL(m.name, p.name)  AS name,
+	  r.instance,
+	  'always'                AS period,
+	  ROUND(SUM(CASE WHEN m.id IS NULL THEN 1 ELSE 0.5  END))
+                            AS attendance
+	FROM player           AS p
+	INNER JOIN raid_entry AS re ON p.id = re.player
+	INNER JOIN raid       AS r  ON r.id = re.raid
+	LEFT  JOIN player     AS m  ON m.id    = p.main
+                             AND p.rank  = 'reroll'
+                             AND r.reroll_as_main IS TRUE
+                             AND NOT EXISTS (SELECT * FROM player_loot AS pl
+                                             WHERE pl.raid = r.id
+                                               AND pl.player = p.id
+                                               AND pl.attribution = 'primary')
+	GROUP BY player_id, instance
+) UNION (
+	SELECT IFNULL(m.id, p.id) AS player,
+	  IFNULL(m.id, p.id)      AS player_id,
+	  IFNULL(m.name, p.name)  AS name,
+	  r.instance,
+	  'day28'                 AS period,
+	  ROUND(SUM(CASE WHEN m.id IS NULL THEN 1 ELSE 0.5  END))
+                            AS attendance
+	FROM player           AS p
+	INNER JOIN raid_entry AS re ON p.id = re.player
+	INNER JOIN raid       AS r  ON r.id = re.raid
+	                     AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 28 DAY))
+	LEFT  JOIN player     AS m  ON m.id    = p.main
+                             AND p.rank  = 'reroll'
+                             AND r.reroll_as_main IS TRUE
+                             AND NOT EXISTS (SELECT * FROM player_loot AS pl
+                                             WHERE pl.raid = r.id
+                                               AND pl.player = p.id
+                                               AND pl.attribution = 'primary')
+	GROUP BY player_id, instance
+) UNION (
+	SELECT IFNULL(m.id, p.id) AS player,
+	  IFNULL(m.id, p.id)      AS player_id,
+	  IFNULL(m.name, p.name)  AS name,
+	  r.instance,
+	  'day14'                AS period,
+	  ROUND(SUM(CASE WHEN m.id IS NULL THEN 1 ELSE 0.5  END))
+                            AS attendance
+	FROM player           AS p
+	INNER JOIN raid_entry AS re ON p.id = re.player
+	INNER JOIN raid       AS r  ON r.id = re.raid
+	                     AND r.date >= DATE(DATE_SUB(NOW(), INTERVAL 14 DAY))
+	LEFT  JOIN player     AS m  ON m.id    = p.main
+                             AND p.rank  = 'reroll'
+                             AND r.reroll_as_main IS TRUE
+                             AND NOT EXISTS (SELECT * FROM player_loot AS pl
+                                             WHERE pl.raid = r.id
+                                               AND pl.player = p.id
+                                               AND pl.attribution = 'primary')
+	GROUP BY player_id, instance
+);
+
