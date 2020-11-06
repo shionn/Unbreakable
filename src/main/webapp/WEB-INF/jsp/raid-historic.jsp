@@ -11,14 +11,14 @@
 				<thead>
 					<tr>
 						<th colspan="4" style="text-align:center">
-							${raid.name}
+							[${raid.instance}] ${raid.name}
 							<fmt:formatDate pattern="dd/MM/yyyy" value="${raid.date}"/>
 							(${raid.players.size()})
-							<c:if test="${user.admin}">
-								<a href='<spring:url value="/raid/edit/${raid.id}"/>'>edit</a>
-							</c:if>
 							<c:if test="${user.mdc}">
-								EV : ${raid.ev} (${raid.initialEv})
+								| EV : ${raid.ev} (${raid.initialEv})
+							</c:if>
+							<c:if test="${user.ml}">
+								<a href='<spring:url value="/raid/edit/${raid.id}"/>' class="pull-right fa fa-pencil"></a>
 							</c:if>
 						</th>
 					</tr>

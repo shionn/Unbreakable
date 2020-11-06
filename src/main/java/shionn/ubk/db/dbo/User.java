@@ -37,11 +37,15 @@ public class User {
 	}
 
 	public boolean isMdc() {
-		return role != null && role.contains("MDC") || isAdmin();
+		return role != null && role.contains("MDC");
 	}
 
 	public boolean isSuperAdmin() {
 		return role != null && role.contains("SUPER_ADMIN");
+	}
+
+	public boolean isMl() {
+		return role != null && role.contains("ML");
 	}
 
 	public String getRoles() {

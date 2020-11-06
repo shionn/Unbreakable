@@ -34,12 +34,16 @@
 					<li class="pure-menu-item"><a href='<spring:url value="/historic/loot"/>' class="pure-menu-link">Loots</a></li>
 				</ul>
 			</li>
-			<c:if test="${user.admin or user.mdc}">
+			<c:if test="${user.admin or user.mdc or user.ml}">
 				<li class="pure-menu-item pure-menu-has-children">
 					<a href="#" class="pure-menu-link">Raid</a>
 					<ul class="pure-menu-children">
-						<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid en Cours</a></li>
-						<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Préparation</a></li>
+						<c:if test="${user.ml}">
+							<li class="pure-menu-item"><a href='<spring:url value="/raid"/>' class="pure-menu-link">Raid en Cours</a></li>
+						</c:if>
+						<c:if test="${user.mdc}">
+							<li class="pure-menu-item"><a href='<spring:url value="/beforeraid"/>' class="pure-menu-link">Préparation</a></li>
+						</c:if>
 						<c:if test="${user.superAdmin}">
 							<li class="pure-menu-item"><a href='<spring:url value="/raid-dispatcher"/>' class="pure-menu-link">Répartiteur</a></li>
 						</c:if>
