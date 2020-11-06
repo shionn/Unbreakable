@@ -84,7 +84,7 @@
 						<tr class="${e.player.clazz}">
 							<td>
 								<input type="hidden" name="players[${i.index}].player.id" value="${e.player.id}">
-								${e.player.name}
+								${e.player.displayName}
 								<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true"></i></c:if>
 								<c:if test="${not e.visible}"><i class="fa fa-eye-slash" aria-hidden="true"></i></c:if>
 							</td>

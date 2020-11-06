@@ -13,7 +13,7 @@ import shionn.ubk.db.dbo.PlayerStat;
 
 public interface StatisticDao extends AttendanceFragDao {
 
-	@Select("SELECT player, name, class, rank, " //
+	@Select("SELECT player, name, display_name, class, rank, " //
 			+ "nb_loot, nb_raid, nb_raid_without_loot, " //
 			+ "ev, gp, ROUND(ratio*100) AS evgp_ratio, " //
 			+ "rank = 'reroll' AS reroll, rank = 'pu' AS pu  " //
@@ -22,6 +22,7 @@ public interface StatisticDao extends AttendanceFragDao {
 			+ "ORDER BY reroll, class, name ")
 	@Results({ @Result(column = "player", property = "player.id"),
 			@Result(column = "name", property = "player.name"),
+			@Result(column = "display_name", property = "player.displayName"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "rank", property = "player.rank"),
 			@Result(column = "player", property = "attendances", many = @Many(select = "listAttendance")) })

@@ -26,18 +26,6 @@ SELECT count(e.raid) AS nb_raid, e.player
 FROM   raid_entry    AS e
 GROUP BY player;
 
-CREATE OR REPLACE VIEW player_statistic AS
-SELECT p.id AS player, p.name, p.class, p.rank,
-e.ev, e.gp, e.ratio,
-IFNULL(pnl.nb_loot, 0) AS nb_loot,
-IFNULL(pnr.nb_raid, 0) AS nb_raid,
-IFNULL(nl.nb_raid, 0)  AS nb_raid_without_loot
-FROM player              AS p
-LEFT JOIN evgp           AS e   ON e.player   = p.id
-LEFT JOIN player_nb_loot AS pnl ON pnl.player = p.id
-LEFT JOIN player_nb_raid AS pnr ON pnr.player = p.id
-LEFT JOIN no_loot        AS nl  ON nl.player  = p.id;
-
 -- suppression colonne ratio --
 CREATE OR REPLACE VIEW item_priority AS
 SELECT  i.id                      AS item,
@@ -176,7 +164,6 @@ INNER JOIN item        AS i  ON i.id = pl.item
 GROUP BY raid;
 
 -- inprogress armory --
-
 CREATE OR REPLACE VIEW armory AS (
 	SELECT pl.player, p.name AS player_name, p.class, p.rank,
 	  pl.item, i.name AS item_name, i.slot, i.ilvl, i.raid,
@@ -204,7 +191,7 @@ CREATE OR REPLACE VIEW armory AS (
 	WHERE p.rank <> 'inactif'
 );
 
--- in progress reroll count --
+-- reroll count evgp --
 CREATE OR REPLACE VIEW raid_ev AS
 SELECT r.id AS raid, r.name, r.instance, r.date, rs.size, r.reroll_as_main,
   sum(i.gp)                                                                    AS initial_ev,
@@ -236,4 +223,15 @@ LEFT  JOIN player      AS m  ON m.id    = p.main
                             AND NOT EXISTS (SELECT * FROM player_loot AS pl WHERE pl.raid = ev.raid AND pl.player = p.id AND pl.attribution = 'primary')
 GROUP BY player_id;
 
-
+-- mise a jour display_name --
+CREATE OR REPLACE VIEW player_statistic AS
+SELECT p.id AS player, p.name, p.display_name, p.class, p.rank,
+e.ev, e.gp, e.ratio,
+IFNULL(pnl.nb_loot, 0) AS nb_loot,
+IFNULL(pnr.nb_raid, 0) AS nb_raid,
+IFNULL(nl.nb_raid, 0)  AS nb_raid_without_loot
+FROM player              AS p
+LEFT JOIN evgp           AS e   ON e.player   = p.id
+LEFT JOIN player_nb_loot AS pnl ON pnl.player = p.id
+LEFT JOIN player_nb_raid AS pnr ON pnr.player = p.id
+LEFT JOIN no_loot        AS nl  ON nl.player  = p.id;

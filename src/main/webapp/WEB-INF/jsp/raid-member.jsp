@@ -22,33 +22,6 @@
 										</label>
 										<label class="pure-u-4-24">
 											<img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/>
-			<%-- 								${p.player.rank.fr} --%>
-										</label>
-										<label class="pure-u-4-24">
-											<input type="checkbox" name="players[${s.index}].bench" <c:if test="${p.bench}"> checked="checked"</c:if>>
-											b
-										</label>
-										<label class="pure-u-4-24">
-											<input type="checkbox" name="players[${s.index}].visible" <c:if test="${p.visible}"> checked="checked"</c:if>>
-											v
-										</label>
-									</div>
-								</c:if>
-							</c:forEach>
-						</div>
-						<div style="width: 330px;border-right:1px solid #e5e5e5;margin-right: 15px;">
-							<div style="text-align: center;font-weight: bold;">Associé</div>
-							<c:forEach items="${raid.players}" var="p" varStatus="s">
-								<c:if test="${p.player.isRank('pu')}">
-									<div class="pure-g">
-										<input type="hidden" name="players[${s.index}].player.id" value="${p.player.id}">
-										<label class="pure-u-12-24">
-											<input type="checkbox" name="players[${s.index}].member" <c:if test="${p.member}"> checked="checked"</c:if>>
-											${p.player.name}
-										</label>
-										<label class="pure-u-4-24">
-											<img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/>
-			<%-- 								${p.player.rank.fr} --%>
 										</label>
 										<label class="pure-u-4-24">
 											<input type="checkbox" name="players[${s.index}].bench" <c:if test="${p.bench}"> checked="checked"</c:if>>
@@ -70,17 +43,41 @@
 										<input type="hidden" name="players[${s.index}].player.id" value="${p.player.id}">
 										<label class="pure-u-15-24">
 											<input type="checkbox" name="players[${s.index}].member" <c:if test="${p.member}"> checked="checked"</c:if>>
-											${p.player.name}
+											${p.player.displayName}
 										</label>
 										<label class="pure-u-3-24">
 											<img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/>
-			<%-- 								${p.player.rank.fr} --%>
 										</label>
 										<label class="pure-u-3-24">
 											<input type="checkbox" name="players[${s.index}].bench" <c:if test="${p.bench}"> checked="checked"</c:if>>
 											b
 										</label>
 										<label class="pure-u-3-24">
+											<input type="checkbox" name="players[${s.index}].visible" <c:if test="${p.visible}"> checked="checked"</c:if>>
+											v
+										</label>
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
+						<div style="width: 330px;border-right:1px solid #e5e5e5;margin-right: 15px;">
+							<div style="text-align: center;font-weight: bold;">Associé</div>
+							<c:forEach items="${raid.players}" var="p" varStatus="s">
+								<c:if test="${p.player.isRank('pu')}">
+									<div class="pure-g">
+										<input type="hidden" name="players[${s.index}].player.id" value="${p.player.id}">
+										<label class="pure-u-12-24">
+											<input type="checkbox" name="players[${s.index}].member" <c:if test="${p.member}"> checked="checked"</c:if>>
+											${p.player.name}
+										</label>
+										<label class="pure-u-4-24">
+											<img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/>
+										</label>
+										<label class="pure-u-4-24">
+											<input type="checkbox" name="players[${s.index}].bench" <c:if test="${p.bench}"> checked="checked"</c:if>>
+											b
+										</label>
+										<label class="pure-u-4-24">
 											<input type="checkbox" name="players[${s.index}].visible" <c:if test="${p.visible}"> checked="checked"</c:if>>
 											v
 										</label>

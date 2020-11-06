@@ -22,12 +22,14 @@ public interface RaidHistoricDao {
 			@Result(column = "id", property = "players", many = @Many(select = "listPlayer")) })
 	List<Raid> listAll();
 
-	@Select("SELECT p.id, name, class, rank, raid, r.bench " //
+	@Select("SELECT p.id, name, display_name, class, rank, raid, r.bench " //
 			+ "FROM player AS p " //
 			+ "INNER JOIN raid_entry AS r ON p.id = r.player AND r.raid = #{raid} "
 			+ "WHERE r.visible = true " //
 			+ "ORDER BY class, name")
-	@Results({ @Result(column = "name", property = "player.name"),
+	@Results({
+			@Result(column = "name", property = "player.name"),
+			@Result(column = "display_name", property = "player.displayName"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "rank", property = "player.rank"),
 			@Result(column = "{player=id,raid=raid}", property = "loots", many = @Many(select = "listLoot")) })

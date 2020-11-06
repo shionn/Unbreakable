@@ -33,6 +33,7 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "ORDER BY ${order.sql}")
 	@Results({ @Result(column = "id", property = "player.id"),
 			@Result(column = "name", property = "player.name"),
+			@Result(column = "display_name", property = "player.displayName"),
 			@Result(column = "rank", property = "player.rank"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "{player=id, raid=raid}", property = "loots", many = @Many(select = "listLoot")) })
@@ -62,7 +63,7 @@ public interface RaidDao extends AttendanceFragDao {
 	@Select("SELECT * FROM raid WHERE id = #{id}")
 	public Raid read(int id);
 
-	@Select("SELECT p.id, p.name, p.class, p.rank, " //
+	@Select("SELECT p.id, p.name, p.class, p.rank, p.display_name, " //
 			+ "  r.raid AS member, r.bench, " //
 			+ "  IFNULL(r.visible, true) AS visible, " //
 			+ "  p.rank = 'reroll' AS reroll, p.rank = 'pu' AS pu " //
@@ -72,6 +73,7 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "ORDER BY pu, reroll, class, name")
 	@Results({ @Result(column = "id", property = "player.id"),
 			@Result(column = "name", property = "player.name"),
+			@Result(column = "display_name", property = "player.displayName"),
 			@Result(column = "class", property = "player.clazz"),
 			@Result(column = "rank", property = "player.rank") })
 	public List<RaidEntry> readPlayers(@Param("raid") int raid);

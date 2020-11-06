@@ -71,7 +71,7 @@ public class AdminController {
 			@RequestParam(name = "name") String name) {
 		PlayerDao dao = session.getMapper(PlayerDao.class);
 		String displayName = rank == PlayerRank.reroll
-				? name + "[" + dao.readOne(main).getName() + "]"
+				? name + " [" + dao.readOne(main).getName() + "]"
 				: name;
 		dao.updatePlayer(id, name, clazz, rank, token.build(name),
 				displayName, main);

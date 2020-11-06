@@ -21,7 +21,7 @@
 					<tr class="${player.clazz}">
 						<td>
 							<img class="class" src='<spring:url value="/img/${player.clazz}.jpg"/>'/>
-							${player.name}
+							${player.displayName}
 						</td>
 						<td>
 							<ul>

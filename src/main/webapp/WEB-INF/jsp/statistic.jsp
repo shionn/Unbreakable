@@ -39,7 +39,7 @@
 				<tbody>
 					<c:forEach items="${players}" var="s">
 						<tr class="${s.player.clazz}">
-							<td>${s.player.name}</td>
+							<td>${s.player.displayName}</td>
 							<td><img class="class" src='<spring:url value="/img/${s.player.clazz}.jpg"/>'/></td>
 							<td class="border-right">${s.player.rank.fr}</td>
 							<td>${s.ev}</td>

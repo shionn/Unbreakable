@@ -13,7 +13,7 @@ import shionn.ubk.db.dbo.Player;
 
 public interface LootHistoricDao {
 
-	@Select("SELECT id, name, class, rank = 'reroll' AS reroll "
+	@Select("SELECT id, name, display_name, class, rank = 'reroll' AS reroll "
 			+ "FROM player " //
 			+ "WHERE rank != 'inactif' " //
 			+ "ORDER BY reroll, class, name")

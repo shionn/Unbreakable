@@ -27,7 +27,7 @@
 					<c:forEach items="${raid.players}" var="e" varStatus="i">
 						<tr class="${e.player.clazz}">
 							<td>
-								${e.player.name}
+								${e.player.displayName}
 								<c:if test="${e.bench}"><i class="fa fa-university" aria-hidden="true" title="Bench"></i></c:if>
 							</td>
 							<td><img class="class" src='<spring:url value="/img/${e.player.clazz}.jpg"/>'/></td>
