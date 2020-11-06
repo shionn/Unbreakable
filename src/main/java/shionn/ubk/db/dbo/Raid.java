@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import shionn.ubk.wish.DecoratedPriorities;
+
 public class Raid {
 	private int id;
 	private String name;
@@ -18,7 +20,7 @@ public class Raid {
 	private RaidInstance instance;
 	private int ev;
 	private int initialEv;
-	private List<List<Priority>> selectedWishList;
+	private List<DecoratedPriorities> selectedWishList;
 	private List<String> bosses;
 
 	public int getId() {
@@ -91,11 +93,11 @@ public class Raid {
 		this.initialEv = initialEv;
 	}
 
-	public void setSelectedWishList(List<List<Priority>> selectedWishList) {
+	public void setSelectedWishList(List<DecoratedPriorities> selectedWishList) {
 		this.selectedWishList = selectedWishList;
 	}
 
-	public List<List<Priority>> getSelectedWishList() {
+	public List<DecoratedPriorities> getSelectedWishList() {
 		return selectedWishList;
 	}
 

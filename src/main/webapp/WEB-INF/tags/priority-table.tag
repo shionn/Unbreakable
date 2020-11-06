@@ -8,7 +8,7 @@
 			<tr>
 				<th colspan="2" style="text-align: center">Objet</th>
 				<th colspan="3">Personnage</th>
-				<c:if test="${user.admin or user.mdc}">
+				<c:if test="${user.admin or user.mdc or user.ml}">
 					<th colspan="3">EVGP</th>
 					<th>NbLoot</th>
 					<th>Ratio</th>
@@ -17,7 +17,7 @@
 					<th colspan="5">Présence / 14j</th>
 				</c:if>
 			</tr>
-			<c:if test="${user.admin or user.mdc}">
+			<c:if test="${user.admin or user.mdc or user.ml}">
 				<tr>
 					<th colspan="5"></th>
 					<th>EV</th>
@@ -45,11 +45,16 @@
 				<c:forEach items="${e}" var="p">
 					<tr class="${(itemIndex.index%2==0)?'pure-table-odd':'pure-table-even'}">
 						<td>${p.attribution.shorten}</td>
-						<td>${p.item.name}</td>
+						<td>${p.item.name}
+							<c:if test="${user.ml}">
+								<a class="fa fa-clipboard copy" style="cursor: pointer;"></a>
+								<textarea style="width:0px;height:0px">${e}</textarea>
+							</c:if>
+						</td>
 						<td>${p.player.name}</td>
 						<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 						<td class="border-right">${p.player.rank.fr}</td>
-						<c:if test="${user.admin or user.mdc}">
+						<c:if test="${user.admin or user.mdc or user.ml}">
 							<td>${p.stat.ev}</td>
 							<td>${p.stat.gp}</td>
 							<td class="border-right">${p.stat.evgpRatio} %</td>

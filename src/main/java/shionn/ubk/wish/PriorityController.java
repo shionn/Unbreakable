@@ -29,7 +29,7 @@ public class PriorityController {
 	@RequestMapping(value = "/priority", method = RequestMethod.GET)
 	public ModelAndView list() {
 		List<Priority> dbs = session.getMapper(PriorityDao.class).list(orderBy());
-		List<List<Priority>> collect = new PrioritiesBuilder().groupByItem(dbs, user);
+		List<DecoratedPriorities> collect = new PrioritiesBuilder().groupByItem(dbs, user);
 		return new ModelAndView("priority").addObject("priorities", collect);
 	}
 
