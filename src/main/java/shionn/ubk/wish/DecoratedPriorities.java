@@ -7,6 +7,7 @@ import shionn.ubk.db.dbo.Priority;
 
 public class DecoratedPriorities extends ArrayList<Priority> {
 
+
 	public DecoratedPriorities(List<Priority> priorities) {
 		super(priorities);
 	}

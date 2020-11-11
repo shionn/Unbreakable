@@ -9,12 +9,12 @@ import shionn.ubk.db.dbo.User;
 
 public class PrioritiesBuilder {
 
-	public List<DecoratedPriorities> groupByItem(List<Priority> prioirities, User user) {
-		List<DecoratedPriorities> collect = prioirities
-				.stream().map(p -> p.getItem()).distinct().map(item -> prioirities.stream()
-						.filter(p -> p.getItem().equals(item)).collect(Collectors.toList()))
-				.map(l -> new DecoratedPriorities(l))
-				.collect(Collectors.toList());
+	public DecoratedGroupedPriorities groupByItem(List<Priority> prioirities, User user) {
+		DecoratedGroupedPriorities collect = new DecoratedGroupedPriorities(
+				prioirities.stream().map(p -> p.getItem()).distinct()
+						.map(item -> prioirities.stream().filter(p -> p.getItem().equals(item))
+								.collect(Collectors.toList()))
+						.map(l -> new DecoratedPriorities(l)).collect(Collectors.toList()));
 		if (user.isMdc()) {
 			for (List<Priority> priorities : collect) {
 				Iterator<Priority> ite = priorities.iterator();

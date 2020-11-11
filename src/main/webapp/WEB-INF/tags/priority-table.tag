@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ attribute name="priorities" fragment="false" type="java.util.List"%>
 <c:if test="${not empty priorities}">
+	<c:if test="${user.ml}">
+		<a class="fa fa-clipboard copy" style="cursor: pointer;"> Copy lua data</a>
+		<textarea style="width:0px;height:0px">${priorities}</textarea>
+	</c:if>
 	<table class="pure-table pure-table-horizontal">
 		<thead>
 			<tr>
@@ -45,12 +49,7 @@
 				<c:forEach items="${e}" var="p">
 					<tr class="${(itemIndex.index%2==0)?'pure-table-odd':'pure-table-even'}">
 						<td>${p.attribution.shorten}</td>
-						<td>${p.item.name}
-							<c:if test="${user.ml}">
-								<a class="fa fa-clipboard copy" style="cursor: pointer;"></a>
-								<textarea style="width:0px;height:0px">${e}</textarea>
-							</c:if>
-						</td>
+						<td>${p.item.name}</td>
 						<td>${p.player.name}</td>
 						<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 						<td class="border-right">${p.player.rank.fr}</td>

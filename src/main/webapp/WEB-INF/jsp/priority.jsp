@@ -4,6 +4,10 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="content">
+		<c:if test="${user.ml}">
+			<a class="fa fa-clipboard copy" style="cursor: pointer;"> Copy lua data</a>
+			<textarea style="width:0px;height:0px">${priorities}</textarea>
+		</c:if>
 		<table class="pure-table pure-table-horizontal">
 			<thead>
 				<tr>
@@ -21,7 +25,7 @@
 						<th colspan="3">Présence / 28j</th>
 					</c:if>
 				</tr>
-				<c:if test="${user.mdc}">
+				<c:if test="${user.mdc or user.ml or user.admin}">
 					<tr>
 						<th colspan="7"></th>
 						<th>EV</th>
@@ -52,7 +56,7 @@
 							<td>${p.player.name}</td>
 							<td><img class="class" src='<spring:url value="/img/${p.player.clazz}.jpg"/>'/></td>
 							<td class="border-right">${p.player.rank.fr}</td>
-							<c:if test="${user.mdc}">
+							<c:if test="${user.mdc or user.ml or user.admin}">
 								<td><input type="checkbox" data-url="<spring:url value="/priority/${p.player.id}/${p.item.id}"/>" <c:if test="${p.selected}"> checked="checked"</c:if>/></td>
 								<td class="border-right">
 									<c:if test="${p.looted}">Obtenu</c:if>
@@ -92,5 +96,6 @@
 				})
 			});
 		</script>
+		<script src="<spring:url value="/js/copy.js"/>"></script>
 	</jsp:attribute>
 </t:template>

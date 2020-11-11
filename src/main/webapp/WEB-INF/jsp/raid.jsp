@@ -128,9 +128,8 @@
 				</fieldset>
 			</form:form>
 		</c:if>
-		<p>Sous Firefox : ouvrir about:config, mettre <em>dom.events.asyncClipboard.dataTransfer</em> à true.</p>
 	</jsp:attribute>
 	<jsp:attribute name="script">
-		<script src="<spring:url value="/js/raid.js"/>"></script>
+		<script src="<spring:url value="/js/copy.js"/>"></script>
 	</jsp:attribute>
 </t:template>

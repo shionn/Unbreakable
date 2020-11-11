@@ -34,9 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//				.realmName(REALM_NAME);
 		//		http.authorizeRequests().antMatchers("/wish/**").hasRole("ADMIN").and().httpBasic()
 		//				.realmName(REALM_NAME);
-		http.authorizeRequests().antMatchers("/raid/**").hasRole("ADMIN").and().httpBasic()
+		http.authorizeRequests().antMatchers("/raid/**").hasRole("ML").and().httpBasic()
 				.realmName(REALM_NAME);
-		http.authorizeRequests().antMatchers("/raid/edit/**").hasRole("ADMIN").and().httpBasic()
+		http.authorizeRequests().antMatchers("/raid/edit/**").hasRole("ML").and().httpBasic()
 				.realmName(REALM_NAME);
 	}
 }
