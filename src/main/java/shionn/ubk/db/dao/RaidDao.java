@@ -162,11 +162,14 @@ public interface RaidDao extends AttendanceFragDao {
 			+ "  ip.nb_raid_without_loot, " //
 			+ "  ip.nb_raid_wait, " //
 			+ "  ip.ev, " //
+			+ "  ip.er, " //
 			+ "  ip.gp, " //
 			+ "  ip.evgp_ratio, " //
+			+ "  ip.ergp_ratio, " //
 			+ "  ip.item AS item_id, " //
 			+ "  ip.item_name AS item_name, " //
-			+ "  i.boss AS item_boss " //
+			+ "  i.boss AS item_boss, " //
+			+ "  ip.last_loot_date " //
 			+ "FROM item_priority     AS ip " //
 			+ "INNER JOIN player      AS p  ON ip.player = p.id      AND p.rank != 'inactif' "
 			+ "INNER JOIN raid_entry  AS re ON ip.player = re.player AND re.raid = #{raid} "
@@ -186,9 +189,12 @@ public interface RaidDao extends AttendanceFragDao {
 			@Result(column = "nb_raid", property = "stat.nbRaid"),
 			@Result(column = "nb_loot", property = "stat.nbLoot"),
 			@Result(column = "nb_raid_without_loot", property = "stat.nbRaidWithoutLoot"),
+			@Result(column = "last_loot_date", property = "stat.lastLootDate"),
 			@Result(column = "ev", property = "stat.ev"),
+			@Result(column = "er", property = "stat.er"),
 			@Result(column = "gp", property = "stat.gp"),
-			@Result(column = "evgp_ratio", property = "stat.evgpRatio") })
+			@Result(column = "evgp_ratio", property = "stat.evgpRatio"),
+			@Result(column = "ergp_ratio", property = "stat.ergpRatio") })
 	List<Priority> listWishList(@Param("raid") int id);
 
 }

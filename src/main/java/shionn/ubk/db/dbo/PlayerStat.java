@@ -1,6 +1,7 @@
 package shionn.ubk.db.dbo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PlayerStat {
@@ -8,8 +9,9 @@ public class PlayerStat {
 	private int nbRaid;
 	private int nbRaidWithoutLoot;
 	private int nbLoot;
-	private int ev, gp, evgpRatio;
+	private int ev, er, gp, evgpRatio, ergpRatio;
 	private List<RaidAttendance> attendances = new ArrayList<RaidAttendance>();
+	private Date lastLootDate;
 
 	public Player getPlayer() {
 		return player;
@@ -83,6 +85,30 @@ public class PlayerStat {
 
 	public void setEvgpRatio(int evgpRatio) {
 		this.evgpRatio = evgpRatio;
+	}
+
+	public int getEr() {
+		return er;
+	}
+
+	public void setEr(int er) {
+		this.er = er;
+	}
+
+	public int getErgpRatio() {
+		return ergpRatio;
+	}
+
+	public void setErgpRatio(int ergpRatio) {
+		this.ergpRatio = ergpRatio;
+	}
+
+	public Date getLastLootDate() {
+		return lastLootDate;
+	}
+
+	public void setLastLootDate(Date lastLootDate) {
+		this.lastLootDate = lastLootDate;
 	}
 
 	@Override

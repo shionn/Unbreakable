@@ -15,7 +15,7 @@ public interface StatisticDao extends AttendanceFragDao {
 
 	@Select("SELECT player, name, display_name, class, rank, " //
 			+ "nb_loot, nb_raid, nb_raid_without_loot, " //
-			+ "ev, gp, ROUND(ratio*100) AS evgp_ratio, " //
+			+ "ev, er, gp, evgp_ratio, ergp_ratio, " //
 			+ "rank = 'reroll' AS reroll, rank = 'pu' AS pu  " //
 			+ "FROM player_statistic " //
 			+ "WHERE rank != 'inactif' " //

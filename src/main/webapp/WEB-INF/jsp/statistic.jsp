@@ -10,7 +10,7 @@
 				<thead>
 					<tr>
 						<th colspan="3">Personnage</th>
-						<th colspan="3">EVGP</th>
+						<th colspan="3">EVGP / ERGP</th>
 						<th>NbLoot</th>
 						<th colspan="2">NbRaid</th>
 						<th colspan="3">Présence</th>
@@ -19,9 +19,9 @@
 					</tr>
 					<tr>
 						<th colspan="3"></th>
-						<th>EV</th>
 						<th>GP</th>
-						<th>%</th>
+						<th>EV</th>
+						<th>ER</th>
 						<th></th>
 						<th>Total</th>
 						<th>SsLoot</th>
@@ -42,9 +42,9 @@
 							<td>${s.player.displayName}</td>
 							<td><img class="class" src='<spring:url value="/img/${s.player.clazz}.jpg"/>'/></td>
 							<td class="border-right">${s.player.rank.fr}</td>
-							<td>${s.ev}</td>
 							<td>${s.gp}</td>
-							<td class="border-right">${s.evgpRatio} %</td>
+							<td>${s.ev} <small>${s.evgpRatio}%</small></td>
+							<td class="border-right">${s.er} <small>${s.ergpRatio}%</small></td>
 							<td class="border-right">${s.nbLoot}</td>
 							<td>${s.nbRaid}</td>
 							<td class="border-right">${s.nbRaidWithoutLoot}</td>

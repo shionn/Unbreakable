@@ -27,8 +27,10 @@ public interface PriorityDao extends AttendanceFragDao {
 			+ "  ip.nb_raid_without_loot, " //
 			+ "  ip.nb_raid_wait, " //
 			+ "  ip.ev, " //
+			+ "  ip.er, " //
 			+ "  ip.gp, " //
 			+ "  ip.evgp_ratio, " //
+			+ "  ip.ergp_ratio, " //
 			+ "  ip.selected " //
 			+ "FROM item_priority AS ip " //
 			+ "INNER JOIN player  AS p      ON p.id = ip.player AND p.rank != 'inactif' "
@@ -44,8 +46,10 @@ public interface PriorityDao extends AttendanceFragDao {
 			@Result(column = "nb_loot", property = "stat.nbLoot"),
 			@Result(column = "nb_raid_without_loot", property = "stat.nbRaidWithoutLoot"),
 			@Result(column = "ev", property = "stat.ev"),
+			@Result(column = "er", property = "stat.er"),
 			@Result(column = "gp", property = "stat.gp"),
 			@Result(column = "evgp_ratio", property = "stat.evgpRatio"),
+			@Result(column = "ergp_ratio", property = "stat.ergpRatio"),
 			@Result(column = "item_name", property = "item.name"),
 			@Result(column = "item_id", property = "item.id") })
 	List<Priority> list(@Param("orderBy") String orderBy);
@@ -59,7 +63,7 @@ public interface PriorityDao extends AttendanceFragDao {
 			+ "  ip.point, ip.attribution, ip.nb_raid, ip.nb_loot, " //
 			+ "  pl.raid IS NOT NULL AS looted, " //
 			+ "  ip.nb_raid_without_loot, ip.nb_raid_wait, " //
-			+ "  ip.ev, ip.gp, ip.evgp_ratio, ip.selected " //
+			+ "  ip.ev, ip.gp, ip.er, ip.evgp_ratio, ip.ergp_ratio, ip.selected " //
 			+ "FROM item_priority AS ip " //
 			+ "INNER JOIN player  AS p      ON p.id = ip.player AND p.rank != 'inactif' "
 			+ "INNER JOIN item    AS i      ON i.id = ip.item "
@@ -76,8 +80,10 @@ public interface PriorityDao extends AttendanceFragDao {
 			@Result(column = "nb_loot", property = "stat.nbLoot"),
 			@Result(column = "nb_raid_without_loot", property = "stat.nbRaidWithoutLoot"),
 			@Result(column = "ev", property = "stat.ev"),
+			@Result(column = "er", property = "stat.er"),
 			@Result(column = "gp", property = "stat.gp"),
 			@Result(column = "evgp_ratio", property = "stat.evgpRatio"),
+			@Result(column = "ergp_ratio", property = "stat.ergpRatio"),
 			@Result(column = "item_name", property = "item.name"),
 			@Result(column = "item_id", property = "item.id") })
 	List<Priority> listSelected();

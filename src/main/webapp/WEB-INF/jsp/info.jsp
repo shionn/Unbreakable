@@ -80,6 +80,8 @@
 		Ici le mode choisit est de prendre la valeur en GP des objets lootés dans le raid, de diviser par le nombre de joueur présent.</p>
 		<p>Par exemple dans un raid de 10 personne, 2 items sont attribué en +1, la CTS à 2490 et le Baton de la flamme d'ombre à 6561.
 		Le raid a donc une valeur en EV de 2490 + 6561 = 9051. Chaque raideur gagne donc 9051/10 = 905 EV.</p>
+		<h2>ER</h2>
+		<p>Autre valeur de points d'effort fourni. Identique aux EV, mais se base sur la valeur moyenne en EV d'un raid sur la meme instance.</p>
 		<h2>Dépréciation</h2>
 		<p>Les EVGP, ont une dépréciation de 15% par semaine.</p>
 	</jsp:attribute>

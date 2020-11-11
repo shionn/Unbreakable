@@ -16,7 +16,7 @@
 					<c:if test="${user.mdc}">
 						<th>Sel</th>
 						<th>Priorité</th>
-						<th colspan="3">EVGP</th>
+						<th colspan="3">EVGP / ERGP</th>
 						<th>NbLoot</th>
 						<th>Ratio</th>
 						<th colspan="3">NbRaid</th>
@@ -28,9 +28,9 @@
 				<c:if test="${user.mdc or user.ml or user.admin}">
 					<tr>
 						<th colspan="7"></th>
-						<th>EV</th>
 						<th>GP</th>
-						<th>%</th>
+						<th>EV</th>
+						<th>ER</th>
 						<th colspan="2"></th>
 						<th>Total</th>
 						<th>SsLoot</th>
@@ -62,9 +62,9 @@
 									<c:if test="${p.looted}">Obtenu</c:if>
 									<c:if test="${not p.looted}">${p.order}</c:if>
 								</td>
-								<td>${p.stat.ev}</td>
 								<td>${p.stat.gp}</td>
-								<td class="border-right">${p.stat.evgpRatio} %</td>
+								<td>${p.stat.ev} <small>${p.stat.evgpRatio}%</small></td>
+								<td class="border-right">${p.stat.er} <small>${p.stat.ergpRatio}%</small></td>
 								<td>${p.stat.nbLoot}</td>
 								<td class="border-right">${p.stat.ratio} %</td>
 								<td>${p.stat.nbRaid}</td>

@@ -27,33 +27,6 @@ FROM   raid_entry    AS e
 GROUP BY player;
 
 -- suppression colonne ratio --
-CREATE OR REPLACE VIEW item_priority AS
-SELECT  i.id                      AS item,
-        p.id                      AS player,
-        i.name                    AS item_name,
-        p.name                    AS player_name,
-        0                         AS point,
-        pw.attribution            AS attribution,
-        evgp.ev                   AS ev,
-        evgp.gp                   AS gp,
-        ROUND(evgp.ratio * 100)   AS evgp_ratio,
-        pnl.nb_loot               AS nb_loot,
-        pnr.nb_raid               AS nb_raid,
-        IFNULL(nl.nb_raid, 0)     AS nb_raid_without_loot,
-        IFNULL(pww.nb_raid, 0)    AS nb_raid_wait,
-        pw.selected
-FROM player_wish                  AS pw
-INNER JOIN item                   AS i   ON pw.item     = i.id
-INNER JOIN player                 AS p   ON pw.player   = p.id
-LEFT JOIN no_loot                 AS nl  ON nl.player   = p.id
-LEFT JOIN player_nb_loot          AS pnl ON pnl.player  = p.id
-LEFT JOIN player_nb_raid          AS pnr ON pnr.player  = p.id
-LEFT JOIN player_wish_wait        AS pww ON pww.player  = pw.player
-                                        AND pww.item    = pw.item
-LEFT JOIN evgp                           ON evgp.player = p.id
-WHERE pw.running = true
-GROUP BY item, player;
-
 CREATE OR REPLACE VIEW last_player_loot AS
 SELECT e.player, MAX(r.date) AS loot_date
 FROM       raid        AS r
@@ -82,15 +55,6 @@ INNER JOIN player_wish AS pw  ON pw.player = rpw.player AND pw.item = rpw.item A
 INNER JOIN player      AS p   ON p.id = rpw.player
 INNER JOIN item        AS i   ON i.id = rpw.item
 GROUP BY item, player;
-
-CREATE OR REPLACE VIEW evgp AS
-SELECT ev.player,
-       ev.name,
-       ev.ev,
-       gp.gp,
-       gp.gp / ev.ev AS ratio
-FROM      player_ev AS ev
-LEFT JOIN player_gp AS gp ON gp.player = ev.player;
 
 CREATE OR REPLACE VIEW loot_history AS
 SELECT i.id AS item_id,
@@ -181,7 +145,6 @@ INNER JOIN player_loot AS pl ON r.id = pl.raid AND pl.attribution = 'primary'
 INNER JOIN item        AS i  ON i.id = pl.item
 GROUP BY raid;
 
-
 CREATE OR REPLACE VIEW player_ev AS
 SELECT IFNULL(m.id, p.id)      AS player,
        IFNULL(m.id, p.id)      AS player_id,
@@ -199,21 +162,7 @@ LEFT  JOIN player      AS m  ON m.id    = p.main
                             AND NOT EXISTS (SELECT * FROM player_loot AS pl WHERE pl.raid = ev.raid AND pl.player = p.id AND pl.attribution = 'primary')
 GROUP BY player_id;
 
--- mise a jour display_name --
-CREATE OR REPLACE VIEW player_statistic AS
-SELECT p.id AS player, p.name, p.display_name, p.class, p.rank,
-e.ev, e.gp, e.ratio,
-IFNULL(pnl.nb_loot, 0) AS nb_loot,
-IFNULL(pnr.nb_raid, 0) AS nb_raid,
-IFNULL(nl.nb_raid, 0)  AS nb_raid_without_loot
-FROM player              AS p
-LEFT JOIN evgp           AS e   ON e.player   = p.id
-LEFT JOIN player_nb_loot AS pnl ON pnl.player = p.id
-LEFT JOIN player_nb_raid AS pnr ON pnr.player = p.id
-LEFT JOIN no_loot        AS nl  ON nl.player  = p.id;
-
 -- reroll attendance as main --
-
 CREATE OR REPLACE VIEW raid_attendance AS
 (
 	SELECT IFNULL(m.id, p.id) AS player,
@@ -275,4 +224,99 @@ CREATE OR REPLACE VIEW raid_attendance AS
                                                AND pl.attribution = 'primary')
 	GROUP BY player_id, instance
 );
+
+
+-- ergp --
+CREATE OR REPLACE VIEW raid_avg_er AS
+SELECT instance, ROUND(AVG(ev)) AS er, ROUND(AVG(ev_per_player)) AS er_per_player
+FROM raid_ev
+GROUP BY instance;
+
+CREATE OR REPLACE VIEW raid_er AS
+SELECT r.id AS raid, r.name, r.instance, r.date, rs.size, r.reroll_as_main,
+  er.er                                                                        AS initial_er,
+  DATEDIFF(CURDATE(),r.date) div 7                                             AS week_ago,
+  ROUND(er.er * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7))                  AS er,
+  er.er div rs.size                                                            AS er_per_player_initial,
+  ROUND(er.er * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7)) div rs.size      AS er_per_player
+FROM raid AS r
+INNER JOIN raid_avg_er AS er ON r.instance = er.instance
+INNER JOIN raid_size   AS rs ON r.id = rs.raid
+GROUP BY raid;
+
+CREATE OR REPLACE VIEW player_er AS
+SELECT IFNULL(m.id, p.id)      AS player,
+       IFNULL(m.id, p.id)      AS player_id,
+       IFNULL(m.name, p.name)  AS name,
+       SUM(CASE
+         WHEN m.id IS NULL THEN er.er_per_player
+         ELSE er.er_per_player DIV 2
+         END) AS er
+FROM       player      AS p
+INNER JOIN raid_entry  AS re ON p.id    = re.player
+INNER JOIN raid_er     AS er ON re.raid = er.raid
+LEFT  JOIN player      AS m  ON m.id    = p.main
+                            AND p.rank  = 'reroll'
+                            AND er.reroll_as_main IS TRUE
+                            AND NOT EXISTS (SELECT * FROM player_loot AS pl WHERE pl.raid = er.raid AND pl.player = p.id AND pl.attribution = 'primary')
+GROUP BY player_id;
+
+CREATE OR REPLACE VIEW evergp AS
+SELECT ev.player,
+       ev.name,
+       ev.ev,
+       er.er,
+       gp.gp,
+       gp.gp / ev.ev AS evgp_ratio,
+       gp.gp / er.er AS ergp_ratio
+FROM      player_ev AS ev
+LEFT JOIN player_er AS er ON er.player = ev.player
+LEFT JOIN player_gp AS gp ON gp.player = ev.player;
+
+CREATE OR REPLACE VIEW player_statistic AS
+SELECT p.id AS player, p.name, p.display_name, p.class, p.rank,
+e.ev, e.er, e.gp,
+ROUND(e.evgp_ratio * 100)  AS evgp_ratio,
+ROUND(e.ergp_ratio * 100)  AS ergp_ratio,
+IFNULL(pnl.nb_loot, 0)     AS nb_loot,
+IFNULL(pnr.nb_raid, 0)     AS nb_raid,
+IFNULL(nl.nb_raid, 0)      AS nb_raid_without_loot,
+lpl.loot_date              AS last_loot_date
+FROM player                AS p
+LEFT JOIN evergp           AS e   ON e.player   = p.id
+LEFT JOIN player_nb_loot   AS pnl ON pnl.player = p.id
+LEFT JOIN player_nb_raid   AS pnr ON pnr.player = p.id
+LEFT JOIN no_loot          AS nl  ON nl.player  = p.id
+LEFT JOIN last_player_loot AS lpl ON lpl.player = p.id;
+
+CREATE OR REPLACE VIEW item_priority AS
+SELECT  i.id                           AS item,
+        p.id                           AS player,
+        i.name                         AS item_name,
+        p.name                         AS player_name,
+        0                              AS point,
+        pw.attribution                 AS attribution,
+        evergp.ev                      AS ev,
+        evergp.er                      AS er,
+        evergp.gp                      AS gp,
+        ROUND(evergp.evgp_ratio * 100) AS evgp_ratio,
+        ROUND(evergp.ergp_ratio * 100) AS ergp_ratio,
+        pnl.nb_loot                    AS nb_loot,
+        pnr.nb_raid                    AS nb_raid,
+        IFNULL(nl.nb_raid, 0)          AS nb_raid_without_loot,
+        IFNULL(pww.nb_raid, 0)         AS nb_raid_wait,
+        pw.selected,
+        lpl.loot_date                  AS last_loot_date
+FROM player_wish                  AS pw
+INNER JOIN item                   AS i   ON pw.item       = i.id
+INNER JOIN player                 AS p   ON pw.player     = p.id
+LEFT JOIN no_loot                 AS nl  ON nl.player     = p.id
+LEFT JOIN player_nb_loot          AS pnl ON pnl.player    = p.id
+LEFT JOIN player_nb_raid          AS pnr ON pnr.player    = p.id
+LEFT JOIN player_wish_wait        AS pww ON pww.player    = pw.player
+                                        AND pww.item      = pw.item
+LEFT JOIN evergp                         ON evergp.player = p.id
+LEFT JOIN last_player_loot        AS lpl ON lpl.player    = p.id
+WHERE pw.running = true
+GROUP BY item, player;
 

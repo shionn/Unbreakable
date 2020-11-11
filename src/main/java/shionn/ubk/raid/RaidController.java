@@ -62,7 +62,6 @@ public class RaidController implements Serializable {
 							.filter(wl -> boss.equals(wl.getItem().getBoss())
 									|| "Multiple Boss".equals(wl.getItem().getBoss()))
 							.collect(Collectors.toList());
-
 				}
 				raid.setSelectedWishList(new PrioritiesBuilder().groupByItem(wishList, user));
 			}
