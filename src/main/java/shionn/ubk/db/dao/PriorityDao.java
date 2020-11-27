@@ -31,7 +31,8 @@ public interface PriorityDao extends AttendanceFragDao {
 			+ "  ip.gp, " //
 			+ "  ip.evgp_ratio, " //
 			+ "  ip.ergp_ratio, " //
-			+ "  ip.selected " //
+			+ "  ip.selected, " //
+			+ "  ip.last_loot_date " //
 			+ "FROM item_priority AS ip " //
 			+ "INNER JOIN player  AS p      ON p.id = ip.player AND p.rank != 'inactif' "
 			+ "INNER JOIN item    AS i      ON i.id = ip.item "
@@ -45,6 +46,7 @@ public interface PriorityDao extends AttendanceFragDao {
 			@Result(column = "nb_raid", property = "stat.nbRaid"),
 			@Result(column = "nb_loot", property = "stat.nbLoot"),
 			@Result(column = "nb_raid_without_loot", property = "stat.nbRaidWithoutLoot"),
+			@Result(column = "last_loot_date", property = "stat.lastLootDate"),
 			@Result(column = "ev", property = "stat.ev"),
 			@Result(column = "er", property = "stat.er"),
 			@Result(column = "gp", property = "stat.gp"),

@@ -6,7 +6,7 @@ import java.util.List;
 import shionn.ubk.db.dbo.Priority;
 
 public class DecoratedPriorities extends ArrayList<Priority> {
-
+	private static final long serialVersionUID = -7200155067634690665L;
 
 	public DecoratedPriorities(List<Priority> priorities) {
 		super(priorities);

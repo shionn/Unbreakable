@@ -82,7 +82,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/create-item", method = RequestMethod.POST)
 	public String createItem(@ModelAttribute("item") Item item,
 			RedirectAttributes attr) {
-		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot()));
+		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot(), item.getGpRatio()));
 		ItemDao dao = session.getMapper(ItemDao.class);
 		dao.create(item);
 		for (PlayerClass clazz : item.getClasses()) {
@@ -110,7 +110,7 @@ public class AdminController {
 	public String editItem(@ModelAttribute("item") Item item, @PathVariable("id") int id) {
 		ItemDao dao = session.getMapper(ItemDao.class);
 		item.setId(id);
-		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot()));
+		item.setGp(new EvgpComputer().computeGp(item.getIlvl(), item.getSlot(), item.getGpRatio()));
 		dao.update(item);
 		dao.deleteItemAssignment(item.getId());
 		for (PlayerClass clazz : item.getClasses()) {

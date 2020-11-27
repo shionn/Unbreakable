@@ -90,6 +90,10 @@
 					<input name="ilvl" type="text" required="required">
 				</div>
 				<div class="pure-control-group">
+					<label for="gpRatio">Gp Ratio (%)</label>
+					<input name="gpRatio" type="text" required="required" value="100">
+				</div>
+				<div class="pure-control-group">
 					<label for="big" class="pure-checkbox">Grosse item</label>
 					<input type="checkbox" name="big" />
 				</div>
@@ -119,7 +123,7 @@
 						<label for="id">Object à éditer</label>
 						<select name="id">
 							<c:forEach items="${items}" var="c">
-								<option value="${c.id}">${c.name} (${c.slot.fr} ${c.ilvl})</option>
+								<option value="${c.id}">${c.name} (${c.slot.fr} ${c.ilvl}-${c.gpRatio}-${c.gp})</option>
 							</c:forEach>
 						</select>
 					</div>

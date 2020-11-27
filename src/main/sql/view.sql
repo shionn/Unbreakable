@@ -65,7 +65,7 @@ SELECT i.id AS item_id,
   r.date    AS loot_date,
   r.id      AS raid,
   i.gp      AS initial_gp,
-  ROUND(i.gp * POWER(0.85, DATEDIFF(CURDATE(),r.date) div 7)) AS gp,
+  ROUND(i.gp * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7)) AS gp,
   CASE
     WHEN pl.wl = true                     THEN 'wishList'
     ELSE pl.attribution
@@ -79,29 +79,12 @@ INNER JOIN raid        AS r  ON r.id = pl.raid;
 CREATE OR REPLACE VIEW player_gp AS
 SELECT p.id AS player,
        p.name,
-       SUM(ROUND(i.gp * POWER(0.85, DATEDIFF(CURDATE(),r.date) div 7))) AS gp
+       SUM(ROUND(i.gp * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7))) AS gp
 FROM       player      AS p
 INNER JOIN player_loot AS pl ON p.id = pl.player AND pl.attribution = 'primary'
 INNER JOIN raid        AS r  ON r.id = pl.raid
 INNER JOIN item        AS i  ON i.id = pl.item
 GROUP BY player;
-
-CREATE OR REPLACE VIEW raid_ev AS
-SELECT r.id AS raid,
-  r.name,
-  r.instance,
-  r.date,
-  rs.size,
-  sum(i.gp)                                                                    AS initial_ev,
-  DATEDIFF(CURDATE(),r.date) div 7                                             AS week_ago,
-  ROUND(sum(i.gp) * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7))              AS ev,
-  sum(i.gp) div rs.size                                                        AS ev_per_player_initial,
-  ROUND(sum(i.gp) * POWER(0.9, DATEDIFF(CURDATE(),r.date) div 7)) DIV rs.size  AS ev_per_player
-FROM raid AS r
-INNER JOIN raid_size   AS rs ON r.id = rs.raid
-INNER JOIN player_loot AS pl ON r.id = pl.raid AND pl.attribution = 'primary'
-INNER JOIN item        AS i  ON i.id = pl.item
-GROUP BY raid;
 
 -- inprogress armory --
 CREATE OR REPLACE VIEW armory AS (

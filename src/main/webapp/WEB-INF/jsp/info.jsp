@@ -83,6 +83,6 @@
 		<h2>ER</h2>
 		<p>Autre valeur de points d'effort fourni. Identique aux EV, mais se base sur la valeur moyenne en EV d'un raid sur la meme instance.</p>
 		<h2>Dépréciation</h2>
-		<p>Les EVGP, ont une dépréciation de 15% par semaine.</p>
+		<p>Les EVGP, ont une dépréciation de 10% par semaine.</p>
 	</jsp:attribute>
 </t:template>

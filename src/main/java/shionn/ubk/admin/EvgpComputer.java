@@ -7,8 +7,8 @@ import shionn.ubk.db.dbo.ItemSlot;
  */
 public class EvgpComputer {
 
-	public int computeGp(int ilvl, ItemSlot slot) {
-		return (int) (ilvl * ilvl * slot.getGpRatio());
+	public int computeGp(int ilvl, ItemSlot slot, int ratio) {
+		return (int) (ilvl * ilvl * slot.getGpRatio() * ratio / 100);
 	}
 
 }

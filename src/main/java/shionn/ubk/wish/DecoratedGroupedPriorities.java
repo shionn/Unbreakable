@@ -7,6 +7,7 @@ import java.util.List;
 import shionn.ubk.db.dbo.Priority;
 
 public class DecoratedGroupedPriorities extends ArrayList<DecoratedPriorities> {
+	private static final long serialVersionUID = 5133535923684114165L;
 
 	public DecoratedGroupedPriorities(List<DecoratedPriorities> priorities) {
 		super(priorities);
@@ -22,8 +23,8 @@ public class DecoratedGroupedPriorities extends ArrayList<DecoratedPriorities> {
 					.append("\", ev = ").append(p.getStat().getEv()) //
 					.append(", er = ").append(p.getStat().getEr()) //
 					.append(", gp = ").append(p.getStat().getGp()) //
-					.append(", last_loot = ").append(formatDate(format, p)) //
-					.append(" },\n"));
+					.append(", last_loot = \"").append(formatDate(format, p)) //
+					.append("\" },\n"));
 			builder.append("  },\n");
 		});
 		builder.append("};");
@@ -38,7 +39,7 @@ public class DecoratedGroupedPriorities extends ArrayList<DecoratedPriorities> {
 	private String formatItemName(DecoratedPriorities group) {
 		String name = group.get(0).getItem().getName();
 		name = name.replaceAll(" \\(.*\\)", "");
-		return name;
+		return name.toLowerCase();
 	}
 
 	@Override

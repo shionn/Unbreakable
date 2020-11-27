@@ -17,8 +17,8 @@ import shionn.ubk.db.dbo.PlayerClass;
 
 public interface ItemDao {
 
-	@Insert("INSERT INTO item (name, raid, boss, ilvl, slot, big, gp) " //
-			+ "VALUES (#{name}, #{raid}, #{boss}, #{ilvl}, #{slot}, #{big}, #{gp}) ")
+	@Insert("INSERT INTO item (name, raid, boss, ilvl, slot, big, gp, gp_ratio) " //
+			+ "VALUES (#{name}, #{raid}, #{boss}, #{ilvl}, #{slot}, #{big}, #{gp}, #{gpRatio}) ")
 	@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
 	int create(Item item);
 
@@ -47,7 +47,7 @@ public interface ItemDao {
 	List<PlayerClass> readItemAssignment(int id);
 
 	@Update("UPDATE item SET name = #{name}, raid = #{raid}, boss = #{boss}, "
-			+ "ilvl = #{ilvl}, slot = #{slot}, big = #{big}, gp = #{gp} "
+			+ "ilvl = #{ilvl}, slot = #{slot}, big = #{big}, gp = #{gp}, gp_ratio = #{gpRatio} "
 			+ "WHERE id = #{id}")
 	int update(Item item);
 

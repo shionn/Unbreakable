@@ -34,6 +34,10 @@
 				<input name="ilvl" type="text" required="required" value="${item.ilvl}">
 			</div>
 			<div class="pure-control-group">
+				<label for="gpRatio">GP Ratio (%)</label>
+				<input name="gpRatio" type="text" required="required" value="${item.gpRatio}">
+			</div>
+			<div class="pure-control-group">
 				<label for="big" class="pure-checkbox">
 					Grosse item
 				</label>

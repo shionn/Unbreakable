@@ -14,6 +14,7 @@ public class Item {
 	private List<PlayerClass> classes;
 	private LootAttribution attribution;
 	private int gp;
+	private int gpRatio;
 
 	public int getId() {
 		return id;
@@ -119,5 +120,13 @@ public class Item {
 
 	public void setAttribution(LootAttribution attribution) {
 		this.attribution = attribution;
+	}
+
+	public int getGpRatio() {
+		return gpRatio;
+	}
+
+	public void setGpRatio(int gpRatio) {
+		this.gpRatio = gpRatio;
 	}
 }
