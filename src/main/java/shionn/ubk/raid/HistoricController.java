@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import shionn.ubk.db.dao.EVGPHistoricDao;
 import shionn.ubk.db.dao.LootHistoricDao;
 import shionn.ubk.db.dao.RaidHistoricDao;
 
@@ -31,6 +32,13 @@ public class HistoricController {
 		return new ModelAndView("loot-historic") //
 				.addObject("players", dao.listAll()) //
 				.addObject("loots", new LootPerDate(dao.listWl()));
+	}
+
+	@RequestMapping(value = "/historic/evgp", method = RequestMethod.GET)
+	public ModelAndView evgp() {
+		EVGPHistoricDao dao = session.getMapper(EVGPHistoricDao.class);
+		return new ModelAndView("evgp-historic") //
+				.addObject("histories", dao.listAll());
 	}
 
 }

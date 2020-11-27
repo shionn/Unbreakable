@@ -32,6 +32,9 @@
 					<li class="pure-menu-item"><a href='<spring:url value="/statistic"/>' class="pure-menu-link">Statistique</a></li>
 					<li class="pure-menu-item"><a href='<spring:url value="/historic/raid"/>' class="pure-menu-link">Raids</a></li>
 					<li class="pure-menu-item"><a href='<spring:url value="/historic/loot"/>' class="pure-menu-link">Loots</a></li>
+					<c:if test="${user.mdc}">
+						<li class="pure-menu-item"><a href='<spring:url value="/historic/evgp"/>' class="pure-menu-link">EV/ER/GP</a></li>
+					</c:if>
 				</ul>
 			</li>
 			<c:if test="${user.admin or user.mdc or user.ml}">

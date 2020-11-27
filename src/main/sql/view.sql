@@ -303,3 +303,40 @@ LEFT JOIN last_player_loot        AS lpl ON lpl.player    = p.id
 WHERE pw.running = true
 GROUP BY item, player;
 
+
+-- evgp_history --
+CREATE OR REPLACE VIEW player_ev_er_history AS
+SELECT IFNULL(m.id, p.id)        AS player,
+       m.id IS NOT null          AS reroll,
+       IFNULL(m.name, p.name)    AS name,
+       IFNULL(m.class, p.class)  AS class,
+       p.name                    AS reroll_name,
+       er.raid                   AS raid,
+       er.name                   AS raid_name,
+       er.date                   AS date,
+       er.instance               AS instance,
+       CASE
+         WHEN m.id IS NULL THEN ev.ev_per_player
+         ELSE ev.ev_per_player DIV 2
+         END AS ev,
+       CASE
+         WHEN m.id IS NULL THEN ev.ev_per_player_initial
+         ELSE ev.ev_per_player_initial DIV 2
+         END AS ev_initial,
+       CASE
+         WHEN m.id IS NULL THEN er.er_per_player
+         ELSE er.er_per_player DIV 2
+         END AS er,
+       CASE
+         WHEN m.id IS NULL THEN er.er_per_player_initial
+         ELSE er.er_per_player_initial DIV 2
+         END AS er_initial
+FROM       player      AS p
+INNER JOIN raid_entry  AS re ON p.id    = re.player
+INNER JOIN raid_ev     AS ev ON re.raid = ev.raid
+INNER JOIN raid_er     AS er ON re.raid = er.raid
+LEFT  JOIN player      AS m  ON m.id    = p.main
+                            AND p.rank  = 'reroll'
+                            AND ev.reroll_as_main IS TRUE
+                            AND NOT EXISTS (SELECT * FROM player_loot AS pl WHERE pl.raid = ev.raid AND pl.player = p.id AND pl.attribution = 'primary');
+

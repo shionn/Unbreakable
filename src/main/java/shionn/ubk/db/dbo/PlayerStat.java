@@ -10,6 +10,7 @@ public class PlayerStat {
 	private int nbRaidWithoutLoot;
 	private int nbLoot;
 	private int ev, er, gp, evgpRatio, ergpRatio;
+	private int evInitial, erInitial;
 	private List<RaidAttendance> attendances = new ArrayList<RaidAttendance>();
 	private Date lastLootDate;
 
@@ -131,6 +132,22 @@ public class PlayerStat {
 		if (evgpRatio != other.evgpRatio)
 			return false;
 		return true;
+	}
+
+	public int getErInitial() {
+		return erInitial;
+	}
+
+	public void setErInitial(int erInitial) {
+		this.erInitial = erInitial;
+	}
+
+	public int getEvInitial() {
+		return evInitial;
+	}
+
+	public void setEvInitial(int evInitial) {
+		this.evInitial = evInitial;
 	}
 
 }
