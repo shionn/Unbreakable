@@ -17,7 +17,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String REALM_NAME = "Unbreakable (email)";
+	private static final String REALM_NAME = "Cerberus";
 	@Autowired
 	private AuthenticationProvider provider;
 
@@ -28,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		// http.authorizeRequests().antMatchers("/**").hasRole("SUPER_ADMIN").and().httpBasic()
+		// .realmName(REALM_NAME);
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("MDC").and().httpBasic()
 				.realmName(REALM_NAME);
 		//		http.authorizeRequests().antMatchers("/statistic/**").hasRole("MDC").and().httpBasic()

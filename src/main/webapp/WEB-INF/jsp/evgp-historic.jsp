@@ -6,6 +6,24 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
 <t:template>
 	<jsp:attribute name="content">
+		<spring:url value="/historic/evgp" var="url"/>
+		<form:form method="GET" class="pure-form-aligned" action="${url}">
+			<fieldset>
+				<legend>Voir l'historique d'un joueur</legend>
+				<div class="pure-control-group">
+					<label for="player">Joueur</label>
+					<select name="player">
+						<c:forEach items="${players}" var="c">
+							<option value="${c.id}">${c.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="pure-controls">
+					<button type="submit" class="pure-button pure-button-primary">Voir</button>
+				</div>
+			</fieldset>
+		</form:form>
+		
 		<table class="pure-table pure-table-horizontal class-color">
 			<thead>
 				<tr>

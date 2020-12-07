@@ -32,7 +32,7 @@ public interface EVGPHistoricDao {
 
 	@Select("SELECT * " //
 			+ "FROM loot_history " //
-			+ "WHERE player_id = #{player} AND raid = #{raid} AND attribution = 'primary' ")
+			+ "WHERE player_id = #{player} AND raid = #{raid} AND attribution IN ( 'primary', 'wishList' ) ")
 	@Results({
 			@Result(column = "item_name", property = "item.name"),
 			@Result(column = "item_big", property = "item.big"), })
